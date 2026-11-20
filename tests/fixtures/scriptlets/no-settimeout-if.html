@@ -1,0 +1,6 @@
+<!doctype html>
+<!-- fixture: scriptlets/no-settimeout-if · filter: script.example##+js(nostif, adblock) -->
+<html lang="en"><head><meta charset="utf-8"><title>scriptlets/no-settimeout-if</title></head>
+<body>
+<script>setTimeout(function(){self.__adblockTimer=true/* adblock */},0);setTimeout(function(){self.__otherTimer=true},0);</script>
+</body></html>

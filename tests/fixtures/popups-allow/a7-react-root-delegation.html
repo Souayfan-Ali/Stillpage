@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups-allow/a7-react-root-delegation · a handler delegated to a React-style root -->
+<html lang="en"><head><meta charset="utf-8"><title>popups-allow/a7-react-root-delegation</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<div id="root"><div><span><button class="x">Share</button></span></div></div><p id="text">Plain article text, not a control.</p>
+<script>
+root.addEventListener('click', (e) => { if (e.target.closest('.x')) window.open('https://othernews.example/share'); });
+</script>
+</body></html>

@@ -1,0 +1,2206 @@
+{
+  "meta_lang": {
+    "message": "en-GB",
+    "description": "BCP 47 tag of this catalog: the pages set it as `lang` and format numbers and dates with it."
+  },
+  "meta_dir": {
+    "message": "ltr",
+    "description": "Text direction of this catalog: ltr or rtl."
+  },
+  "ext_description": {
+    "message": "Blocks ads and trackers quietly. No paid exceptions for advertisers, no telemetry, no data collection.",
+    "description": "Store summary and manifest description, at most 132 characters."
+  },
+  "command_hide_element": {
+    "message": "Hide something on this page",
+    "description": "Keyboard shortcut name in chrome://extensions/shortcuts."
+  },
+  "menu_hide_element": {
+    "message": "Hide this…",
+    "description": "Right-click menu entry on web pages (D-106). Quoted in perm_active_tab_why, perm_context_menus_why, onboarding_hide_text and the docs: change them together."
+  },
+  "common_loading": {
+    "message": "Loading…"
+  },
+  "common_saving": {
+    "message": "Saving…"
+  },
+  "common_saved": {
+    "message": "Saved."
+  },
+  "common_save_failed": {
+    "message": "Could not save the change. Try again."
+  },
+  "common_access_granted": {
+    "message": "Site access allowed."
+  },
+  "common_access_denied": {
+    "message": "Site access was not allowed."
+  },
+  "common_not_available": {
+    "message": "This is not available yet."
+  },
+  "common_allow_all": {
+    "message": "Allow on all sites"
+  },
+  "common_restore_backup": {
+    "message": "Restore a backup"
+  },
+  "common_dismiss": {
+    "message": "Dismiss"
+  },
+  "common_back": {
+    "message": "Back"
+  },
+  "common_next": {
+    "message": "Next"
+  },
+  "common_cancel": {
+    "message": "Cancel"
+  },
+  "common_remove": {
+    "message": "Remove"
+  },
+  "common_licence": {
+    "message": "Licence"
+  },
+  "common_copy_failed": {
+    "message": "Could not copy. Select the text and copy it yourself."
+  },
+  "common_step_of": {
+    "message": "Step $STEP$ of $TOTAL$",
+    "placeholders": {
+      "step": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    }
+  },
+  "common_sites_one": {
+    "message": "$COUNT$ site",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "common_sites_other": {
+    "message": "$COUNT$ sites",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "common_popups": {
+    "message": "Pop-ups"
+  },
+  "common_gpc_label": {
+    "message": "Send a \"do not sell or share\" signal (GPC)"
+  },
+  "level_off": {
+    "message": "Off"
+  },
+  "level_light": {
+    "message": "Light"
+  },
+  "level_standard": {
+    "message": "Standard"
+  },
+  "level_thorough": {
+    "message": "Thorough"
+  },
+  "level_light_note": {
+    "message": "Blocks network requests only. Use when a page misbehaves."
+  },
+  "level_standard_note": {
+    "message": "Also hides leftover ad boxes and stops ad scripts."
+  },
+  "level_thorough_note": {
+    "message": "Also scans each page for generic ad boxes. Slightly slower."
+  },
+  "popups_mode_smart": {
+    "message": "Smart"
+  },
+  "popups_mode_strict": {
+    "message": "Strict"
+  },
+  "popups_mode_off": {
+    "message": "Off"
+  },
+  "popups_allowed": {
+    "message": "Allowed"
+  },
+  "panel_level_legend": {
+    "message": "Protection on this site"
+  },
+  "panel_no_host": {
+    "message": "Not available here"
+  },
+  "panel_protected": {
+    "message": "Protected — $LEVEL$",
+    "placeholders": {
+      "level": {
+        "content": "$1"
+      }
+    }
+  },
+  "panel_off": {
+    "message": "Off on this site"
+  },
+  "panel_paused_one": {
+    "message": "Paused for $COUNT$ more minute",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panel_paused_other": {
+    "message": "Paused for $COUNT$ more minutes",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panel_reduced": {
+    "message": "Running as Light: site access is off"
+  },
+  "panel_limited": {
+    "message": "Protected — $LEVEL$. Replacement scripts and the pop-up blocked page need access to all sites",
+    "placeholders": {
+      "level": {
+        "content": "$1"
+      }
+    }
+  },
+  "panel_restricted": {
+    "message": "Chrome does not allow extensions on this page"
+  },
+  "panel_admin": {
+    "message": "Your organisation limits extensions on this site"
+  },
+  "panel_setup": {
+    "message": "Setting up… (a few seconds)"
+  },
+  "panel_reset": {
+    "message": "Your settings were reset because they could not be read"
+  },
+  "panel_capped": {
+    "message": "Set on $HOST$. A site cannot be set higher than $HOST$.",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "panel_unavailable": {
+    "message": "Could not read the state of this tab. Close this panel and open it again."
+  },
+  "panel_no_host_levels": {
+    "message": "Open a website in this tab to choose a level."
+  },
+  "panel_saved": {
+    "message": "Saved. Reload the page in a few seconds to see the change."
+  },
+  "panel_done": {
+    "message": "Done."
+  },
+  "panel_something_wrong": {
+    "message": "Something wrong with this page?"
+  },
+  "panel_chunk_failed": {
+    "message": "This part of the panel could not be loaded. Close the panel and open it again."
+  },
+  "panel_reload_page": {
+    "message": "Reload page"
+  },
+  "panel_reloaded": {
+    "message": "Page reloaded."
+  },
+  "panel_reload_failed": {
+    "message": "Could not reload the page."
+  },
+  "panel_retrying": {
+    "message": "Part of the protection could not be applied. It will be tried again."
+  },
+  "panel_rules_from": {
+    "message": "Rules from $DATE$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "panel_version": {
+    "message": "Version $VERSION$",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
+  "panel_hidden_open": {
+    "message": "What you hid on this site ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "show_title": {
+    "message": "Hidden on $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "show_intro": {
+    "message": "Show one to see where it is on this page. It is outlined for $SECONDS$ seconds, then hidden again. Nothing is saved.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "show_button": {
+    "message": "Show on page"
+  },
+  "show_button_label": {
+    "message": "Show on page: $SELECTOR$",
+    "placeholders": {
+      "selector": {
+        "content": "$1"
+      }
+    }
+  },
+  "show_shown_one": {
+    "message": "Shown on the page: $COUNT$ match. Hidden again in $SECONDS$ seconds.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "seconds": {
+        "content": "$2"
+      }
+    }
+  },
+  "show_shown_other": {
+    "message": "Shown on the page: $COUNT$ matches. Hidden again in $SECONDS$ seconds.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "seconds": {
+        "content": "$2"
+      }
+    }
+  },
+  "show_no_match": {
+    "message": "Nothing on this page matches right now."
+  },
+  "show_failed": {
+    "message": "Can’t show it on this page."
+  },
+  "show_reverted": {
+    "message": "Hidden again."
+  },
+  "show_empty": {
+    "message": "Nothing is hidden on this site now."
+  },
+  "show_remove_failed": {
+    "message": "Couldn’t remove it. Nothing was changed."
+  },
+  "panel_pause_open": {
+    "message": "Pause on this site"
+  },
+  "panel_pause_label": {
+    "message": "Pause for how long"
+  },
+  "panel_pause_thirty": {
+    "message": "30 minutes"
+  },
+  "panel_pause_hour": {
+    "message": "1 hour"
+  },
+  "panel_pause_until_on": {
+    "message": "Until I turn it back on"
+  },
+  "panel_picker_unavailable": {
+    "message": "The element hider cannot run on this page."
+  },
+  "panel_hide_something": {
+    "message": "Hide something"
+  },
+  "panel_turn_on": {
+    "message": "Turn back on"
+  },
+  "panel_resume": {
+    "message": "Resume now"
+  },
+  "panel_allow_site": {
+    "message": "Allow on this site"
+  },
+  "breakage_complaint_broken": {
+    "message": "The page looks broken or will not work"
+  },
+  "breakage_complaint_ad_through": {
+    "message": "An ad or banner got through"
+  },
+  "breakage_complaint_anti_adblock": {
+    "message": "The site says I use an ad blocker"
+  },
+  "breakage_complaint_popup_opened": {
+    "message": "An ad opened in a new tab or window"
+  },
+  "breakage_allow_popups_title": {
+    "message": "Allow pop-ups on this site"
+  },
+  "breakage_allow_popups_detail": {
+    "message": "A window was blocked here (sign-in or payment?)."
+  },
+  "breakage_allow_popups_action": {
+    "message": "Allow and reload"
+  },
+  "breakage_light_title": {
+    "message": "Try Light mode"
+  },
+  "breakage_light_detail": {
+    "message": "Keeps blocking requests, stops changing the page."
+  },
+  "breakage_off_title": {
+    "message": "Turn off on this site"
+  },
+  "breakage_off_detail": {
+    "message": "Nothing is blocked on this site."
+  },
+  "breakage_reload_title": {
+    "message": "Reload the page"
+  },
+  "breakage_reload_detail": {
+    "message": "The rules may have just updated."
+  },
+  "breakage_reload_action": {
+    "message": "Reload"
+  },
+  "breakage_picker_title": {
+    "message": "Hide it yourself"
+  },
+  "breakage_picker_detail": {
+    "message": "Point at the ad or banner and hide it."
+  },
+  "breakage_thorough_title": {
+    "message": "Try Thorough here"
+  },
+  "breakage_thorough_detail": {
+    "message": "Also scans this page for generic ad boxes. Slightly slower."
+  },
+  "breakage_pause_title": {
+    "message": "Pause for 30 minutes"
+  },
+  "breakage_pause_detail": {
+    "message": "Nothing is blocked here for 30 minutes."
+  },
+  "breakage_strict_popups_title": {
+    "message": "Strict pop-ups on this site"
+  },
+  "breakage_strict_popups_detail": {
+    "message": "Asks before this site opens a window on another site."
+  },
+  "breakage_strict_popups_action": {
+    "message": "Turn it on and reload"
+  },
+  "breakage_try_action": {
+    "message": "Try it and reload"
+  },
+  "breakage_skipped_noop": {
+    "message": "already in effect"
+  },
+  "breakage_skipped_capped": {
+    "message": "a parent site is set lower"
+  },
+  "breakage_skipped_needs_access": {
+    "message": "needs site access"
+  },
+  "breakage_skipped_needs_guard": {
+    "message": "pop-up blocking on pages is not in this version yet"
+  },
+  "breakage_title": {
+    "message": "Fix this page"
+  },
+  "breakage_question": {
+    "message": "What is wrong?"
+  },
+  "breakage_after_picker": {
+    "message": "After hiding it:"
+  },
+  "breakage_after_reload": {
+    "message": "After the reload:"
+  },
+  "breakage_fixed": {
+    "message": "Fixed"
+  },
+  "breakage_still_broken": {
+    "message": "Still broken"
+  },
+  "breakage_cancel": {
+    "message": "Cancel and undo"
+  },
+  "breakage_report": {
+    "message": "Report this (you review everything first)"
+  },
+  "breakage_report_step": {
+    "message": "Nothing here fixed it. You can report the problem."
+  },
+  "breakage_skipped": {
+    "message": "Skipped: $TITLE$ ($REASON$)",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      },
+      "reason": {
+        "content": "$2"
+      }
+    }
+  },
+  "breakage_done": {
+    "message": "Glad it works now."
+  },
+  "breakage_done_kept": {
+    "message": "Glad it works now. “$TITLE$” stays on for this site.",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "breakage_orphan": {
+    "message": "Earlier you tried “$TITLE$” here and did not say whether it helped.",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "breakage_keep": {
+    "message": "Keep the change"
+  },
+  "breakage_undo": {
+    "message": "Undo it"
+  },
+  "breakage_revert_skipped": {
+    "message": "The setting was changed since, so it was left as it is."
+  },
+  "breakage_save_failed": {
+    "message": "Could not save this step. Try again."
+  },
+  "breakage_apply_failed": {
+    "message": "Could not apply the change. Try again."
+  },
+  "breakage_reload_failed": {
+    "message": "Could not reload the page. Reload it yourself."
+  },
+  "breakage_picker_started": {
+    "message": "Point at the element on the page."
+  },
+  "breakage_picker_missing": {
+    "message": "Hiding elements is not available yet. Try the other option."
+  },
+  "breakage_picker_failed": {
+    "message": "Could not start hiding elements on this page."
+  },
+  "breakage_unavailable": {
+    "message": "Open a website in this tab to fix it."
+  },
+  "report_label": {
+    "message": "Report (you can edit it before sending)"
+  },
+  "report_drafting": {
+    "message": "Writing the report…"
+  },
+  "report_draft_failed": {
+    "message": "Could not read this tab. The report is empty; describe the problem yourself."
+  },
+  "report_review": {
+    "message": "\"Open a new issue\" opens GitHub in a new tab with the text in the box and a title that names the problem and the site, never the page address. It is published only when you submit it there."
+  },
+  "report_no_tracker": {
+    "message": "There is no public issue tracker yet. Copy the report and keep it; it can be sent once the tracker exists."
+  },
+  "report_incognito": {
+    "message": "This is a private window. The report names this site."
+  },
+  "report_copy": {
+    "message": "Copy report"
+  },
+  "report_open": {
+    "message": "Open a new issue"
+  },
+  "report_copied": {
+    "message": "Report copied."
+  },
+  "report_copied_long": {
+    "message": "The report is long: it was copied. Paste it into the new issue."
+  },
+  "report_opened": {
+    "message": "A new tab opened on GitHub with the report. Submit it there, or close the tab and nothing is published."
+  },
+  "report_open_failed": {
+    "message": "Could not open a new tab."
+  },
+  "privacy_cat_ads": {
+    "message": "Advertising"
+  },
+  "privacy_cat_tracking": {
+    "message": "Tracking"
+  },
+  "privacy_cat_malware": {
+    "message": "Malware protection"
+  },
+  "privacy_cat_popup": {
+    "message": "Pop-ups"
+  },
+  "privacy_cat_cookies": {
+    "message": "Cookie banners"
+  },
+  "privacy_cat_annoyance": {
+    "message": "Annoyances"
+  },
+  "privacy_cat_params": {
+    "message": "Tracking parameters"
+  },
+  "privacy_cat_regional": {
+    "message": "Regional lists"
+  },
+  "privacy_cat_other": {
+    "message": "Other"
+  },
+  "privacy_other_ads": {
+    "message": "Other advertising"
+  },
+  "privacy_other_tracking": {
+    "message": "Other tracking"
+  },
+  "privacy_other_malware": {
+    "message": "Other malware sites"
+  },
+  "privacy_other_popup": {
+    "message": "Other pop-up sites"
+  },
+  "privacy_other_cookies": {
+    "message": "Other cookie banners"
+  },
+  "privacy_other_annoyance": {
+    "message": "Other annoyances"
+  },
+  "privacy_other_params": {
+    "message": "Other tracking parameters"
+  },
+  "privacy_noun_ads_one": {
+    "message": "$COUNT$ ad",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_noun_ads_other": {
+    "message": "$COUNT$ ads",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_noun_tracking_one": {
+    "message": "$COUNT$ tracker",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_noun_tracking_other": {
+    "message": "$COUNT$ trackers",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_noun_malware_one": {
+    "message": "$COUNT$ malware site",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_noun_malware_other": {
+    "message": "$COUNT$ malware sites",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_noun_popup_one": {
+    "message": "$COUNT$ pop-up",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_noun_popup_other": {
+    "message": "$COUNT$ pop-ups",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_noun_cookies_one": {
+    "message": "$COUNT$ cookie banner",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_noun_cookies_other": {
+    "message": "$COUNT$ cookie banners",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_noun_annoyance_one": {
+    "message": "$COUNT$ annoyance",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_noun_annoyance_other": {
+    "message": "$COUNT$ annoyances",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_noun_params_one": {
+    "message": "$COUNT$ tracking parameter",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_noun_params_other": {
+    "message": "$COUNT$ tracking parameters",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_noun_regional": {
+    "message": "$COUNT$ regional",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_noun_other": {
+    "message": "$COUNT$ other",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_blocked": {
+    "message": "$COUNT$ blocked on this page",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_companies_one": {
+    "message": "$COUNT$ company",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_companies_other": {
+    "message": "$COUNT$ companies",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_nothing": {
+    "message": "Nothing blocked on this page yet"
+  },
+  "privacy_loading": {
+    "message": "Counting what was blocked…"
+  },
+  "privacy_open": {
+    "message": "Show what was blocked"
+  },
+  "privacy_title": {
+    "message": "What was blocked on $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_title_no_host": {
+    "message": "What was blocked on this page"
+  },
+  "privacy_unavailable": {
+    "message": "Counts are shown when you open this panel with the toolbar button. Close it and click the button again."
+  },
+  "privacy_stale": {
+    "message": "These counts may be out of date: Chrome did not answer just now."
+  },
+  "privacy_failed": {
+    "message": "Could not read the counts for this page."
+  },
+  "privacy_empty": {
+    "message": "Nothing has been blocked on this page."
+  },
+  "privacy_scope": {
+    "message": "Counts cover this page since it loaded."
+  },
+  "privacy_local": {
+    "message": "Nothing here leaves your device."
+  },
+  "privacy_how_title": {
+    "message": "How this is counted"
+  },
+  "privacy_how_matcher": {
+    "message": "Counts come from Chrome's own rule matcher. Chrome tells us which rule matched, never the address of the request, so this panel shows companies and categories, not web addresses."
+  },
+  "privacy_how_left": {
+    "message": "Requests of a page you left are still counted for a few minutes."
+  },
+  "privacy_how_hidden": {
+    "message": "Hidden page elements are not counted."
+  },
+  "privacy_precise": {
+    "message": "$REQUESTS$ matched $RULES$.",
+    "placeholders": {
+      "requests": {
+        "content": "$1"
+      },
+      "rules": {
+        "content": "$2"
+      }
+    }
+  },
+  "privacy_requests_one": {
+    "message": "$COUNT$ blocked request",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_requests_other": {
+    "message": "$COUNT$ blocked requests",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_rules_one": {
+    "message": "$COUNT$ rule",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_rules_other": {
+    "message": "$COUNT$ rules",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_popups_blocked": {
+    "message": "Pop-ups blocked: $COUNT$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "privacy_copy": {
+    "message": "Copy summary"
+  },
+  "privacy_copied": {
+    "message": "Summary copied."
+  },
+  "row_label": {
+    "message": "Pop-ups on this site"
+  },
+  "row_default": {
+    "message": "Default ($MODE$)",
+    "placeholders": {
+      "mode": {
+        "content": "$1"
+      }
+    }
+  },
+  "row_not_active": {
+    "message": "Only \"Allowed\" has an effect in this version."
+  },
+  "row_blocked_one": {
+    "message": "$COUNT$ blocked here",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "row_blocked_other": {
+    "message": "$COUNT$ blocked here",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "row_none": {
+    "message": "No pop-ups blocked on this page."
+  },
+  "row_no_sentinel": {
+    "message": "Pop-up blocking is not running on this page. Reloading the page may start it."
+  },
+  "row_list_label": {
+    "message": "Pop-ups blocked on this page"
+  },
+  "row_open": {
+    "message": "Open $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "row_saved": {
+    "message": "Saved. Reload the page to apply it."
+  },
+  "row_opened": {
+    "message": "Opened in a new tab."
+  },
+  "onboarding_title": {
+    "message": "Welcome to $PRODUCT$",
+    "placeholders": {
+      "product": {
+        "content": "$1"
+      }
+    }
+  },
+  "onboarding_progress": {
+    "message": "Setup steps"
+  },
+  "onboarding_step_protection": {
+    "message": "Protection"
+  },
+  "onboarding_step_extras": {
+    "message": "Extras"
+  },
+  "onboarding_step_tools": {
+    "message": "Tools"
+  },
+  "onboarding_unavailable": {
+    "message": "Could not read the current settings. Protection is on with safe defaults; you can close this tab."
+  },
+  "onboarding_protected_heading": {
+    "message": "You are protected."
+  },
+  "onboarding_protected_text": {
+    "message": "Ads, trackers and known malware sites are blocked from now on."
+  },
+  "onboarding_access_on": {
+    "message": "Site access: allowed on all sites"
+  },
+  "onboarding_access_why": {
+    "message": "We need it to hide leftover ad boxes and stop ad scripts."
+  },
+  "onboarding_access_never": {
+    "message": "We never read, store or send what you browse."
+  },
+  "onboarding_prove": {
+    "message": "How we can prove it"
+  },
+  "onboarding_access_off": {
+    "message": "Site access is off, so only Light mode works: requests are blocked, but leftover ad boxes stay and ad scripts run."
+  },
+  "onboarding_keep_light": {
+    "message": "Keep Light mode"
+  },
+  "onboarding_extras_heading": {
+    "message": "Choose extras"
+  },
+  "onboarding_extras_text": {
+    "message": "Optional. All off until you turn them on; change them any time in the dashboard."
+  },
+  "onboarding_extra_cookies": {
+    "message": "Hide cookie banners"
+  },
+  "onboarding_extra_cookies_note": {
+    "message": "Hides the banners; you do not accept or refuse anything."
+  },
+  "onboarding_extra_annoyances": {
+    "message": "Hide annoyances"
+  },
+  "onboarding_extra_annoyances_note": {
+    "message": "Overlays, social buttons, chat widgets and notification prompts."
+  },
+  "onboarding_extra_language": {
+    "message": "Filters for your language"
+  },
+  "onboarding_extra_language_note": {
+    "message": "Suggested from your browser language. Blocks ads made for sites in that language."
+  },
+  "onboarding_extra_params": {
+    "message": "Strip tracking parameters"
+  },
+  "onboarding_language_named": {
+    "message": "Filters for your language: $LANGUAGE$",
+    "placeholders": {
+      "language": {
+        "content": "$1"
+      }
+    }
+  },
+  "onboarding_tools_heading": {
+    "message": "Three things to know"
+  },
+  "onboarding_pin_heading": {
+    "message": "Pin the icon"
+  },
+  "onboarding_pin_text": {
+    "message": "Open the puzzle-piece menu next to the address bar and choose the pin next to the name, so the icon stays in view."
+  },
+  "onboarding_hide_heading": {
+    "message": "Hide something yourself"
+  },
+  "onboarding_hide_text": {
+    "message": "Right-click what you want gone and choose \"Hide this…\", or open the toolbar panel and choose \"Hide something\"."
+  },
+  "onboarding_break_heading": {
+    "message": "When a page breaks"
+  },
+  "onboarding_break_text": {
+    "message": "Open the toolbar panel and choose \"Something wrong with this page?\". It walks you through the fix."
+  },
+  "onboarding_finish": {
+    "message": "Finish"
+  },
+  "onboarding_skip": {
+    "message": "Skip setup"
+  },
+  "onboarding_applying": {
+    "message": "Applying your choices…"
+  },
+  "onboarding_some_refused": {
+    "message": "Some choices could not be turned on. See the message next to them."
+  },
+  "onboarding_apply_failed": {
+    "message": "Could not save. Try again."
+  },
+  "onboarding_access_denied": {
+    "message": "Site access was not allowed. Light mode stays on."
+  },
+  "onboarding_done_heading": {
+    "message": "All set."
+  },
+  "onboarding_done_text": {
+    "message": "You can close this tab. Settings are in the dashboard whenever you need them."
+  },
+  "onboarding_dashboard": {
+    "message": "Open the dashboard"
+  },
+  "pack_name_ads": {
+    "message": "Ads"
+  },
+  "pack_name_trackers": {
+    "message": "Trackers"
+  },
+  "pack_name_malware": {
+    "message": "Malware and scam sites"
+  },
+  "pack_name_popups": {
+    "message": "Known pop-up ad sites"
+  },
+  "pack_name_cookies": {
+    "message": "Cookie banners"
+  },
+  "pack_name_annoy_overlays": {
+    "message": "Overlays"
+  },
+  "pack_name_annoy_social": {
+    "message": "Social buttons"
+  },
+  "pack_name_annoy_widgets": {
+    "message": "Chat and AI widgets"
+  },
+  "pack_name_annoy_newsletters": {
+    "message": "Other annoyances"
+  },
+  "pack_name_annoy_notifications": {
+    "message": "Notification prompts"
+  },
+  "pack_name_params": {
+    "message": "Tracking parameters"
+  },
+  "pack_name_gpc": {
+    "message": "\"Do not sell or share\" signal (GPC)"
+  },
+  "pack_name_reg_de": {
+    "message": "German"
+  },
+  "pack_name_reg_it": {
+    "message": "Italian"
+  },
+  "pack_name_reg_ja": {
+    "message": "Japanese"
+  },
+  "pack_name_reg_nl": {
+    "message": "Dutch"
+  },
+  "pack_name_reg_zh": {
+    "message": "Chinese"
+  },
+  "pack_name_reg_es_pt": {
+    "message": "Spanish and Portuguese"
+  },
+  "pack_note_ads": {
+    "message": "Blocks ads."
+  },
+  "pack_note_trackers": {
+    "message": "Blocks trackers that follow you between sites."
+  },
+  "pack_note_malware": {
+    "message": "Blocks sites known for malware and scams."
+  },
+  "pack_note_popups": {
+    "message": "Blocks sites known for pop-up ads, as whole pages."
+  },
+  "pack_note_cookies": {
+    "message": "Hides cookie banners. Works best with Thorough."
+  },
+  "pack_note_annoy_overlays": {
+    "message": "Hides boxes that cover the page, such as newsletter sign-ups."
+  },
+  "pack_note_annoy_social": {
+    "message": "Hides share and like buttons of social networks."
+  },
+  "pack_note_annoy_widgets": {
+    "message": "Hides chat bubbles and assistant widgets."
+  },
+  "pack_note_annoy_newsletters": {
+    "message": "Hides other distractions listed by EasyList Annoyances."
+  },
+  "pack_note_annoy_notifications": {
+    "message": "Hides prompts that ask to send you notifications."
+  },
+  "pack_note_params": {
+    "message": "Removes tracking codes from addresses. A rare page may need them."
+  },
+  "pack_note_gpc": {
+    "message": "Tells sites you do not want your data sold or shared."
+  },
+  "capacity_limit_ruleset_slots": {
+    "message": "Chrome allows only a limited number of rule lists at once"
+  },
+  "capacity_limit_regex_pool": {
+    "message": "Chrome allows only a limited number of pattern rules"
+  },
+  "capacity_limit_rule_pool": {
+    "message": "Chrome has no room left for more blocking rules"
+  },
+  "capacity_limit_registrations": {
+    "message": "Too many page scripts would be registered"
+  },
+  "capacity_limit_patterns": {
+    "message": "Too many sites would be listed for page scripts"
+  },
+  "capacity_unknown_detail": {
+    "message": "This pack does not fit within Chrome’s limits. Turn another pack off first."
+  },
+  "capacity_detail_one": {
+    "message": "This pack does not fit: $LIMIT$ (it needs $NEEDED$, $AVAILABLE$ is left). Turn another pack off first.",
+    "placeholders": {
+      "limit": {
+        "content": "$1"
+      },
+      "needed": {
+        "content": "$2"
+      },
+      "available": {
+        "content": "$3"
+      }
+    }
+  },
+  "capacity_detail_other": {
+    "message": "This pack does not fit: $LIMIT$ (it needs $NEEDED$, $AVAILABLE$ are left). Turn another pack off first.",
+    "placeholders": {
+      "limit": {
+        "content": "$1"
+      },
+      "needed": {
+        "content": "$2"
+      },
+      "available": {
+        "content": "$3"
+      }
+    }
+  },
+  "dash_document_title": {
+    "message": "$SECTION$ · $PRODUCT$",
+    "placeholders": {
+      "section": {
+        "content": "$1"
+      },
+      "product": {
+        "content": "$2"
+      }
+    }
+  },
+  "dash_section_protection": {
+    "message": "Protection"
+  },
+  "dash_section_sites": {
+    "message": "Sites"
+  },
+  "dash_section_hidden": {
+    "message": "Hidden items"
+  },
+  "dash_section_privacy": {
+    "message": "Privacy"
+  },
+  "dash_section_backup": {
+    "message": "Backup"
+  },
+  "dash_section_about": {
+    "message": "About"
+  },
+  "dash_refusal_rule_pool": {
+    "message": "Not enough room. This pack needs up to $NEEDED$ rules and $AVAILABLE$ are left. Turn off another pack to make room.",
+    "placeholders": {
+      "needed": {
+        "content": "$1"
+      },
+      "available": {
+        "content": "$2"
+      }
+    }
+  },
+  "dash_refusal_other": {
+    "message": "This pack cannot be on together with the packs you have on now. Turn off another pack first."
+  },
+  "dash_unavailable": {
+    "message": "Could not read your settings. Close this tab and open the dashboard again."
+  },
+  "dash_read_failed": {
+    "message": "Could not read the latest settings. Reload this page."
+  },
+  "dash_no_answer": {
+    "message": "No answer yet. The change may still be applying; the settings shown were read again."
+  },
+  "dash_nav_label": {
+    "message": "Dashboard sections"
+  },
+  "dash_finish_setup": {
+    "message": "Finish setup"
+  },
+  "dash_setup_again": {
+    "message": "Run setup again"
+  },
+  "dash_last_run_failed": {
+    "message": "Part of the protection could not be applied. It is tried again automatically."
+  },
+  "dash_reset": {
+    "message": "Your settings were reset because they could not be read."
+  },
+  "dash_no_access": {
+    "message": "Site access is off, so only Light works: requests are blocked, but leftover ad boxes stay and ad scripts run."
+  },
+  "dash_default_level": {
+    "message": "Default level"
+  },
+  "dash_default_level_note": {
+    "message": "Applies to every site you have not set yourself."
+  },
+  "dash_core": {
+    "message": "Core protection"
+  },
+  "dash_extras": {
+    "message": "Extras"
+  },
+  "dash_always_on": {
+    "message": "Always on"
+  },
+  "dash_languages": {
+    "message": "Languages"
+  },
+  "dash_owner_pending": {
+    "message": "Licence check pending"
+  },
+  "dash_details": {
+    "message": "Details: $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
+  },
+  "common_details": {
+    "message": "Details"
+  },
+  "dash_up_to": {
+    "message": "Up to $COUNT$ rules",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "dash_lists_heading": {
+    "message": "Lists"
+  },
+  "dash_homepage": {
+    "message": "Homepage"
+  },
+  "dash_skipped": {
+    "message": "Left out: there was not enough room when it was last applied."
+  },
+  "dash_offer": {
+    "message": "Cookie banners are hidden best with Thorough, which also scans each page for generic ad boxes. Slightly slower."
+  },
+  "dash_use_thorough": {
+    "message": "Use Thorough"
+  },
+  "dash_not_now": {
+    "message": "Not now"
+  },
+  "dash_capacity": {
+    "message": "Rule capacity"
+  },
+  "dash_capacity_used": {
+    "message": "Using up to $USED$ of the $GUARANTEED$ rules Chrome guarantees.",
+    "placeholders": {
+      "used": {
+        "content": "$1"
+      },
+      "guaranteed": {
+        "content": "$2"
+      }
+    }
+  },
+  "dash_capacity_over": {
+    "message": "$COUNT$ more from Chrome's shared pool",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "dash_capacity_left": {
+    "message": "Chrome reports room for about $COUNT$ more rules.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "dash_capacity_unknown": {
+    "message": "Chrome did not report how much room is left."
+  },
+  "dash_popups_note_smart": {
+    "message": "Smart blocks pop-ups you clearly did not ask for."
+  },
+  "dash_popups_note_strict": {
+    "message": "Strict asks before any site opens a window on another site."
+  },
+  "dash_popups_note_off": {
+    "message": "Only known pop-up ad sites are blocked."
+  },
+  "dash_popups_limits": {
+    "message": "Smart cannot catch a window opened right after you click a real button or link on the page."
+  },
+  "dash_popups_not_active": {
+    "message": "Pop-up blocking is not active in this version yet. Your choice is saved and applies when it is. Known pop-up ad sites are blocked already."
+  },
+  "dash_popups_site_not_active": {
+    "message": "Until pop-up blocking is active, only \"Allowed\" has an effect."
+  },
+  "dash_popups_notice": {
+    "message": "Tell me when a pop-up is blocked"
+  },
+  "dash_popups_notice_hint": {
+    "message": "A short note in the page, with \"Open it\" and \"Allow on this page\"."
+  },
+  "sites_add_heading": {
+    "message": "Add a site"
+  },
+  "sites_hostname": {
+    "message": "Site address"
+  },
+  "sites_hostname_hint": {
+    "message": "For example news.example.com. Applies to its subdomains too."
+  },
+  "sites_level": {
+    "message": "Level"
+  },
+  "sites_add": {
+    "message": "Add site"
+  },
+  "sites_invalid": {
+    "message": "Enter a site address such as news.example.com, without https:// or a path."
+  },
+  "sites_full": {
+    "message": "Too many sites have this level already ($MAX$). Remove some first.",
+    "placeholders": {
+      "max": {
+        "content": "$1"
+      }
+    }
+  },
+  "sites_list_heading": {
+    "message": "Your sites"
+  },
+  "sites_search": {
+    "message": "Search sites"
+  },
+  "sites_empty": {
+    "message": "No sites yet. Set a level, a pause or a pop-up choice in the toolbar panel and the site appears here, or add one above."
+  },
+  "sites_no_match": {
+    "message": "No site matches your search."
+  },
+  "sites_caption": {
+    "message": "Sites with their own level, pause or pop-up setting"
+  },
+  "sites_select_column": {
+    "message": "Select"
+  },
+  "sites_site": {
+    "message": "Site"
+  },
+  "sites_actions": {
+    "message": "Actions"
+  },
+  "sites_inherit": {
+    "message": "Default"
+  },
+  "sites_level_of": {
+    "message": "Level for $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "sites_select": {
+    "message": "Select $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "sites_remove_label": {
+    "message": "Remove $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "sites_remove_selected_one": {
+    "message": "Remove $COUNT$ selected site",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "sites_remove_selected_other": {
+    "message": "Remove $COUNT$ selected sites",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "sites_paused_until": {
+    "message": "Paused until $TIME$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "sites_resume": {
+    "message": "Resume"
+  },
+  "sites_resume_label": {
+    "message": "Resume $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "sites_popups_of": {
+    "message": "Pop-ups on $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "sites_popups_note": {
+    "message": "Pop-ups: \"Allowed\" lets this site open windows, for sign-in or payment. \"Default\" follows your pop-up setting."
+  },
+  "hidden_intro": {
+    "message": "What you hid with \"Hide something\". Each one stays hidden on its site and the site’s subdomains."
+  },
+  "hidden_empty_heading": {
+    "message": "Nothing hidden yet"
+  },
+  "hidden_summary": {
+    "message": "$THINGS$ hidden on $SITES$.",
+    "placeholders": {
+      "things": {
+        "content": "$1"
+      },
+      "sites": {
+        "content": "$2"
+      }
+    }
+  },
+  "hidden_things_one": {
+    "message": "$COUNT$ thing",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "hidden_things_other": {
+    "message": "$COUNT$ things",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "hidden_empty": {
+    "message": "Open the toolbar panel on a page and choose \"Hide something\"."
+  },
+  "hidden_unreadable": {
+    "message": "Your hidden items could not be read. Nothing was changed."
+  },
+  "hidden_remove_label": {
+    "message": "Remove $SELECTOR$ on $HOST$",
+    "placeholders": {
+      "selector": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "hidden_removed": {
+    "message": "Removed. It shows again on that site. If a page still hides it, reload that page."
+  },
+  "dprivacy_choices": {
+    "message": "Privacy choices"
+  },
+  "dprivacy_gpc_note": {
+    "message": "Tells every site you visit that you do not want your data sold or shared. It stays on in Light mode."
+  },
+  "dprivacy_badge": {
+    "message": "Show the number of blocked requests on the toolbar icon"
+  },
+  "dprivacy_badge_note": {
+    "message": "Chrome counts them for the current tab. The number never leaves your browser."
+  },
+  "dprivacy_needs_access": {
+    "message": "Needs site access to all sites; until then it has no effect."
+  },
+  "dprivacy_page_heading": {
+    "message": "How your privacy is protected"
+  },
+  "dprivacy_draft": {
+    "message": "Draft — not legally reviewed."
+  },
+  "dprivacy_requests_heading": {
+    "message": "Network requests"
+  },
+  "dprivacy_requests": {
+    "message": "$PRODUCT$ makes no network requests. New rules arrive only through Chrome's own extension updates. There is no telemetry, no analytics and no crash reporting. The one exception is yours to make: \"Open a new issue\" in a problem report opens github.com in a browser tab with the report you reviewed.",
+    "placeholders": {
+      "product": {
+        "content": "$1"
+      }
+    }
+  },
+  "dprivacy_stored_heading": {
+    "message": "What is stored on this device"
+  },
+  "dprivacy_stored_settings": {
+    "message": "Your settings: default level, packs, and the level, pause and pop-up choice of each site you set (site names only, never page addresses)."
+  },
+  "dprivacy_stored_hidden": {
+    "message": "Elements you chose to hide, with the name of their site."
+  },
+  "dprivacy_stored_rules": {
+    "message": "The packaged filter rules, which are public."
+  },
+  "dprivacy_not_stored": {
+    "message": "No browsing history is kept. What the toolbar panel shows about a page is read when you open it and forgotten within a minute."
+  },
+  "dprivacy_permissions_heading": {
+    "message": "Permissions and why"
+  },
+  "dprivacy_permission_column": {
+    "message": "Permission"
+  },
+  "dprivacy_why_column": {
+    "message": "Why"
+  },
+  "dprivacy_permissions_caption": {
+    "message": "Permissions this extension declares"
+  },
+  "dprivacy_not_requested_heading": {
+    "message": "Permissions we do not ask for"
+  },
+  "dprivacy_pledge_heading": {
+    "message": "Our pledge (v0, draft)"
+  },
+  "dprivacy_pledge_1": {
+    "message": "No paid allowlisting, no \"acceptable ads\", no affiliate links, no ads of our own."
+  },
+  "dprivacy_pledge_2": {
+    "message": "No telemetry. No analytics. No remote configuration."
+  },
+  "dprivacy_pledge_3": {
+    "message": "No network request unless you turn on a feature that needs one; each such feature is listed here with the exact host it contacts."
+  },
+  "dprivacy_pledge_4": {
+    "message": "Minimal permissions, each explained on this page; new ones only for a shipped feature."
+  },
+  "dprivacy_pledge_5": {
+    "message": "Every store release can be rebuilt from its public source, and the hashes are published."
+  },
+  "dprivacy_pledge_6": {
+    "message": "The listing will not be sold or transferred without 90 days of public notice."
+  },
+  "dprivacy_pledge_7": {
+    "message": "Publishing needs verified uploads and two-step verification; who can publish is public."
+  },
+  "dprivacy_pledge_8": {
+    "message": "Changes to this pledge are versioned and announced in the changelog."
+  },
+  "dprivacy_verify_heading": {
+    "message": "Check a build yourself"
+  },
+  "dprivacy_verify": {
+    "message": "Release builds are reproducible: rebuilding the published source tag gives the same files. The repository document \"Verify a build\" has the commands and the hashes to compare."
+  },
+  "perm_dnr_name": {
+    "message": "Block content on any page"
+  },
+  "perm_dnr_why": {
+    "message": "Chrome blocks ads, trackers and malware sites itself, from the rules in this package. We never see the requests."
+  },
+  "perm_all_urls_name": {
+    "message": "Read and change all your data on all websites"
+  },
+  "perm_all_urls_why": {
+    "message": "Needed to hide leftover ad boxes, stop ad scripts and show the pop-up blocked page. Nothing is read, stored or sent: the work happens inside each page. Light mode works without it."
+  },
+  "perm_scripting_name": {
+    "message": "Scripting"
+  },
+  "perm_scripting_why": {
+    "message": "Lets Chrome insert our packaged hiding and anti-ad scripts into pages, even while the extension sleeps."
+  },
+  "perm_storage_name": {
+    "message": "Storage"
+  },
+  "perm_storage_why": {
+    "message": "Keeps short-lived state for this browser session and the elements you chose to hide."
+  },
+  "perm_unlimited_storage_name": {
+    "message": "Unlimited storage"
+  },
+  "perm_unlimited_storage_why": {
+    "message": "Stops Chrome from deleting your settings when the disk is nearly full."
+  },
+  "perm_active_tab_name": {
+    "message": "Access the current tab when you click the icon"
+  },
+  "perm_active_tab_why": {
+    "message": "After you click the icon (or choose \"Hide this…\"), lets the extension work in that one tab: show what was blocked there, start the element hider and briefly show something you hid."
+  },
+  "perm_context_menus_name": {
+    "message": "Context menus"
+  },
+  "perm_context_menus_why": {
+    "message": "Adds \"Hide this…\" to the right-click menu of pages, for the element hider."
+  },
+  "perm_alarms_name": {
+    "message": "Alarms"
+  },
+  "perm_alarms_why": {
+    "message": "Turns protection back on when a pause ends."
+  },
+  "perm_tabs_name": {
+    "message": "Read your browsing history"
+  },
+  "perm_tabs_why": {
+    "message": "We never list your tabs or the pages you visit."
+  },
+  "perm_web_navigation_name": {
+    "message": "Web navigation"
+  },
+  "perm_web_navigation_why": {
+    "message": "We never follow where you go."
+  },
+  "perm_web_request_name": {
+    "message": "Web requests"
+  },
+  "perm_web_request_why": {
+    "message": "We never watch your network traffic."
+  },
+  "perm_dnr_feedback_name": {
+    "message": "Blocked-request details"
+  },
+  "perm_dnr_feedback_why": {
+    "message": "We never read the addresses that were blocked; counts come from Chrome."
+  },
+  "about_version": {
+    "message": "Version"
+  },
+  "about_rules_date": {
+    "message": "Rules from"
+  },
+  "about_licence_text": {
+    "message": "GNU General Public License version 3. Free software: you may use, study, share and change it."
+  },
+  "about_source": {
+    "message": "The source code, the changelog and the full credits (CREDITS.md) are in the public repository, which opens with the first public release."
+  },
+  "about_credits": {
+    "message": "Credits"
+  },
+  "about_credits_intro": {
+    "message": "The filter lists come from the people below. Compiled rules keep the licence of the list they came from."
+  },
+  "about_lists_heading": {
+    "message": "Filter lists ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "about_code_heading": {
+    "message": "Code from others in this package"
+  },
+  "about_unknown_authors": {
+    "message": "Authors not recorded"
+  },
+  "credit_ubo_what": {
+    "message": "Scriptlets, replacement resources and the procedural cosmetic engine"
+  },
+  "credit_preact_what": {
+    "message": "User interface library"
+  },
+  "credit_signals_what": {
+    "message": "User interface state"
+  },
+  "credit_valibot_what": {
+    "message": "Input validation"
+  },
+  "backup_on": {
+    "message": "on"
+  },
+  "backup_off": {
+    "message": "off"
+  },
+  "backup_theme_system": {
+    "message": "as the system"
+  },
+  "backup_theme_light": {
+    "message": "light"
+  },
+  "backup_theme_dark": {
+    "message": "dark"
+  },
+  "backup_added": {
+    "message": "$COUNT$ added",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "backup_removed": {
+    "message": "$COUNT$ removed",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "backup_changed": {
+    "message": "$COUNT$ changed",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "backup_change_default_level": {
+    "message": "Default level: $FROM$ → $TO$",
+    "placeholders": {
+      "from": {
+        "content": "$1"
+      },
+      "to": {
+        "content": "$2"
+      }
+    }
+  },
+  "backup_change_pack": {
+    "message": "$PACK$: turned $STATE$",
+    "placeholders": {
+      "pack": {
+        "content": "$1"
+      },
+      "state": {
+        "content": "$2"
+      }
+    }
+  },
+  "backup_change_site_levels": {
+    "message": "Site levels: $CHANGES$",
+    "placeholders": {
+      "changes": {
+        "content": "$1"
+      }
+    }
+  },
+  "backup_change_popup_mode": {
+    "message": "Pop-up blocking: $FROM$ → $TO$",
+    "placeholders": {
+      "from": {
+        "content": "$1"
+      },
+      "to": {
+        "content": "$2"
+      }
+    }
+  },
+  "backup_change_popup_sites": {
+    "message": "Pop-up choices per site: $CHANGES$",
+    "placeholders": {
+      "changes": {
+        "content": "$1"
+      }
+    }
+  },
+  "backup_change_popup_notice": {
+    "message": "\"Tell me when a pop-up is blocked\": $STATE$",
+    "placeholders": {
+      "state": {
+        "content": "$1"
+      }
+    }
+  },
+  "backup_change_gpc": {
+    "message": "\"Do not sell or share\" signal: $STATE$",
+    "placeholders": {
+      "state": {
+        "content": "$1"
+      }
+    }
+  },
+  "backup_change_badge": {
+    "message": "Blocked count on the toolbar icon: $STATE$",
+    "placeholders": {
+      "state": {
+        "content": "$1"
+      }
+    }
+  },
+  "backup_change_theme": {
+    "message": "Colours: $THEME$",
+    "placeholders": {
+      "theme": {
+        "content": "$1"
+      }
+    }
+  },
+  "backup_change_hidden": {
+    "message": "Hidden items: $CHANGES$",
+    "placeholders": {
+      "changes": {
+        "content": "$1"
+      }
+    }
+  },
+  "backup_dropped_unavailable": {
+    "message": "$PACK$: not in this version, left out",
+    "placeholders": {
+      "pack": {
+        "content": "$1"
+      }
+    }
+  },
+  "backup_dropped_fixed": {
+    "message": "$PACK$: cannot be set by a backup, left as it is",
+    "placeholders": {
+      "pack": {
+        "content": "$1"
+      }
+    }
+  },
+  "backup_dropped_room": {
+    "message": "$PACK$: not enough room now, left off",
+    "placeholders": {
+      "pack": {
+        "content": "$1"
+      }
+    }
+  },
+  "backup_dropped_suffix": {
+    "message": "Skipped $HOSTS$: each would cover every site ending in it. Add one again under Sites if you meant it",
+    "placeholders": {
+      "hosts": {
+        "content": "$1",
+        "example": "com, co.uk"
+      }
+    }
+  },
+  "backup_hosts_more": {
+    "message": "$HOSTS$ and $COUNT$ more",
+    "placeholders": {
+      "hosts": {
+        "content": "$1"
+      },
+      "count": {
+        "content": "$2"
+      }
+    }
+  },
+  "backup_warn_off": {
+    "message": "$SITES$ will be set to Off, so nothing is blocked there: $HOSTS$.",
+    "placeholders": {
+      "sites": {
+        "content": "$1"
+      },
+      "hosts": {
+        "content": "$2",
+        "example": "news.example.com"
+      }
+    }
+  },
+  "backup_warn_popups": {
+    "message": "$SITES$ will be allowed to open pop-ups: $HOSTS$.",
+    "placeholders": {
+      "sites": {
+        "content": "$1"
+      },
+      "hosts": {
+        "content": "$2",
+        "example": "news.example.com"
+      }
+    }
+  },
+  "backup_problem_too_large": {
+    "message": "This file is too large to be a backup (the limit is 2 MB)."
+  },
+  "backup_problem_not_json": {
+    "message": "This file is not a backup: it could not be read as one."
+  },
+  "backup_problem_not_backup": {
+    "message": "This file is not a backup made by this extension."
+  },
+  "backup_problem_newer": {
+    "message": "This backup was made by a newer version. Update the extension, then try again."
+  },
+  "backup_problem_invalid": {
+    "message": "This backup is damaged or was changed by hand, so nothing was restored."
+  },
+  "backup_problem_unreadable": {
+    "message": "The file could not be read."
+  },
+  "backup_export_heading": {
+    "message": "Save a backup"
+  },
+  "backup_export_note": {
+    "message": "Saves your settings to a file on this device, including the list of sites you set yourself and your hidden items. Pauses are not included."
+  },
+  "backup_export_button": {
+    "message": "Save backup file"
+  },
+  "backup_exported": {
+    "message": "Backup file saved."
+  },
+  "backup_reset_note": {
+    "message": "Your settings were reset because they could not be read. Restoring a backup brings them back."
+  },
+  "backup_file": {
+    "message": "Backup file"
+  },
+  "backup_file_note": {
+    "message": "You see what will change before anything is restored."
+  },
+  "backup_reading": {
+    "message": "Reading the backup…"
+  },
+  "backup_preview_heading": {
+    "message": "This backup will change:"
+  },
+  "backup_no_changes": {
+    "message": "Nothing: this backup matches your current settings."
+  },
+  "backup_restore": {
+    "message": "Restore"
+  },
+  "backup_restored": {
+    "message": "Backup restored."
+  },
+  "backup_restore_failed": {
+    "message": "Nothing was restored. Try again."
+  },
+  "backup_unknown": {
+    "message": "No answer in time: the backup may still be restoring. Check your settings in a moment."
+  },
+  "backup_stale": {
+    "message": "Your settings changed since this preview, so nothing was restored. Choose the file again to see the new preview."
+  },
+  "backup_filters_kept": {
+    "message": "Your settings were restored. Your hidden items changed meanwhile and were left as they are. Choose the file again to restore them."
+  },
+  "backup_restored_not_applied": {
+    "message": "The backup was restored, but applying it failed. It is tried again automatically."
+  },
+  "backup_warnings_heading": {
+    "message": "This lowers your protection:"
+  },
+  "picker_title": {
+    "message": "Hide this?"
+  },
+  "picker_overlay_label": {
+    "message": "Hide something: arrow keys move, Enter chooses, Escape cancels"
+  },
+  "picker_hint": {
+    "message": "Click what you want to hide. Esc cancels.",
+    "description": "Visible hint pill at the top of the page while the element picker waits for a click (D-104)."
+  },
+  "picker_covered": {
+    "message": "The page is covering this panel, so nothing was done."
+  },
+  "picker_area": {
+    "message": "Area"
+  },
+  "picker_bigger": {
+    "message": "Bigger area"
+  },
+  "picker_smaller": {
+    "message": "Smaller area"
+  },
+  "picker_large": {
+    "message": "This is a large part of the page."
+  },
+  "picker_biggest": {
+    "message": "This is the biggest area you can pick."
+  },
+  "picker_similar": {
+    "message": "Similar ones too?"
+  },
+  "picker_only_this": {
+    "message": "only this",
+    "description": "Picker panel slider, low end, when the narrowest choice hides exactly one item (D-105)."
+  },
+  "picker_fewer": {
+    "message": "fewer",
+    "description": "Picker panel slider, low end, when the narrowest choice still hides more than one item (D-105)."
+  },
+  "picker_more": {
+    "message": "more like it"
+  },
+  "picker_how_long": {
+    "message": "How long?"
+  },
+  "picker_once": {
+    "message": "Hide once, until I reload"
+  },
+  "picker_always": {
+    "message": "Hide always on $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "picker_preview": {
+    "message": "Show the page without it"
+  },
+  "picker_show_selector": {
+    "message": "Advanced: selector"
+  },
+  "picker_hide": {
+    "message": "Hide"
+  },
+  "picker_elements_one": {
+    "message": "$COUNT$ item",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "picker_elements_other": {
+    "message": "$COUNT$ items",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "picker_count_one": {
+    "message": "Hides $COUNT$ item on this page",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "picker_count_other": {
+    "message": "Hides $COUNT$ items on this page",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "picker_undo": {
+    "message": "Undo"
+  },
+  "picker_hidden": {
+    "message": "Hidden."
+  },
+  "picker_save_failed": {
+    "message": "Could not save this. Try again, or choose \"Hide once\"."
+  },
+  "picker_undo_failed": {
+    "message": "Could not undo. Remove it under \"Hidden items\" in the dashboard."
+  },
+  "blocked_title": {
+    "message": "Page blocked"
+  },
+  "blocked_heading": {
+    "message": "This page was blocked"
+  },
+  "blocked_listed": {
+    "message": "$HOST$ is on the list of sites known for pop-up ads.",
+    "placeholders": {
+      "host": {
+        "content": "$1",
+        "example": "ads.example"
+      }
+    }
+  },
+  "blocked_link": {
+    "message": "This link leads to a site known for pop-up ads."
+  },
+  "blocked_sender": {
+    "message": "You were sent here by $HOST$.",
+    "placeholders": {
+      "host": {
+        "content": "$1",
+        "example": "news.example"
+      }
+    }
+  },
+  "blocked_proceed": {
+    "message": "Proceed once"
+  },
+  "blocked_exact_url": {
+    "message": "Proceed once opens this address:",
+    "description": "Blocked page, lifted destination (D-55a); followed by the full address."
+  },
+  "blocked_proceed_failed": {
+    "message": "Could not open it. Try again, or go back."
+  },
+  "blocked_go_back": {
+    "message": "Go back"
+  },
+  "blocked_close_tab": {
+    "message": "Close tab"
+  },
+  "blocked_why": {
+    "message": "Why am I seeing this?"
+  },
+  "blocked_why_text": {
+    "message": "Sites on this list (from EasyList and uBlock Origin’s pop-up filters, updated with the rules) are known for opening ads in new tabs and windows. To allow a site for this tab, use Proceed once."
+  },
+  "notice_blocked": {
+    "message": "Pop-up blocked · ",
+    "description": "In-page notice, followed by the host: \"Pop-up blocked · ads.example\"."
+  },
+  "notice_blocked_many": {
+    "message": " pop-ups blocked · ",
+    "description": "In-page notice, after the count and before the host: \"3 pop-ups blocked · ads.example\"."
+  },
+  "notice_redirect": {
+    "message": "Stopped a redirect to ",
+    "description": "In-page notice, followed by the host."
+  },
+  "notice_open_it": {
+    "message": "Open it"
+  },
+  "notice_go_there": {
+    "message": "Go there"
+  },
+  "notice_allow": {
+    "message": "Allow on this page"
+  },
+  "notice_allow_hint": {
+    "message": "Now repeat what you did"
+  },
+  "notice_dismiss": {
+    "message": "Dismiss"
+  }
+}

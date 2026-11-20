@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: cosmetic-specific/no-filters · filter: none on this host (no script may be injected, top frame or sub-frames) -->
+<html lang="en"><head><meta charset="utf-8"><title>cosmetic-specific/no-filters</title></head>
+<body>
+<div class="ad-box">Not an advert here</div>
+<iframe id="same" title="same-site frame" src="/cosmetic-specific/no-filters-child.html"></iframe>
+<iframe id="cross" title="cross-site frame" src="https://other-unfiltered.example/cosmetic-specific/no-filters-child.html"></iframe>
+<iframe id="blank" title="blank frame"></iframe>
+<script>var d=document.getElementById("blank").contentDocument;var a=d.createElement("div");a.className="ad-box";d.body.appendChild(a);</script>
+</body></html>

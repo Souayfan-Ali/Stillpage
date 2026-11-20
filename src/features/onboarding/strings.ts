@@ -1,0 +1,52 @@
+/** Strings of the first-run page (P2-33, UI notes §7): full sentences, one decision per step. Text in `_locales` (P2-40). */
+import { PRODUCT_NAME } from '../../core/brand.js';
+import { t } from '../../ui/i18n.js';
+
+const STEP_NAMES = [t('onboarding_step_protection'), t('onboarding_step_extras'), t('onboarding_step_tools')] as const;
+
+export const ONBOARDING_STRINGS = {
+  title: t('onboarding_title', PRODUCT_NAME),
+  progress: t('onboarding_progress'),
+  stepNames: STEP_NAMES,
+  stepLabel: (n: number, name: string) => `${t('common_step_of', String(n), String(STEP_NAMES.length))}: ${name}`,
+  loading: t('common_loading'),
+  unavailable: t('onboarding_unavailable'),
+  protectedHeading: t('onboarding_protected_heading'),
+  protectedText: t('onboarding_protected_text'),
+  accessOn: t('onboarding_access_on'),
+  accessWhy: t('onboarding_access_why'),
+  accessNever: t('onboarding_access_never'),
+  prove: t('onboarding_prove'),
+  accessOff: t('onboarding_access_off'),
+  allowAll: t('common_allow_all'),
+  keepLight: t('onboarding_keep_light'),
+  extrasHeading: t('onboarding_extras_heading'),
+  extrasText: t('onboarding_extras_text'),
+  extras: {
+    cookies: [t('onboarding_extra_cookies'), t('onboarding_extra_cookies_note')],
+    annoyances: [t('onboarding_extra_annoyances'), t('onboarding_extra_annoyances_note')],
+    language: [t('onboarding_extra_language'), t('onboarding_extra_language_note')],
+    params: [t('onboarding_extra_params'), t('pack_note_params')],
+    gpc: [t('common_gpc_label'), t('pack_note_gpc')],
+  } as const,
+  languageNamed: (name: string) => t('onboarding_language_named', name),
+  toolsHeading: t('onboarding_tools_heading'),
+  pinHeading: t('onboarding_pin_heading'),
+  pinText: t('onboarding_pin_text'),
+  hideHeading: t('onboarding_hide_heading'),
+  hideText: t('onboarding_hide_text'),
+  breakHeading: t('onboarding_break_heading'),
+  breakText: t('onboarding_break_text'),
+  next: t('common_next'),
+  back: t('common_back'),
+  finish: t('onboarding_finish'),
+  skip: t('onboarding_skip'),
+  applying: t('onboarding_applying'),
+  someRefused: t('onboarding_some_refused'),
+  applyFailed: t('onboarding_apply_failed'),
+  accessGranted: t('common_access_granted'),
+  accessDenied: t('onboarding_access_denied'),
+  doneHeading: t('onboarding_done_heading'),
+  doneText: t('onboarding_done_text'),
+  dashboard: t('onboarding_dashboard'),
+} as const;

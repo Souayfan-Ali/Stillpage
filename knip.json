@@ -1,0 +1,22 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+    "src/entrypoints/**/*.{ts,tsx}",
+    "tests/**/*.{test,spec}.{ts,tsx}",
+    "compiler/**/main.ts",
+    "bench/**/main.ts",
+    "bench/diag/{cpu,memory,trace}.ts",
+    "scripts/**/main.ts"
+  ],
+  "project": [
+    "src/**/*.{ts,tsx}",
+    "tests/**/*.{ts,tsx}",
+    "*.{ts,js}",
+    "compiler/**/*.ts",
+    "bench/**/*.ts",
+    "scripts/**/*.ts"
+  ],
+  "ignoreBinaries": [
+    "openssl"
+  ]
+}

@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popup-destinations/* (P9 inner) · the overlay frame: any click opens a listed host -->
+<html lang="en"><head><meta charset="utf-8"><title>popup-destinations/*</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<p id="text" style="height:2000px">Plain article text, not a control.</p>
+<script>
+document.addEventListener('click', () => window.open('https://popads.example/landing'));
+</script>
+</body></html>

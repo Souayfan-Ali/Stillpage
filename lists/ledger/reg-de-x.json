@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "ruleset": "reg-de-x",
+  "nextId": 5,
+  "entries": {
+    "b:50659932d996b02b6dd4:other:regional": 1,
+    "r:6c3917374f5f91f431a4": 2,
+    "r:9ac9709e5f16c2adb2a4": 3,
+    "r:b097f0befa5ae13749dc": 4
+  }
+}

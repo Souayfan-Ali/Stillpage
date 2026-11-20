@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups-allow/s4-wallet-blank-late-location · S-21 flow: wallet: blank window, location set 1.5 s later -->
+<html lang="en"><head><meta charset="utf-8"><title>popups-allow/s4-wallet-blank-late-location</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<button id="b">Pay with Wallet</button><p id="text">Plain article text, not a control.</p>
+<script>
+b.onclick = () => { const w = window.open('', 'wallet', 'width=420,height=600'); setTimeout(() => { if (w) w.location = 'https://checkout.psp.example/wallet'; }, 1500); };
+</script>
+</body></html>

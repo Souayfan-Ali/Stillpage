@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups/p7-timer-delayed · the window opens 300 ms after the click -->
+<html lang="en"><head><meta charset="utf-8"><title>popups/p7-timer-delayed</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<p id="text">Plain article text, not a control.</p>
+<script>
+document.addEventListener('click', () => setTimeout(() => window.open('https://popunder.example/ad'), 300), { once: true });
+</script>
+</body></html>

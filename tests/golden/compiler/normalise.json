@@ -1,0 +1,380 @@
+{
+  "_comment": "One golden case (or more) per uBO-dialect transform of filter-pipeline notes §4 (P1-17). 'out' = converter-dialect lines with their patches; 'log' = reason codes. Behaviour copied from uBOL (gorhill/uBlock 2bc679d9).",
+  "cases": [
+    {
+      "transform": "from=",
+      "in": [
+        "||x.example^$script,from=a.example|~b.a.example"
+      ],
+      "out": [
+        {
+          "text": "||x.example^$script,domain=a.example|~b.a.example",
+          "fixes": [
+            "from-to-domain"
+          ]
+        }
+      ]
+    },
+    {
+      "transform": "from= with domain=",
+      "in": [
+        "||x.example^$domain=a.example,from=c.example"
+      ],
+      "out": [
+        {
+          "text": "||x.example^$domain=a.example|c.example",
+          "fixes": [
+            "from-to-domain"
+          ]
+        }
+      ]
+    },
+    {
+      "transform": "reason=",
+      "in": [
+        "||x.example^$script,reason=Tracking"
+      ],
+      "out": [
+        {
+          "text": "||x.example^$script",
+          "fixes": [
+            "drop-reason"
+          ]
+        }
+      ]
+    },
+    {
+      "transform": "explicit redirect-rule",
+      "in": [
+        "*$script,redirect-rule=noopjs,domain=a.example",
+        "@@||ga.example/a.js$redirect-rule,script"
+      ],
+      "log": [
+        "ubo-redirect-rule",
+        "ubo-redirect-rule"
+      ]
+    },
+    {
+      "transform": "bare hostname",
+      "in": [
+        "img.example.com$image",
+        "ads.js$script"
+      ],
+      "out": [
+        {
+          "text": "||img.example.com^$image",
+          "fixes": [
+            "bare-hostname"
+          ]
+        },
+        {
+          "text": "ads.js$script",
+          "fixes": []
+        }
+      ]
+    },
+    {
+      "transform": "$popup with other types",
+      "in": [
+        "||pop.example^$popup,script",
+        "||pop.example^$popup"
+      ],
+      "out": [
+        {
+          "text": "||pop.example^$script",
+          "fixes": [
+            "popup-also-network"
+          ]
+        }
+      ],
+      "popups": 2
+    },
+    {
+      "transform": "cross-list $badfilter",
+      "in": [
+        "easylist:||bad.example^$script,3p",
+        "ubo-unbreak:||bad.example^$3p,script,badfilter",
+        "easylist:||kept.example^$script"
+      ],
+      "out": [
+        {
+          "text": "||kept.example^$script",
+          "fixes": []
+        }
+      ],
+      "log": [
+        "badfilter"
+      ]
+    },
+    {
+      "transform": "top=",
+      "in": [
+        "||top.example^$script,top=a.example|~b.example"
+      ],
+      "out": [
+        {
+          "text": "||top.example^$script",
+          "fixes": [
+            "top-to-topdomains"
+          ],
+          "top": {
+            "include": [
+              "a.example"
+            ],
+            "exclude": [
+              "b.example"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "transform": "entity domain=",
+      "in": [
+        "||x.example^$script,domain=a.example|google.*",
+        "||x.example^$script,domain=~google.*",
+        "||x.example^$script,domain=google.*"
+      ],
+      "out": [
+        {
+          "text": "||x.example^$script,domain=a.example",
+          "fixes": [
+            "drop-entity-domains"
+          ]
+        },
+        {
+          "text": "||x.example^$script",
+          "fixes": [
+            "drop-entity-domains"
+          ]
+        }
+      ],
+      "log": [
+        "ubo-entity-domain-only"
+      ]
+    },
+    {
+      "transform": "$removeparam,doc",
+      "in": [
+        "||r.example^$doc,removeparam=ref",
+        "||r.example^$doc,xhr,removeparam=ref"
+      ],
+      "out": [
+        {
+          "text": "||r.example^$removeparam=ref",
+          "fixes": [
+            "removeparam-doc"
+          ],
+          "docTypes": "only"
+        },
+        {
+          "text": "||r.example^$xmlhttprequest,removeparam=ref",
+          "fixes": [
+            "removeparam-doc"
+          ],
+          "docTypes": "add"
+        }
+      ]
+    },
+    {
+      "transform": "uritransform=",
+      "in": [
+        "/(.*\\/Get\\?.*)%2CCue(.*)/$xhr,uritransform=//$1$2/,domain=www.amazon.com",
+        "||v.example/*a%3Dtrue$doc,uritransform=/a%3Dtrue/a%3Dfalse/",
+        "@@/x(.*)/$uritransform=//$1/"
+      ],
+      "out": [
+        {
+          "text": "/(.*\\/Get\\?.*)%2CCue(.*)/$xmlhttprequest,domain=www.amazon.com",
+          "fixes": [
+            "option-anchor",
+            "uritransform"
+          ],
+          "uritransform": "\\1\\2"
+        }
+      ],
+      "log": [
+        "ubo-uritransform-incompatible",
+        "ubo-uritransform-incompatible"
+      ]
+    },
+    {
+      "transform": "@@…$csp (passed to the converter's CSP pass, P1-18)",
+      "in": [
+        "@@*$csp,domain=activist.example"
+      ],
+      "out": [
+        {
+          "text": "@@*$csp,domain=activist.example",
+          "fixes": []
+        }
+      ]
+    },
+    {
+      "transform": "hosts line",
+      "in": [
+        "0.0.0.0 h.example"
+      ],
+      "format": "hosts",
+      "out": [
+        {
+          "text": "||h.example^",
+          "fixes": [
+            "hosts-line"
+          ]
+        }
+      ]
+    },
+    {
+      "transform": "uBO-only options uBOL cannot express either",
+      "in": [
+        "||x.example^$removeparam=/^utm_/",
+        "*$doc,ipaddress=1.2.3.4",
+        "||x.example^$xhr,1p,strict1p",
+        "||x.example^$urlskip=?url",
+        "||x.example^$replace=/a/b/",
+        "||x.example^$script,domain=/reg/",
+        "||x.example^$cname",
+        "||x.example^$requestheader=x:y",
+        "||x.example^$header=via:/1\\.1/"
+      ],
+      "log": [
+        "ubo-regex-removeparam",
+        "ubo-ipaddress",
+        "ubo-strict-party",
+        "ubo-urlskip",
+        "ubo-replace",
+        "ubo-regex-domain",
+        "ubo-cname",
+        "ubo-requestheader",
+        "ubo-regex-header"
+      ]
+    },
+    {
+      "transform": "invalid line",
+      "in": [
+        "||x.example^$domain="
+      ],
+      "log": [
+        "invalid-syntax"
+      ]
+    },
+    {
+      "transform": "non-network entries pass through",
+      "in": [
+        "site.example##.ad",
+        "@@||s.example^$ghide"
+      ],
+      "rest": 2
+    },
+    {
+      "transform": "redirect= (and ABP rewrite=) implies a block in the safe ruleset (P1-22)",
+      "in": [
+        "||x.example/a.js$script,redirect=noopjs",
+        "@@||y.example^$script,redirect=noopjs",
+        "||z.example^$script,redirect-rule=noopjs",
+        "||v.example/a.mp4$media,rewrite=abp-resource:blank-mp4,domain=s.example"
+      ],
+      "out": [
+        {
+          "text": "||x.example/a.js$script,redirect=noopjs",
+          "fixes": []
+        },
+        {
+          "text": "||x.example/a.js$script",
+          "fixes": [
+            "redirect-implies-block"
+          ]
+        },
+        {
+          "text": "@@||y.example^$script,redirect=noopjs",
+          "fixes": []
+        },
+        {
+          "text": "||v.example/a.mp4$media,redirect=noopmp4-1s,domain=s.example",
+          "fixes": []
+        },
+        {
+          "text": "||v.example/a.mp4$media,domain=s.example",
+          "fixes": [
+            "redirect-implies-block"
+          ]
+        }
+      ],
+      "log": [
+        "ubo-redirect-rule"
+      ]
+    },
+    {
+      "transform": "bare substring that is not a host (P1-45 gap 1)",
+      "in": [
+        "_chartbeat.js",
+        "ads_x.js",
+        "ads.js$script"
+      ],
+      "out": [
+        {
+          "text": "*_chartbeat.js",
+          "fixes": [
+            "bare-substring"
+          ]
+        },
+        {
+          "text": "*ads_x.js",
+          "fixes": [
+            "bare-substring"
+          ]
+        },
+        {
+          "text": "ads.js$script",
+          "fixes": []
+        }
+      ]
+    },
+    {
+      "transform": "cosmetic options on a network exception (P1-45 gap 3)",
+      "in": [
+        "@@*$script,xhr,ghide,domain=uptoplay.net",
+        "@@||x.example^$image,elemhide"
+      ],
+      "out": [
+        {
+          "text": "@@*$script,xmlhttprequest,domain=uptoplay.net",
+          "fixes": [
+            "drop-cosmetic-options"
+          ]
+        },
+        {
+          "text": "@@||x.example^$image",
+          "fixes": [
+            "drop-cosmetic-options"
+          ]
+        }
+      ]
+    },
+    {
+      "transform": "$badfilter compares patterns case-insensitively and options by uBO synonym (P1-45 gap 4)",
+      "in": [
+        "ubo-unbreak:||bing.com/rewardsapp/reportactivity?$badfilter",
+        "easyprivacy:||bing.com/rewardsapp/reportActivity?",
+        "easyprivacy:||Match.example/A$match-case",
+        "ubo-unbreak:||match.example/a$match-case,badfilter",
+        "ubo-unbreak:||trust.example^*/logo.js$3p,badfilter",
+        "easyprivacy:||trust.example^*/logo.js$third-party",
+        "ubo-unbreak:@@||adtng.example/get/$frame,domain=h.example,badfilter",
+        "easylist:@@||adtng.example/get/$subdocument,domain=h.example"
+      ],
+      "out": [
+        {
+          "text": "||Match.example/A$match-case",
+          "fixes": []
+        }
+      ],
+      "log": [
+        "badfilter",
+        "badfilter",
+        "badfilter"
+      ]
+    }
+  ]
+}

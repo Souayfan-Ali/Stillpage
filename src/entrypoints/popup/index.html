@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Left empty on purpose: the product name lives only in src/core/brand.ts, and an empty title
+         keeps the manifest's name as the toolbar tooltip. main.tsx sets it before the first paint. -->
+    <title></title>
+  </head>
+  <body>
+    <!-- Static shell (S-06): a calm, empty surface paints before the script runs; the copy comes
+         from _locales once it does (P2-40). -->
+    <div id="app"><p style="margin: 16px; max-width: 328px"></p></div>
+    <script type="module" src="./main.tsx"></script>
+  </body>
+</html>

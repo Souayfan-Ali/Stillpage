@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "ruleset": "reg-zh-x",
+  "nextId": 19,
+  "entries": {
+    "b:3ccc9d37c53e3c70b112:other:regional": 1,
+    "b:654a92095bc9f1d4e78d:other:regional": 2,
+    "b:8334bbcbc496266ea92d:other:regional": 3,
+    "b:90b45bc21f3f7e32a88b:other:regional": 4,
+    "b:cc2d6fa27bf18f2db14c:other:regional": 5,
+    "b:e73a3a7fcadae5a07ba2:other:regional": 6,
+    "b:e9d245dd2bbd78d86390:other:regional": 7,
+    "r:059e6e9c9e6f8c5330a9": 8,
+    "r:248e21e94274c0718bea": 9,
+    "r:2a44f20c0b74d791ce35": 10,
+    "r:2aab3b5b82ae6bfaced0": 11,
+    "r:38992a667baeec3c427d": 12,
+    "r:3a4934e9e34c540c04b5": 13,
+    "r:4b2fe73c550ed9be54d4": 14,
+    "r:83582251a69d97fae876": 15,
+    "r:ab2d7dd2c8d8211e0e35": 16,
+    "r:baef5afa3588ea99712c": 17,
+    "r:bc5855f4f39a0095fc56": 18
+  }
+}

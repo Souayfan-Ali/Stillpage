@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups-allow/a1-sign-in-postmessage · sign-in button opens a provider window that posts back to the opener -->
+<html lang="en"><head><meta charset="utf-8"><title>popups-allow/a1-sign-in-postmessage</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<button id="b">Sign in with Provider</button><p id="text">Plain article text, not a control.</p>
+<script>
+addEventListener('message', (e) => { if (e.data && e.data.code) window.__got = e.data.code; }); b.addEventListener('click', () => window.open('https://accounts.provider.example/popups-allow/provider-authorize.html', 'login', 'width=500,height=600'));
+</script>
+</body></html>

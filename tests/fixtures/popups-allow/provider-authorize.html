@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups-allow/* (provider) · provider consent page: posts a code back to the opener -->
+<html lang="en"><head><meta charset="utf-8"><title>popups-allow/*</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<p>Consent.</p><p id="text">Plain article text, not a control.</p>
+<script>
+setTimeout(() => { if (window.opener) window.opener.postMessage({ code: 'abc' }, '*'); }, 100);
+</script>
+</body></html>

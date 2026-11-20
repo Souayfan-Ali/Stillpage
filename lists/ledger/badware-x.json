@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "ruleset": "badware-x",
+  "nextId": 3,
+  "entries": {
+    "r:13cf7daeedc392638e01": 1,
+    "r:17de80c0b95652aa2453": 2
+  }
+}

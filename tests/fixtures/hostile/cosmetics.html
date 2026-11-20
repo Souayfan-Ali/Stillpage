@@ -1,0 +1,78 @@
+<!doctype html>
+<!-- fixture: hostile/cosmetics · filters: hostile.example##.ad-box, ##.sticky:style(position: static !important),
+     ##.card:has-text(Sponsored), ##.generic-ad (generic, at Thorough). A page that fights the cosmetic
+     appliers and the surveyors: stylesheet tampering, DOM clobbering, mutation floods, a huge DOM, shadow roots. -->
+<html lang="en"><head><meta charset="utf-8"><title>hostile/cosmetics</title>
+<style>body{margin:0;font:14px sans-serif} .ad-box,.card,.generic-ad,.sticky{width:200px;height:20px;background:#ddd;margin:2px}</style>
+<script>
+  self.__errors = [];
+  addEventListener('error', (e) => { self.__errors.push(String(e.message)); });
+  addEventListener('unhandledrejection', (e) => { self.__errors.push(String(e.reason)); });
+  // Captured first: `__clobber` shadows `document.createElement` and `document.body` with named elements.
+  const mk = Document.prototype.createElement.bind(document);
+  const bodyGet = Object.getOwnPropertyDescriptor(Document.prototype, 'body').get;
+  const body = () => bodyGet.call(document);
+  const add = (cls, text, parent = body()) => { const d = mk('div'); d.className = cls; d.textContent = text; parent.append(d); return d; };
+  /** Adds one fresh element of each kind; resolves which of them are hidden a moment later. */
+  self.__fresh = (tag) => {
+    const els = { specific: add('ad-box', tag), procedural: add('card', `Sponsored ${tag}`), generic: add('generic-ad', tag), keep: add('content', tag) };
+    return new Promise((resolve) => setTimeout(() => resolve(Object.fromEntries(Object.entries(els).map(([k, e]) => [k, getComputedStyle(e).display === 'none']))), 1500));
+  };
+  /** Every rule of every adopted sheet: what a page can read of our cosmetic data. */
+  self.__sheetRules = () => document.adoptedStyleSheets.flatMap((s) => [...s.cssRules].map((r) => r.cssText));
+  /** Tries to turn our sheets against the page: insert rules into them, then replace their text. */
+  self.__tamperSheets = () => {
+    const out = [];
+    for (const s of document.adoptedStyleSheets) {
+      try { s.insertRule('body{background:rgb(255,0,0)}', 0); out.push('inserted'); } catch (e) { out.push(e.name); }
+    }
+    return out;
+  };
+  /** A mutation flood: ~2 s of adding and removing nodes every frame. Resolves with the frames the page drew. */
+  self.__flood = (ms) => new Promise((resolve) => {
+    const end = performance.now() + ms;
+    let frames = 0;
+    const tick = () => {
+      frames += 1;
+      const box = mk('section');
+      for (let i = 0; i < 200; i += 1) add(i % 2 ? 'card' : 'row', i % 4 ? 'news' : 'Sponsored', box);
+      body().append(box);
+      box.setAttribute('class', `t${frames}`);
+      if (frames % 2) box.remove();
+      if (performance.now() < end) requestAnimationFrame(tick); else resolve(frames);
+    };
+    requestAnimationFrame(tick);
+  });
+  /** A huge DOM: `n` nested and flat nodes with unique class tokens (the surveyor's token memo). */
+  self.__huge = (n) => {
+    const root = document.createElement('div');
+    let deep = root;
+    for (let i = 0; i < 500; i += 1) { const d = document.createElement('div'); deep.append(d); deep = d; }
+    for (let i = 0; i < n; i += 1) { const d = document.createElement('span'); d.className = `u${i} v${i}`; root.append(d); }
+    document.body.append(root);
+    return document.getElementsByTagName('*').length;
+  };
+  /** `#huge-at-load`: the huge DOM is built before `document_idle`, so the surveyor's first survey meets it (P2-44). */
+  if (location.hash === '#huge-at-load') addEventListener('DOMContentLoaded', () => { self.__huge(50000); });
+  /** Ads inside open and closed shadow roots (a documented limit for stylesheets; must not throw). */
+  self.__shadow = () => {
+    for (const mode of ['open', 'closed']) {
+      const host = add('content', mode);
+      const root = host.attachShadow({ mode });
+      add('ad-box', mode, root); add('card', `Sponsored ${mode}`, root); add('generic-ad', mode, root);
+    }
+    return true;
+  };
+  /** Named elements that shadow built-ins of `document` and of a form, in this document and in an about:blank child. */
+  self.__clobber = () => {
+    const markup = '<img name="adoptedStyleSheets"><img name="querySelectorAll"><img name="createElement"><img name="body"><form class="card"><input name="parentNode"><input name="classList"><input name="id"><input name="textContent">Sponsored</form><div class="ad-box">x</div><div class="generic-ad">g</div>';
+    body().insertAdjacentHTML('beforeend', markup);
+    const f = mk('iframe');
+    body().append(f);
+    f.contentDocument.open(); f.contentDocument.write(markup); f.contentDocument.close();
+    return true;
+  };
+  /** Removes every sheet our appliers adopted (a known limit: the page owns its document). */
+  self.__dropSheets = () => { document.adoptedStyleSheets = []; return true; };
+</script></head>
+<body><div class="ad-box">ad</div><div class="sticky" style="position:fixed;top:0;right:0">sticky</div><div class="card">Sponsored card</div><div class="card">News</div><div class="generic-ad">g</div><p class="content">content</p></body></html>

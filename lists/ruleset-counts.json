@@ -1,0 +1,149 @@
+{
+  "schema": 1,
+  "slots": {
+    "annoy-newsletters": {
+      "rules": 436,
+      "regex": 0
+    },
+    "annoy-newsletters-x": {
+      "rules": 0,
+      "regex": 0
+    },
+    "annoy-notifications": {
+      "rules": 291,
+      "regex": 0
+    },
+    "annoy-notifications-x": {
+      "rules": 0,
+      "regex": 0
+    },
+    "annoy-overlays": {
+      "rules": 331,
+      "regex": 0
+    },
+    "annoy-overlays-x": {
+      "rules": 24,
+      "regex": 0
+    },
+    "annoy-social": {
+      "rules": 601,
+      "regex": 0
+    },
+    "annoy-social-x": {
+      "rules": 0,
+      "regex": 0
+    },
+    "annoy-widgets": {
+      "rules": 72,
+      "regex": 0
+    },
+    "annoy-widgets-x": {
+      "rules": 0,
+      "regex": 0
+    },
+    "badware": {
+      "rules": 1331,
+      "regex": 116
+    },
+    "badware-x": {
+      "rules": 1,
+      "regex": 0
+    },
+    "cookies": {
+      "rules": 1855,
+      "regex": 1
+    },
+    "cookies-x": {
+      "rules": 0,
+      "regex": 0
+    },
+    "easylist": {
+      "rules": 3819,
+      "regex": 4
+    },
+    "easylist-x": {
+      "rules": 10,
+      "regex": 0
+    },
+    "easyprivacy": {
+      "rules": 9270,
+      "regex": 6
+    },
+    "easyprivacy-x": {
+      "rules": 17,
+      "regex": 0
+    },
+    "gpc-x": {
+      "rules": 1,
+      "regex": 0
+    },
+    "params-x": {
+      "rules": 1528,
+      "regex": 26
+    },
+    "popups": {
+      "rules": 266,
+      "regex": 0
+    },
+    "reg-de": {
+      "rules": 1855,
+      "regex": 3
+    },
+    "reg-de-x": {
+      "rules": 4,
+      "regex": 0
+    },
+    "reg-es-pt": {
+      "rules": 827,
+      "regex": 9
+    },
+    "reg-es-pt-x": {
+      "rules": 0,
+      "regex": 0
+    },
+    "reg-it": {
+      "rules": 1057,
+      "regex": 2
+    },
+    "reg-it-x": {
+      "rules": 0,
+      "regex": 0
+    },
+    "reg-ja": {
+      "rules": 1834,
+      "regex": 13
+    },
+    "reg-ja-x": {
+      "rules": 34,
+      "regex": 5
+    },
+    "reg-nl": {
+      "rules": 499,
+      "regex": 0
+    },
+    "reg-nl-x": {
+      "rules": 7,
+      "regex": 0
+    },
+    "reg-zh": {
+      "rules": 5280,
+      "regex": 4
+    },
+    "reg-zh-x": {
+      "rules": 18,
+      "regex": 0
+    },
+    "ubo": {
+      "rules": 5656,
+      "regex": 163
+    },
+    "ubo-x": {
+      "rules": 950,
+      "regex": 10
+    },
+    "urlhaus": {
+      "rules": 1,
+      "regex": 0
+    }
+  }
+}

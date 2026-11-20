@@ -1,0 +1,36 @@
+/*
+ * A native check box drawn as a switch (P3-18; dashboard and first-run page): the knob moves to the end when
+ * checked (position, not colour alone) and the track fills with the accent. Still `input type=checkbox`, so
+ * keyboard and screen readers work as before; forced colours fall back to the native box.
+ */
+input[type='checkbox'].switch {
+  flex: none;
+  width: 40px;
+  height: 24px;
+  margin: 0;
+  border: 2px solid var(--color-track);
+  border-radius: var(--radius-pill);
+  background: radial-gradient(circle at 10px 50%, var(--color-track) 0 6px, transparent 6.5px) var(--color-bg);
+  appearance: none;
+  cursor: pointer;
+  transition-property: background-color, border-color;
+  transition-duration: var(--transition);
+}
+
+input[type='checkbox'].switch:checked {
+  border-color: var(--color-accent);
+  background: radial-gradient(circle at calc(100% - 10px) 50%, var(--color-on-accent) 0 7px, transparent 7.5px) var(--color-accent);
+}
+
+input[type='checkbox'].switch:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+@media (forced-colors: active) {
+  input[type='checkbox'].switch {
+    width: 18px;
+    height: 18px;
+    appearance: auto;
+  }
+}

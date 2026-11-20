@@ -1,0 +1,313 @@
+/*
+ * Dashboard sections (UI notes §8, §11; P3-16; P3-18 bold redesign): headings with a coloured wave tile,
+ * lists as cards, packs as a grid of cards with switch-style check boxes (still native check boxes), a
+ * coloured capacity bar. The shell (sidebar, card) is Shell.module.css; the sites table's narrow layout is
+ * sites/Sites.module.css.
+ */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: var(--font-size-heading);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+/* A radio group under a section heading that says the same (Pop-ups, D-96): its legend is read, not drawn. */
+.headed legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* A coloured tile with the logo's waves before each section heading (decoration only). */
+.heading::before {
+  content: '';
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Cpath d='M6 11c2.3-1.8 4.7-1.8 7 0s4.7 1.8 7 0M6 16c2.3-1.8 4.7-1.8 7 0s4.7 1.8 7 0' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat,
+    var(--gradient-brand);
+}
+
+.muted {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  text-wrap: pretty;
+}
+
+.status {
+  min-height: 1.4em;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.list {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list > li {
+  padding: var(--space-3) var(--space-4);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-card);
+  transition: border-color var(--transition);
+}
+
+/* An empty section's card (Hidden items, C14): what to do to fill it. */
+.emptyCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  border: var(--border-width) dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.list > li:has(input:checked) {
+  border-color: color-mix(in srgb, var(--color-accent) 55%, transparent);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--color-accent-soft) 60%, var(--color-bg)) 0%, var(--color-bg) 70%);
+}
+
+/* Packs: a grid of cards on a wide screen. */
+.packs {
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  align-items: start;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--target-min);
+  font-weight: var(--font-weight-strong);
+  cursor: pointer;
+}
+
+.badge {
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--color-info-soft);
+  color: var(--color-text);
+  font-size: var(--font-size-tiny);
+  font-weight: var(--font-weight-strong);
+}
+
+.error {
+  margin: 0;
+  color: var(--color-error);
+}
+
+.details summary {
+  width: fit-content;
+  max-width: 100%;
+  min-height: var(--target-min);
+  padding-block: max(0px, calc((var(--target-min) - 1lh) / 2));
+  color: var(--color-accent);
+  cursor: pointer;
+}
+
+.details dl {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: var(--space-1) var(--space-3);
+  margin: var(--space-2) 0 0;
+}
+
+.details dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.meter {
+  width: 100%;
+  height: 14px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  background: var(--color-surface);
+  appearance: none;
+}
+
+.meter::-webkit-progress-bar {
+  border: var(--border-width) solid var(--color-track);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+}
+
+.meter::-webkit-progress-value {
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--color-level-light), var(--color-accent) 55%, var(--color-level-thorough));
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: var(--space-2);
+  border-bottom: var(--border-width) solid var(--color-border);
+  text-align: start;
+  vertical-align: middle;
+  overflow-wrap: anywhere;
+}
+
+.table thead th {
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-strong);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.field input[type='text'],
+.field input[type='search'],
+.field select,
+.table select,
+.field input[type='file'] {
+  min-height: var(--control-height);
+  max-width: 100%;
+  padding: var(--space-1) var(--space-2);
+  border: var(--border-width) solid var(--color-control-border);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.field input[type='file']::file-selector-button {
+  margin-inline-end: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border: var(--border-width) solid var(--color-control-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.link {
+  color: var(--color-accent);
+  text-underline-offset: 2px;
+}
+
+.prose p,
+.prose ul,
+.prose ol {
+  max-width: 42rem;
+  margin: 0 0 var(--space-2);
+}
+
+/* A collapsed part of a prose block (D-98, D-99): its summary reads like the h3 it replaces. */
+.prose details > summary {
+  width: fit-content;
+  max-width: 100%;
+  min-height: var(--target-min);
+  padding-block: max(0px, calc((var(--target-min) - 1lh) / 2));
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Permission ids stay whole (D-98): no break inside an API name. */
+.table code {
+  overflow-wrap: normal;
+  white-space: nowrap;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: var(--space-1) var(--space-4);
+  margin: 0;
+}
+
+.facts dt {
+  color: var(--color-text-muted);
+}
+
+.facts dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 40rem) {
+  /* Form fields take the whole row on a phone (the Add-a-site form). */
+  .row > .field {
+    flex: 1 1 100%;
+  }
+
+  .section {
+    gap: var(--space-5);
+  }
+
+  .list > li {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  /* A two-column table of permissions stacks each row on a phone: the id keeps its line (D-98). */
+  .stack thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .stack tr,
+  .stack th,
+  .stack td {
+    display: block;
+  }
+
+  .stack tbody th {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .field input[type='text'],
+  .field input[type='search'],
+  .field select,
+  .table select,
+  .field input[type='file'] {
+    width: 100%;
+  }
+}

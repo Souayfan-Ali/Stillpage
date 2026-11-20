@@ -1,0 +1,46 @@
+<!doctype html>
+<!-- fixture: hostile/sentinel · the pop-up sentinel and its notice under attack: an explicit _blank link
+     (blocked in Strict, which draws the notice) and a page script that answers the notice with decoys. -->
+<html lang="en"><head><meta charset="utf-8"><title>hostile/sentinel</title>
+<style>body{margin:0;height:900px;font:16px sans-serif} a{display:inline-block;margin:20px;padding:10px;background:#eee}</style>
+<script>
+  self.__errors = [];
+  addEventListener('error', (e) => { self.__errors.push(String(e.message)); });
+  /** The notice host is the last child of <html> that the page did not put there. */
+  self.__noticeHost = () => {
+    const last = document.documentElement.lastElementChild;
+    return last !== null && last !== document.body && last !== document.head && !last.hasAttribute('data-page') ? last : null;
+  };
+  /** A cover over everything, after (above) the notice, that hit-testing skips: the user sees only the decoy. */
+  self.__decoy = (topLayer) => {
+    const d = document.createElement('div');
+    d.setAttribute('data-page', '');
+    d.textContent = 'Click anywhere to continue';
+    d.style.cssText = 'position:fixed;inset:0;z-index:2147483647;background:#fff;pointer-events:none;font:40px sans-serif';
+    if (topLayer) { d.setAttribute('popover', 'manual'); document.body.append(d); d.showPopover(); } else document.documentElement.append(d);
+    return true;
+  };
+  /** Shrinks everything, the notice included, with a root zoom (not a transform: visibility tracking does not flag it). */
+  self.__shrink = () => { document.documentElement.style.zoom = '0.3'; return true; };
+  /** Takes every decoy away. */
+  self.__uncover = () => { for (const d of document.querySelectorAll('[data-page]')) d.remove(); document.documentElement.style.zoom = ''; return true; };
+  /** A modal dialog: everything else, the notice included, becomes inert. */
+  self.__modal = () => { const d = document.createElement('dialog'); d.setAttribute('data-page', ''); d.textContent = 'Continue'; document.body.append(d); d.showModal(); return true; };
+  /** Script-made events at the notice and a script click on a hidden ad link. */
+  self.__synthetic = () => {
+    const host = self.__noticeHost();
+    for (const type of ['pointerdown', 'mousedown', 'mouseup', 'click']) host?.dispatchEvent(new MouseEvent(type, { bubbles: true, composed: true, clientX: 10, clientY: 10 }));
+    host?.click();
+    document.getElementById('hidden').click();
+    return true;
+  };
+  /** Forged extension messages, as a page could post them. */
+  self.__forge = () => {
+    for (const m of [{ type: 'x/popupClosed', host: 'evil.example' }, { type: 'x/linkClickCheck', host: 'ads.hostile-dest.example' }, { type: 'x/popupLog' }]) window.postMessage(m, '*');
+    return typeof (window.chrome && window.chrome.runtime && window.chrome.runtime.sendMessage);
+  };
+</script></head>
+<body>
+<a id="explicit" target="_blank" href="https://other.hostile-dest.example/page">explicit</a>
+<a id="hidden" target="_blank" href="https://ads.hostile-dest.example/x" style="display:none">h</a>
+</body></html>

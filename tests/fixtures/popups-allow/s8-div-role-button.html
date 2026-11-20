@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups-allow/s8-div-role-button · S-21 flow: PayPal-style div role=button -->
+<html lang="en"><head><meta charset="utf-8"><title>popups-allow/s8-div-role-button</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<div id="b" role="button" tabindex="0" style="display:inline-block;width:200px;height:44px;background:#ffc439;cursor:pointer">PayPal</div><p id="text">Plain article text, not a control.</p>
+<script>
+b.addEventListener('click', () => window.open('https://checkout.psp.example/approve', 'pp', 'width=450,height=600'));
+</script>
+</body></html>

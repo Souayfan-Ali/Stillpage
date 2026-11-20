@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups-allow/* (one-tap) · IdP one-tap frame -->
+<html lang="en"><head><meta charset="utf-8"><title>popups-allow/*</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<button id="go">Continue as Alex</button><p id="text">Plain article text, not a control.</p>
+<script>
+go.onclick = () => window.open('https://accounts.idp-one.example/consent', 'c', 'width=400,height=500');
+</script>
+</body></html>

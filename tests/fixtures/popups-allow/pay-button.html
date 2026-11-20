@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups-allow/* (pay button) · provider frame with its own pay button -->
+<html lang="en"><head><meta charset="utf-8"><title>popups-allow/*</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<button id="pay">Pay with Provider</button><p id="text">Plain article text, not a control.</p>
+<script>
+pay.addEventListener('click', () => window.open('https://pay.provider.example/approve', 'pp', 'width=400,height=500'));
+</script>
+</body></html>

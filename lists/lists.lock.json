@@ -1,0 +1,264 @@
+{
+  "schema": 1,
+  "lists": {
+    "adguard-dutch": {
+      "url": "https://filters.adtidy.org/extension/ublock/filters/8.txt",
+      "sha256": "f903492142a773ac6909b4088c13338fcefbc60432c2092301460b6409721933",
+      "bytes": 102965,
+      "ref": {
+        "kind": "snapshot"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "adguard-japanese": {
+      "url": "https://filters.adtidy.org/extension/ublock/filters/7.txt",
+      "sha256": "964851add84d92b631f074eeed66de0bddcbb95da7e93af0761ccac4a7fa6a23",
+      "bytes": 755840,
+      "ref": {
+        "kind": "snapshot"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "easylist": {
+      "url": "https://raw.githubusercontent.com/uBlockOrigin/uAssets/3976349c934583436384451082db2a6a3e313894/thirdparties/easylist.txt",
+      "sha256": "44dafba80c45d98a3a69271bce4107e4d5aaa60ef213c40070a21b14ea9331b0",
+      "bytes": 2030930,
+      "ref": {
+        "kind": "git",
+        "repo": "uBlockOrigin/uAssets",
+        "commit": "3976349c934583436384451082db2a6a3e313894"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "easylist-annoyances": {
+      "url": "https://raw.githubusercontent.com/uBlockOrigin/uAssets/3976349c934583436384451082db2a6a3e313894/thirdparties/easylist-annoyances.txt",
+      "sha256": "ddbae88fc424e4449f07ac4621812d47bdb2c5881598db70fc1b4863a291e262",
+      "bytes": 163986,
+      "ref": {
+        "kind": "git",
+        "repo": "uBlockOrigin/uAssets",
+        "commit": "3976349c934583436384451082db2a6a3e313894"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "easylist-chat": {
+      "url": "https://raw.githubusercontent.com/uBlockOrigin/uAssets/3976349c934583436384451082db2a6a3e313894/thirdparties/easylist-chat.txt",
+      "sha256": "877acdd15884b27e8f185f4cb4c1fb7aef07fa2f6dc799168b181905b2ce7910",
+      "bytes": 10133,
+      "ref": {
+        "kind": "git",
+        "repo": "uBlockOrigin/uAssets",
+        "commit": "3976349c934583436384451082db2a6a3e313894"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "easylist-china": {
+      "url": "https://easylist-downloads.adblockplus.org/easylistchina.txt",
+      "sha256": "4e6828d9475eddc880f7c9fbe1339803ec318baefe8417142a1b9c4a87a30243",
+      "bytes": 498897,
+      "ref": {
+        "kind": "snapshot"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "easylist-cookies": {
+      "url": "https://raw.githubusercontent.com/uBlockOrigin/uAssets/3976349c934583436384451082db2a6a3e313894/thirdparties/easylist-cookies.txt",
+      "sha256": "c9546763cadfa057a5381d870c27480f7f6b48f0f9b727e3bf5463207552abb5",
+      "bytes": 1219278,
+      "ref": {
+        "kind": "git",
+        "repo": "uBlockOrigin/uAssets",
+        "commit": "3976349c934583436384451082db2a6a3e313894"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "easylist-germany": {
+      "url": "https://easylist.to/easylistgermany/easylistgermany.txt",
+      "sha256": "7c8b78b34142907cbaffd2d37e6a761d7d95e94d2d285e77c59048bf82ef7df2",
+      "bytes": 280734,
+      "ref": {
+        "kind": "snapshot"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "easylist-italy": {
+      "url": "https://easylist-downloads.adblockplus.org/easylistitaly.txt",
+      "sha256": "0654220f28928976520849b7aa20e7448539f7244628f35badaf523f6451c8ac",
+      "bytes": 190501,
+      "ref": {
+        "kind": "snapshot"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "easylist-newsletters": {
+      "url": "https://raw.githubusercontent.com/uBlockOrigin/uAssets/3976349c934583436384451082db2a6a3e313894/thirdparties/easylist-newsletters.txt",
+      "sha256": "162561633a0a6952a1158a39a9e4f5f2d93415856fc20d458f771b1fc826ebd6",
+      "bytes": 303124,
+      "ref": {
+        "kind": "git",
+        "repo": "uBlockOrigin/uAssets",
+        "commit": "3976349c934583436384451082db2a6a3e313894"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "easylist-notifications": {
+      "url": "https://raw.githubusercontent.com/uBlockOrigin/uAssets/3976349c934583436384451082db2a6a3e313894/thirdparties/easylist-notifications.txt",
+      "sha256": "30ed5074516a0a1d53209f9703e31c3f435bc8f33683b1a08ea7f8e802b6674f",
+      "bytes": 76751,
+      "ref": {
+        "kind": "git",
+        "repo": "uBlockOrigin/uAssets",
+        "commit": "3976349c934583436384451082db2a6a3e313894"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "easylist-portuguese": {
+      "url": "https://easylist-downloads.adblockplus.org/easylistportuguese.txt",
+      "sha256": "c315e9d43e97faa5c71da63a87f67b6ae329a639ad388e8c8dd28ebfceda6a01",
+      "bytes": 75774,
+      "ref": {
+        "kind": "snapshot"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "easylist-social": {
+      "url": "https://raw.githubusercontent.com/uBlockOrigin/uAssets/3976349c934583436384451082db2a6a3e313894/thirdparties/easylist-social.txt",
+      "sha256": "08889f513c19989b05591f201d5839c97620d6fa2a60f6dd035be30aa4613383",
+      "bytes": 407423,
+      "ref": {
+        "kind": "git",
+        "repo": "uBlockOrigin/uAssets",
+        "commit": "3976349c934583436384451082db2a6a3e313894"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "easylist-spanish": {
+      "url": "https://easylist-downloads.adblockplus.org/easylistspanish.txt",
+      "sha256": "a32272dea799ba3dd1484256b93992d8d164d4e6f8d102b2b227fba1528f1edb",
+      "bytes": 128859,
+      "ref": {
+        "kind": "snapshot"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "easyprivacy": {
+      "url": "https://raw.githubusercontent.com/uBlockOrigin/uAssets/3976349c934583436384451082db2a6a3e313894/thirdparties/easyprivacy.txt",
+      "sha256": "d6ca53a025a92dd4e6b286293ec617a55fef3df407c6857c1fb31c1239c75492",
+      "bytes": 1504862,
+      "ref": {
+        "kind": "git",
+        "repo": "uBlockOrigin/uAssets",
+        "commit": "3976349c934583436384451082db2a6a3e313894"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "ubo-annoyances-cookies": {
+      "url": "https://raw.githubusercontent.com/uBlockOrigin/uAssets/3976349c934583436384451082db2a6a3e313894/filters/annoyances-cookies.txt",
+      "sha256": "ca24654085c75b3cca14fc4c80682d5ea965e4dbfb9a4933bc18a17a69314fb6",
+      "bytes": 378567,
+      "ref": {
+        "kind": "git",
+        "repo": "uBlockOrigin/uAssets",
+        "commit": "3976349c934583436384451082db2a6a3e313894"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "ubo-annoyances-others": {
+      "url": "https://raw.githubusercontent.com/uBlockOrigin/uAssets/3976349c934583436384451082db2a6a3e313894/filters/annoyances-others.txt",
+      "sha256": "af6d4a4072a34e5bcb5a2e954d07d0b2e1ab6fd31e99d740bc5003759a6a4a28",
+      "bytes": 424181,
+      "ref": {
+        "kind": "git",
+        "repo": "uBlockOrigin/uAssets",
+        "commit": "3976349c934583436384451082db2a6a3e313894"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "ubo-badware": {
+      "url": "https://raw.githubusercontent.com/uBlockOrigin/uAssets/3976349c934583436384451082db2a6a3e313894/filters/badware.min.txt",
+      "sha256": "f3ee2b28e56fce140ee853559a55377e57207a4e5a0651dd2a6c078c331a16f2",
+      "bytes": 164752,
+      "ref": {
+        "kind": "git",
+        "repo": "uBlockOrigin/uAssets",
+        "commit": "3976349c934583436384451082db2a6a3e313894"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "ubo-filters": {
+      "url": "https://raw.githubusercontent.com/uBlockOrigin/uAssets/3976349c934583436384451082db2a6a3e313894/filters/filters.min.txt",
+      "sha256": "819dcaba6a42a2dc8413f2f3f4914b8bf99cb3444a5e9971eff8d0afdf57cdc9",
+      "bytes": 1950495,
+      "ref": {
+        "kind": "git",
+        "repo": "uBlockOrigin/uAssets",
+        "commit": "3976349c934583436384451082db2a6a3e313894"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "ubo-lite": {
+      "url": "https://raw.githubusercontent.com/uBlockOrigin/uAssets/3976349c934583436384451082db2a6a3e313894/filters/ubol-filters.txt",
+      "sha256": "ef024165e04649b142a840876c0fd05cd2c1e9c92fb686d9938293960f37757a",
+      "bytes": 34963,
+      "ref": {
+        "kind": "git",
+        "repo": "uBlockOrigin/uAssets",
+        "commit": "3976349c934583436384451082db2a6a3e313894"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "ubo-privacy": {
+      "url": "https://raw.githubusercontent.com/uBlockOrigin/uAssets/3976349c934583436384451082db2a6a3e313894/filters/privacy.min.txt",
+      "sha256": "9039ea2a994bd69a3aa82adcd905abad793208b130bbd036583d397c08be6c1c",
+      "bytes": 140991,
+      "ref": {
+        "kind": "git",
+        "repo": "uBlockOrigin/uAssets",
+        "commit": "3976349c934583436384451082db2a6a3e313894"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "ubo-privacy-removeparam": {
+      "url": "https://raw.githubusercontent.com/uBlockOrigin/uAssets/3976349c934583436384451082db2a6a3e313894/filters/privacy-removeparam.txt",
+      "sha256": "65a5d30f4692632ac1132eb24b4268f32d7b4bafc14aed274c92446cb15f3425",
+      "bytes": 180930,
+      "ref": {
+        "kind": "git",
+        "repo": "uBlockOrigin/uAssets",
+        "commit": "3976349c934583436384451082db2a6a3e313894"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "ubo-quick-fixes": {
+      "url": "https://raw.githubusercontent.com/uBlockOrigin/uAssets/3976349c934583436384451082db2a6a3e313894/filters/quick-fixes.min.txt",
+      "sha256": "753337c19d9ad0b7f90827e6c0c6e0d1d7e5323cb45e3efbd0475839377e354f",
+      "bytes": 80515,
+      "ref": {
+        "kind": "git",
+        "repo": "uBlockOrigin/uAssets",
+        "commit": "3976349c934583436384451082db2a6a3e313894"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "ubo-unbreak": {
+      "url": "https://raw.githubusercontent.com/uBlockOrigin/uAssets/3976349c934583436384451082db2a6a3e313894/filters/unbreak.min.txt",
+      "sha256": "d54ee7a92982d18b4f94d32038eef714967c9a2454ef55185638f953313c30c4",
+      "bytes": 178654,
+      "ref": {
+        "kind": "git",
+        "repo": "uBlockOrigin/uAssets",
+        "commit": "3976349c934583436384451082db2a6a3e313894"
+      },
+      "fetchedOn": "2026-11-14"
+    },
+    "urlhaus": {
+      "url": "https://malware-filter.gitlab.io/malware-filter/urlhaus-filter-hosts.txt",
+      "sha256": "3bb2984b1ed21ad3ba98fea5801e2fdf5a4bad2123fe836cc8c13e2773a9803f",
+      "bytes": 59302,
+      "ref": {
+        "kind": "snapshot"
+      },
+      "fetchedOn": "2026-11-14"
+    }
+  }
+}

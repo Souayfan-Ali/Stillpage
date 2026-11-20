@@ -1,0 +1,2527 @@
+{
+  "$comment": "Fixture manifest (P1-42, testing notes §3): fixture → filters → expected observations. `filters` are compiled by the real compiler post-pass for the corpus extension (P1-44 replaced the hand-converted rules). Observation kinds: request (blocked = the fixture server never saw it), navigation, global (null = absent), attribute on <html> (null = absent).",
+  "schema": 1,
+  "fixtures": [
+    {
+      "id": "net/third-party",
+      "family": "net",
+      "page": "https://news.example/net/third-party.html",
+      "file": "net/third-party.html",
+      "filters": [
+        "||ads.example^$third-party"
+      ],
+      "expect": [
+        {
+          "request": "https://ads.example/ad.js",
+          "is": "blocked"
+        },
+        {
+          "request": "https://news.example/app.js",
+          "is": "loaded"
+        },
+        {
+          "request": "https://cdn.example/lib.js",
+          "is": "loaded"
+        }
+      ]
+    },
+    {
+      "id": "net/first-party",
+      "family": "net",
+      "page": "https://ads.example/net/first-party.html",
+      "file": "net/first-party.html",
+      "filters": [
+        "||ads.example^$third-party"
+      ],
+      "expect": [
+        {
+          "request": "https://ads.example/self.js",
+          "is": "loaded"
+        }
+      ]
+    },
+    {
+      "id": "net/by-type",
+      "family": "net",
+      "page": "https://shop.example/net/by-type.html",
+      "file": "net/by-type.html",
+      "filters": [
+        "||pixel.example^$image"
+      ],
+      "expect": [
+        {
+          "request": "https://pixel.example/p.gif",
+          "is": "blocked"
+        },
+        {
+          "request": "https://pixel.example/p.js",
+          "is": "loaded"
+        }
+      ]
+    },
+    {
+      "id": "net/exception",
+      "family": "net",
+      "page": "https://blog.example/net/exception.html",
+      "file": "net/exception.html",
+      "filters": [
+        "||track.example^",
+        "@@||track.example/ok.js"
+      ],
+      "expect": [
+        {
+          "request": "https://track.example/bad.js",
+          "is": "blocked"
+        },
+        {
+          "request": "https://track.example/ok.js",
+          "is": "loaded"
+        }
+      ]
+    },
+    {
+      "id": "net/important",
+      "family": "net",
+      "page": "https://forum.example/net/important.html",
+      "file": "net/important.html",
+      "filters": [
+        "||imp.example^$important",
+        "@@||imp.example^"
+      ],
+      "expect": [
+        {
+          "request": "https://imp.example/i.js",
+          "is": "blocked"
+        }
+      ]
+    },
+    {
+      "id": "net/top-domains",
+      "family": "net",
+      "page": "https://top.example/net/top-domains.html",
+      "file": "net/top-domains.html",
+      "filters": [
+        "||deep.example^$top=top.example"
+      ],
+      "uses": [
+        "net/frame.html"
+      ],
+      "expect": [
+        {
+          "request": "https://frame.example/net/frame.html",
+          "is": "loaded"
+        },
+        {
+          "request": "https://deep.example/t.js",
+          "is": "blocked"
+        }
+      ]
+    },
+    {
+      "id": "net/top-domains-other",
+      "family": "net",
+      "page": "https://other.example/net/top-domains.html",
+      "file": "net/top-domains.html",
+      "filters": [
+        "||deep.example^$top=top.example"
+      ],
+      "uses": [
+        "net/frame.html"
+      ],
+      "expect": [
+        {
+          "request": "https://frame.example/net/frame.html",
+          "is": "loaded"
+        },
+        {
+          "request": "https://deep.example/t.js",
+          "is": "loaded"
+        }
+      ]
+    },
+    {
+      "id": "net/main-frame",
+      "family": "net",
+      "page": "https://portal.example/net/main-frame.html",
+      "file": "net/main-frame.html",
+      "filters": [
+        "||malware.example^$document"
+      ],
+      "expect": [
+        {
+          "request": "https://malware.example/pic.gif",
+          "is": "loaded"
+        },
+        {
+          "navigation": "https://malware.example/landing",
+          "is": "blocked"
+        },
+        {
+          "request": "https://malware.example/landing",
+          "is": "blocked"
+        }
+      ]
+    },
+    {
+      "id": "redirect/surrogate",
+      "family": "redirect",
+      "page": "https://video.example/redirect/surrogate.html",
+      "file": "redirect/surrogate.html",
+      "filters": [
+        "||gpt.example^$script,redirect=noopjs"
+      ],
+      "expect": [
+        {
+          "request": "https://gpt.example/tag/js/gpt.js",
+          "is": "blocked"
+        },
+        {
+          "global": "__surrogate",
+          "is": "fx-noop"
+        }
+      ]
+    },
+    {
+      "id": "redirect/remove-params",
+      "family": "redirect",
+      "page": "https://shop2.example/redirect/remove-params.html",
+      "file": "redirect/remove-params.html",
+      "filters": [
+        "||img.example^$image,removeparam=utm_source"
+      ],
+      "expect": [
+        {
+          "request": "https://img.example/p.gif?id=7",
+          "is": "loaded"
+        },
+        {
+          "request": "https://img.example/p.gif?utm_source=news&id=7",
+          "is": "blocked"
+        }
+      ]
+    },
+    {
+      "id": "redirect/csp",
+      "family": "redirect",
+      "page": "https://csp.example/redirect/csp.html",
+      "file": "redirect/csp.html",
+      "filters": [
+        "||csp.example^$csp=script-src 'none'"
+      ],
+      "expect": [
+        {
+          "global": "__inline",
+          "is": null
+        },
+        {
+          "request": "https://csp.example/ext.js",
+          "is": "blocked"
+        }
+      ]
+    },
+    {
+      "id": "redirect/noop-frame",
+      "family": "redirect",
+      "page": "https://dogefaucet.com/redirect/noop-frame.html",
+      "file": "redirect/noop-frame.html",
+      "filters": [
+        "||a-ads.com^$subdocument,redirect=noopframe,domain=dogefaucet.com"
+      ],
+      "expect": [
+        {
+          "request": "https://a-ads.com/frame.html",
+          "is": "blocked"
+        }
+      ],
+      "note": "D-24: tests/e2e/noopFrame.spec.ts loads this page in the real build (the pinned lists carry this rule) and checks the frame lands on surrogates/noop.html with no script."
+    },
+    {
+      "id": "levels/off",
+      "family": "levels",
+      "page": "https://levels.example/levels/page.html",
+      "file": "levels/page.html",
+      "filters": [
+        "||lvl-ads.example^"
+      ],
+      "setup": {
+        "registrations": [
+          {
+            "hosts": [
+              "levels.example"
+            ]
+          }
+        ],
+        "siteLevels": {
+          "levels.example": "off"
+        }
+      },
+      "expect": [
+        {
+          "request": "https://lvl-ads.example/ad.js",
+          "is": "loaded"
+        },
+        {
+          "attribute": "data-probe",
+          "is": null
+        }
+      ]
+    },
+    {
+      "id": "levels/light",
+      "family": "levels",
+      "page": "https://levels.example/levels/page.html",
+      "file": "levels/page.html",
+      "filters": [
+        "||lvl-ads.example^"
+      ],
+      "setup": {
+        "registrations": [
+          {
+            "hosts": [
+              "levels.example"
+            ]
+          }
+        ],
+        "siteLevels": {
+          "levels.example": "light"
+        }
+      },
+      "expect": [
+        {
+          "request": "https://lvl-ads.example/ad.js",
+          "is": "blocked"
+        },
+        {
+          "attribute": "data-probe",
+          "is": null
+        }
+      ]
+    },
+    {
+      "id": "levels/standard",
+      "family": "levels",
+      "page": "https://levels.example/levels/page.html",
+      "file": "levels/page.html",
+      "filters": [
+        "||lvl-ads.example^"
+      ],
+      "setup": {
+        "registrations": [
+          {
+            "hosts": [
+              "levels.example"
+            ]
+          }
+        ],
+        "siteLevels": {}
+      },
+      "expect": [
+        {
+          "request": "https://lvl-ads.example/ad.js",
+          "is": "blocked"
+        },
+        {
+          "attribute": "data-probe",
+          "is": "ran"
+        }
+      ]
+    },
+    {
+      "id": "levels/thorough",
+      "family": "levels",
+      "page": "https://levels.example/levels/page.html",
+      "file": "levels/page.html",
+      "filters": [
+        "||lvl-ads.example^"
+      ],
+      "setup": {
+        "registrations": [
+          {
+            "hosts": [
+              "levels.example"
+            ]
+          }
+        ],
+        "siteLevels": {
+          "levels.example": "thorough"
+        }
+      },
+      "expect": [
+        {
+          "request": "https://lvl-ads.example/ad.js",
+          "is": "blocked"
+        },
+        {
+          "attribute": "data-probe",
+          "is": "ran"
+        }
+      ],
+      "note": "Thorough adds the generic cosmetic surveyor (P2); until then it behaves like Standard here."
+    },
+    {
+      "id": "levels/inherit-off",
+      "family": "levels",
+      "page": "https://sub.levels.example/levels/page.html",
+      "file": "levels/page.html",
+      "filters": [
+        "||lvl-ads.example^"
+      ],
+      "setup": {
+        "registrations": [
+          {
+            "hosts": [
+              "levels.example"
+            ]
+          }
+        ],
+        "siteLevels": {
+          "levels.example": "off"
+        }
+      },
+      "expect": [
+        {
+          "request": "https://lvl-ads.example/ad.js",
+          "is": "loaded"
+        },
+        {
+          "attribute": "data-probe",
+          "is": null
+        }
+      ],
+      "note": "Off on a parent domain covers its subdomains (ADR-015 monotone inheritance)."
+    },
+    {
+      "id": "levels/pause-expiry",
+      "family": "levels",
+      "page": "https://levels.example/levels/page.html",
+      "file": "levels/page.html",
+      "filters": [
+        "||lvl-ads.example^"
+      ],
+      "setup": {
+        "registrations": [
+          {
+            "hosts": [
+              "levels.example"
+            ]
+          }
+        ],
+        "siteLevels": {},
+        "pauseSeconds": 5,
+        "duringPause": [
+          {
+            "request": "https://lvl-ads.example/ad.js",
+            "is": "loaded"
+          },
+          {
+            "attribute": "data-probe",
+            "is": null
+          }
+        ]
+      },
+      "expect": [
+        {
+          "request": "https://lvl-ads.example/ad.js",
+          "is": "blocked"
+        },
+        {
+          "attribute": "data-probe",
+          "is": "ran"
+        }
+      ]
+    },
+    {
+      "id": "permissions/all-sites",
+      "family": "permissions",
+      "page": "https://perm.example/permissions/page.html",
+      "file": "permissions/page.html",
+      "filters": [
+        "||perm-ads.example^$script,redirect=noopjs"
+      ],
+      "setup": {
+        "registrations": [
+          {
+            "hosts": [
+              "perm.example"
+            ]
+          }
+        ],
+        "access": [
+          "all"
+        ]
+      },
+      "expect": [
+        {
+          "request": "https://perm-ads.example/ad.js",
+          "is": "blocked"
+        },
+        {
+          "global": "__surrogate",
+          "is": "fx-noop"
+        },
+        {
+          "attribute": "data-probe",
+          "is": "ran"
+        }
+      ]
+    },
+    {
+      "id": "permissions/no-access",
+      "family": "permissions",
+      "page": "https://perm.example/permissions/page.html",
+      "file": "permissions/page.html",
+      "filters": [
+        "||perm-ads.example^$script,redirect=noopjs"
+      ],
+      "setup": {
+        "registrations": [
+          {
+            "hosts": [
+              "perm.example"
+            ]
+          }
+        ],
+        "access": [
+          "none"
+        ]
+      },
+      "expect": [
+        {
+          "request": "https://perm-ads.example/ad.js",
+          "is": "blocked"
+        },
+        {
+          "global": "__surrogate",
+          "is": null
+        },
+        {
+          "attribute": "data-probe",
+          "is": null
+        }
+      ],
+      "note": "On click: block-only (the -x ruleset is off, S-19), no content script."
+    },
+    {
+      "id": "permissions/site-access",
+      "family": "permissions",
+      "page": "https://perm.example/permissions/page.html",
+      "file": "permissions/page.html",
+      "filters": [
+        "||perm-ads.example^$script,redirect=noopjs"
+      ],
+      "setup": {
+        "registrations": [
+          {
+            "hosts": [
+              "perm.example"
+            ]
+          }
+        ],
+        "access": [
+          "site"
+        ]
+      },
+      "expect": [
+        {
+          "request": "https://perm-ads.example/ad.js",
+          "is": "blocked"
+        },
+        {
+          "global": "__surrogate",
+          "is": null
+        },
+        {
+          "attribute": "data-probe",
+          "is": "ran"
+        }
+      ],
+      "note": "Access to this site only: content scripts run here, redirects stay off (they need all sites, architecture notes §8)."
+    },
+    {
+      "id": "permissions/revoked",
+      "family": "permissions",
+      "page": "https://perm.example/permissions/page.html",
+      "file": "permissions/page.html",
+      "filters": [
+        "||perm-ads.example^$script,redirect=noopjs"
+      ],
+      "setup": {
+        "registrations": [
+          {
+            "hosts": [
+              "perm.example"
+            ]
+          }
+        ],
+        "access": [
+          "all",
+          "none"
+        ]
+      },
+      "expect": [
+        {
+          "request": "https://perm-ads.example/ad.js",
+          "is": "blocked"
+        },
+        {
+          "global": "__surrogate",
+          "is": null
+        },
+        {
+          "attribute": "data-probe",
+          "is": null
+        }
+      ],
+      "note": "Access withdrawn mid-session; the page is loaded again after the change."
+    },
+    {
+      "id": "cosmetic-specific/host-match",
+      "family": "cosmetic-specific",
+      "page": "https://cosmetic.example/cosmetic-specific/host-match.html",
+      "file": "cosmetic-specific/host-match.html",
+      "filters": [
+        "cosmetic.example##.ad-box"
+      ],
+      "expect": [
+        {
+          "element": ".ad-box",
+          "is": "hidden"
+        },
+        {
+          "element": ".content",
+          "is": "shown"
+        }
+      ]
+    },
+    {
+      "id": "cosmetic-specific/parent-domain",
+      "family": "cosmetic-specific",
+      "page": "https://www.cosmetic.example/cosmetic-specific/parent-domain.html",
+      "file": "cosmetic-specific/parent-domain.html",
+      "filters": [
+        "cosmetic.example##.ad-box"
+      ],
+      "expect": [
+        {
+          "element": ".ad-box",
+          "is": "hidden"
+        },
+        {
+          "element": ".content",
+          "is": "shown"
+        }
+      ]
+    },
+    {
+      "id": "cosmetic-specific/entity",
+      "family": "cosmetic-specific",
+      "page": "https://entity-site.de/cosmetic-specific/entity.html",
+      "file": "cosmetic-specific/entity.html",
+      "filters": [
+        "entity-site.*##.entity-ad"
+      ],
+      "expect": [
+        {
+          "element": ".entity-ad",
+          "is": "hidden"
+        },
+        {
+          "element": ".content",
+          "is": "shown"
+        }
+      ],
+      "note": "Entity hosts by observed expansion (D-20)."
+    },
+    {
+      "id": "cosmetic-specific/exception",
+      "family": "cosmetic-specific",
+      "page": "https://allowed.cosmetic.example/cosmetic-specific/exception.html",
+      "file": "cosmetic-specific/exception.html",
+      "filters": [
+        "cosmetic.example##.ad-box",
+        "allowed.cosmetic.example#@#.ad-box"
+      ],
+      "expect": [
+        {
+          "element": ".ad-box",
+          "is": "shown"
+        }
+      ]
+    },
+    {
+      "id": "cosmetic-specific/style",
+      "family": "cosmetic-specific",
+      "page": "https://style.example/cosmetic-specific/style.html",
+      "file": "cosmetic-specific/style.html",
+      "filters": [
+        "style.example##.sticky-bar:style(position: static !important)"
+      ],
+      "expect": [
+        {
+          "element": ".sticky-bar",
+          "is": "shown"
+        },
+        {
+          "global": "__stickyPosition",
+          "is": "static"
+        }
+      ],
+      "note": ":style() declarations pass core/sanitise."
+    },
+    {
+      "id": "cosmetic-specific/about-blank-frame",
+      "family": "cosmetic-specific",
+      "page": "https://frames.example/cosmetic-specific/about-blank-frame.html",
+      "file": "cosmetic-specific/about-blank-frame.html",
+      "filters": [
+        "frames.example##.ad-box"
+      ],
+      "expect": [
+        {
+          "global": "__frameAdDisplay",
+          "is": "none"
+        }
+      ],
+      "note": "matchOriginAsFallback reaches the about:blank child (P1-34 acceptance)."
+    },
+    {
+      "id": "cosmetic-specific/blob-frame",
+      "family": "cosmetic-specific",
+      "page": "https://frames.example/cosmetic-specific/blob-frame.html",
+      "file": "cosmetic-specific/blob-frame.html",
+      "filters": [
+        "frames.example##.ad-box"
+      ],
+      "expect": [
+        {
+          "global": "__blobAdDisplay",
+          "is": "none"
+        }
+      ]
+    },
+    {
+      "id": "cosmetic-specific/shadow-dom",
+      "family": "cosmetic-specific",
+      "page": "https://shadow.example/cosmetic-specific/shadow-dom.html",
+      "file": "cosmetic-specific/shadow-dom.html",
+      "filters": [
+        "shadow.example##.ad-box"
+      ],
+      "expect": [
+        {
+          "global": "__lightAdDisplay",
+          "is": "none"
+        },
+        {
+          "global": "__shadowAdDisplay",
+          "is": "block"
+        }
+      ],
+      "note": "Documents a limit: page-level stylesheets do not reach into shadow roots."
+    },
+    {
+      "id": "cosmetic-specific/first-frame",
+      "family": "cosmetic-specific",
+      "page": "https://cosmetic.example/cosmetic-specific/first-frame.html",
+      "file": "cosmetic-specific/first-frame.html",
+      "filters": [
+        "cosmetic.example##.ad-box"
+      ],
+      "expect": [
+        {
+          "element": ".ad-box",
+          "is": "hidden"
+        },
+        {
+          "global": "__firstFrameDisplay",
+          "is": "none"
+        }
+      ],
+      "note": "No flash: hidden in the first painted frame; tests/e2e/cosmeticSpecific.spec.ts loads it 200 times (P1-34)."
+    },
+    {
+      "id": "cosmetic-specific/no-filters",
+      "family": "cosmetic-specific",
+      "page": "https://unfiltered.example/cosmetic-specific/no-filters.html",
+      "file": "cosmetic-specific/no-filters.html",
+      "uses": [
+        "cosmetic-specific/no-filters-child.html"
+      ],
+      "filters": [
+        "cosmetic.example##.ad-box"
+      ],
+      "expect": [
+        {
+          "element": ".ad-box",
+          "is": "shown"
+        }
+      ],
+      "note": "Zero-injection gate: tests/e2e/cosmeticSpecific.spec.ts counts extension scripts parsed in every frame (P1-34)."
+    },
+    {
+      "id": "cosmetic-procedural/has",
+      "family": "cosmetic-procedural",
+      "page": "https://proc.example/cosmetic-procedural/has.html",
+      "file": "cosmetic-procedural/has.html",
+      "filters": [
+        "proc.example##.card:has(> .ad-label)"
+      ],
+      "expect": [
+        {
+          "element": ".card:not(.keep)",
+          "is": "hidden"
+        },
+        {
+          "element": ".keep",
+          "is": "shown"
+        }
+      ]
+    },
+    {
+      "id": "cosmetic-procedural/has-text",
+      "family": "cosmetic-procedural",
+      "page": "https://proc.example/cosmetic-procedural/has-text.html",
+      "file": "cosmetic-procedural/has-text.html",
+      "filters": [
+        "proc.example##.card:has-text(Sponsored)"
+      ],
+      "expect": [
+        {
+          "element": ".card:not(.keep)",
+          "is": "hidden"
+        },
+        {
+          "element": ".keep",
+          "is": "shown"
+        }
+      ]
+    },
+    {
+      "id": "cosmetic-procedural/matches-css",
+      "family": "cosmetic-procedural",
+      "page": "https://proc.example/cosmetic-procedural/matches-css.html",
+      "file": "cosmetic-procedural/matches-css.html",
+      "filters": [
+        "proc.example##.box:matches-css(position: fixed)"
+      ],
+      "expect": [
+        {
+          "element": ".box:not(.keep)",
+          "is": "hidden"
+        },
+        {
+          "element": ".keep",
+          "is": "shown"
+        }
+      ]
+    },
+    {
+      "id": "cosmetic-procedural/matches-attr",
+      "family": "cosmetic-procedural",
+      "page": "https://proc.example/cosmetic-procedural/matches-attr.html",
+      "file": "cosmetic-procedural/matches-attr.html",
+      "filters": [
+        "proc.example##div:matches-attr(\"data-ad\"=\"/^slot/\")"
+      ],
+      "expect": [
+        {
+          "element": "[data-ad=\"slot-1\"]",
+          "is": "hidden"
+        },
+        {
+          "element": ".keep",
+          "is": "shown"
+        }
+      ]
+    },
+    {
+      "id": "cosmetic-procedural/min-text-length",
+      "family": "cosmetic-procedural",
+      "page": "https://proc.example/cosmetic-procedural/min-text-length.html",
+      "file": "cosmetic-procedural/min-text-length.html",
+      "filters": [
+        "proc.example##.para:min-text-length(200)"
+      ],
+      "expect": [
+        {
+          "element": ".para:not(.keep)",
+          "is": "hidden"
+        },
+        {
+          "element": ".keep",
+          "is": "shown"
+        }
+      ]
+    },
+    {
+      "id": "cosmetic-procedural/upward",
+      "family": "cosmetic-procedural",
+      "page": "https://proc.example/cosmetic-procedural/upward.html",
+      "file": "cosmetic-procedural/upward.html",
+      "filters": [
+        "proc.example##.ad-label:upward(.wrapper)"
+      ],
+      "expect": [
+        {
+          "element": ".wrapper",
+          "is": "hidden"
+        },
+        {
+          "element": ".keep",
+          "is": "shown"
+        }
+      ]
+    },
+    {
+      "id": "cosmetic-procedural/xpath",
+      "family": "cosmetic-procedural",
+      "page": "https://proc.example/cosmetic-procedural/xpath.html",
+      "file": "cosmetic-procedural/xpath.html",
+      "filters": [
+        "proc.example##:xpath(//div[@data-kind=\"ad\"])"
+      ],
+      "expect": [
+        {
+          "element": "[data-kind=\"ad\"]",
+          "is": "hidden"
+        },
+        {
+          "element": ".keep",
+          "is": "shown"
+        }
+      ]
+    },
+    {
+      "id": "cosmetic-procedural/not",
+      "family": "cosmetic-procedural",
+      "page": "https://proc.example/cosmetic-procedural/not.html",
+      "file": "cosmetic-procedural/not.html",
+      "filters": [
+        "proc.example##.card:not(:has-text(News))"
+      ],
+      "expect": [
+        {
+          "element": ".card:not(.keep)",
+          "is": "hidden"
+        },
+        {
+          "element": ".keep",
+          "is": "shown"
+        }
+      ]
+    },
+    {
+      "id": "cosmetic-procedural/matches-path",
+      "family": "cosmetic-procedural",
+      "page": "https://proc.example/cosmetic-procedural/matches-path.html",
+      "file": "cosmetic-procedural/matches-path.html",
+      "filters": [
+        "proc.example##:matches-path(/shop) .promo"
+      ],
+      "expect": [
+        {
+          "element": ".promo",
+          "is": "hidden"
+        }
+      ],
+      "note": "The spec clicks #go first (history.pushState to /shop); before that the promo is shown.",
+      "setup": {
+        "click": "#go"
+      }
+    },
+    {
+      "id": "cosmetic-procedural/watch-attr",
+      "family": "cosmetic-procedural",
+      "page": "https://proc.example/cosmetic-procedural/watch-attr.html",
+      "file": "cosmetic-procedural/watch-attr.html",
+      "filters": [
+        "proc.example##.slot:watch-attr(class):has-text(Advert)"
+      ],
+      "expect": [
+        {
+          "element": ".slot",
+          "is": "hidden"
+        }
+      ],
+      "note": "The slot becomes an advert 300 ms after load; the spec polls. :watch-attr() comes right after the CSS part, as in the pinned lists: uBO runs tasks in order, so a node filtered out earlier is never watched."
+    },
+    {
+      "id": "cosmetic-procedural/others",
+      "family": "cosmetic-procedural",
+      "page": "https://proc.example/cosmetic-procedural/others.html",
+      "file": "cosmetic-procedural/others.html",
+      "filters": [
+        "proc.example##.article:others()"
+      ],
+      "expect": [
+        {
+          "element": ".article",
+          "is": "shown"
+        },
+        {
+          "element": ".sidebar",
+          "is": "hidden"
+        }
+      ]
+    },
+    {
+      "id": "cosmetic-procedural/remove",
+      "family": "cosmetic-procedural",
+      "page": "https://proc.example/cosmetic-procedural/remove.html",
+      "file": "cosmetic-procedural/remove.html",
+      "filters": [
+        "proc.example##.overlay:remove()"
+      ],
+      "expect": [
+        {
+          "element": ".overlay",
+          "is": "hidden"
+        },
+        {
+          "element": ".keep",
+          "is": "shown"
+        }
+      ]
+    },
+    {
+      "id": "cosmetic-procedural/remove-attr",
+      "family": "cosmetic-procedural",
+      "page": "https://proc.example/cosmetic-procedural/remove-attr.html",
+      "file": "cosmetic-procedural/remove-attr.html",
+      "filters": [
+        "proc.example##.locked:remove-attr(hidden)"
+      ],
+      "expect": [
+        {
+          "element": ".locked",
+          "is": "shown"
+        }
+      ]
+    },
+    {
+      "id": "cosmetic-procedural/remove-class",
+      "family": "cosmetic-procedural",
+      "page": "https://proc.example/cosmetic-procedural/remove-class.html",
+      "file": "cosmetic-procedural/remove-class.html",
+      "filters": [
+        "proc.example##.content:remove-class(blurred)"
+      ],
+      "expect": [
+        {
+          "element": ".content.blurred",
+          "is": "hidden"
+        },
+        {
+          "element": ".content",
+          "is": "shown"
+        }
+      ],
+      "note": "The blurred class is removed; .content.blurred no longer matches anything."
+    },
+    {
+      "id": "cosmetic-procedural/shadow",
+      "family": "cosmetic-procedural",
+      "page": "https://proc.example/cosmetic-procedural/shadow.html",
+      "file": "cosmetic-procedural/shadow.html",
+      "filters": [
+        "proc.example##.widget:has(:shadow(.sponsored))"
+      ],
+      "expect": [
+        {
+          "element": ".widget:not(.keep)",
+          "is": "hidden"
+        },
+        {
+          "element": ".keep",
+          "is": "shown"
+        }
+      ],
+      "note": ":shadow() reaches a closed root through chrome.dom.openOrClosedShadowRoot (ISOLATED world)."
+    },
+    {
+      "id": "cosmetic-generic/static",
+      "family": "cosmetic-generic",
+      "page": "https://generic.example/cosmetic-generic/static.html",
+      "file": "cosmetic-generic/static.html",
+      "filters": [
+        "##.ad-banner"
+      ],
+      "expect": [
+        {
+          "element": ".ad-banner",
+          "is": "hidden"
+        },
+        {
+          "element": ".content",
+          "is": "shown"
+        }
+      ],
+      "setup": {
+        "siteLevels": {
+          "generic.example": "thorough"
+        }
+      },
+      "note": "Runs at Thorough on its host (generic hiding is Thorough only, P2-24)."
+    },
+    {
+      "id": "cosmetic-generic/mutating",
+      "family": "cosmetic-generic",
+      "page": "https://generic.example/cosmetic-generic/mutating.html",
+      "file": "cosmetic-generic/mutating.html",
+      "filters": [
+        "##.ad-banner"
+      ],
+      "expect": [
+        {
+          "element": ".ad-banner",
+          "is": "hidden"
+        },
+        {
+          "element": ".content",
+          "is": "shown"
+        }
+      ],
+      "note": "The banner is added 300 ms after load; the spec polls.",
+      "setup": {
+        "siteLevels": {
+          "generic.example": "thorough"
+        }
+      }
+    },
+    {
+      "id": "cosmetic-generic/infinite-scroll",
+      "family": "cosmetic-generic",
+      "page": "https://generic.example/cosmetic-generic/infinite-scroll.html",
+      "file": "cosmetic-generic/infinite-scroll.html",
+      "filters": [
+        "##.ad-banner"
+      ],
+      "expect": [
+        {
+          "element": ".ad-banner",
+          "is": "hidden"
+        },
+        {
+          "element": ".item",
+          "is": "shown"
+        }
+      ],
+      "note": "The spec scrolls to the end twice; every .ad-banner must be hidden.",
+      "setup": {
+        "siteLevels": {
+          "generic.example": "thorough"
+        }
+      }
+    },
+    {
+      "id": "cosmetic-generic/generichide",
+      "family": "cosmetic-generic",
+      "page": "https://generichide.example/cosmetic-generic/generichide.html",
+      "file": "cosmetic-generic/generichide.html",
+      "filters": [
+        "##.ad-banner",
+        "@@||generichide.example^$generichide"
+      ],
+      "expect": [
+        {
+          "element": ".ad-banner",
+          "is": "shown"
+        }
+      ],
+      "setup": {
+        "siteLevels": {
+          "generichide.example": "thorough"
+        }
+      },
+      "note": "Runs at Thorough on its host (generic hiding is Thorough only, P2-24)."
+    },
+    {
+      "id": "scriptlets/set-constant",
+      "family": "scriptlets",
+      "page": "https://script.example/scriptlets/set-constant.html",
+      "file": "scriptlets/set-constant.html",
+      "filters": [
+        "script.example##+js(set, adsEnabled, false)"
+      ],
+      "expect": [
+        {
+          "global": "__adsEnabled",
+          "is": false
+        },
+        {
+          "global": "__adsEnabledAfter",
+          "is": false
+        }
+      ]
+    },
+    {
+      "id": "scriptlets/abort-on-property-read",
+      "family": "scriptlets",
+      "page": "https://script.example/scriptlets/abort-on-property-read.html",
+      "file": "scriptlets/abort-on-property-read.html",
+      "filters": [
+        "script.example##+js(aopr, adTracker)"
+      ],
+      "expect": [
+        {
+          "global": "__aborted",
+          "is": true
+        }
+      ]
+    },
+    {
+      "id": "scriptlets/abort-on-property-write",
+      "family": "scriptlets",
+      "page": "https://script.example/scriptlets/abort-on-property-write.html",
+      "file": "scriptlets/abort-on-property-write.html",
+      "filters": [
+        "script.example##+js(aopw, adConfig)"
+      ],
+      "expect": [
+        {
+          "global": "__aborted",
+          "is": true
+        }
+      ]
+    },
+    {
+      "id": "scriptlets/abort-current-script",
+      "family": "scriptlets",
+      "page": "https://script.example/scriptlets/abort-current-script.html",
+      "file": "scriptlets/abort-current-script.html",
+      "filters": [
+        "script.example##+js(acs, document.createElement, adbanner)"
+      ],
+      "expect": [
+        {
+          "global": "__adbanner",
+          "is": "aborted"
+        },
+        {
+          "global": "__other",
+          "is": "created"
+        }
+      ],
+      "note": "The script naming adbanner is aborted at createElement (its own try/catch records \"aborted\"); the other script is not."
+    },
+    {
+      "id": "scriptlets/no-settimeout-if",
+      "family": "scriptlets",
+      "page": "https://script.example/scriptlets/no-settimeout-if.html",
+      "file": "scriptlets/no-settimeout-if.html",
+      "filters": [
+        "script.example##+js(nostif, adblock)"
+      ],
+      "expect": [
+        {
+          "global": "__adblockTimer",
+          "is": null
+        },
+        {
+          "global": "__otherTimer",
+          "is": true
+        }
+      ]
+    },
+    {
+      "id": "scriptlets/prevent-fetch",
+      "family": "scriptlets",
+      "page": "https://script.example/scriptlets/prevent-fetch.html",
+      "file": "scriptlets/prevent-fetch.html",
+      "filters": [
+        "script.example##+js(no-fetch-if, ads.example)"
+      ],
+      "expect": [
+        {
+          "global": "__fetchOk",
+          "is": true
+        },
+        {
+          "request": "https://ads.example/config.json",
+          "is": "blocked"
+        }
+      ]
+    },
+    {
+      "id": "scriptlets/prevent-xhr",
+      "family": "scriptlets",
+      "page": "https://script.example/scriptlets/prevent-xhr.html",
+      "file": "scriptlets/prevent-xhr.html",
+      "filters": [
+        "script.example##+js(no-xhr-if, ads.example)"
+      ],
+      "expect": [
+        {
+          "global": "__xhrStatus",
+          "is": 200
+        },
+        {
+          "request": "https://ads.example/config.json",
+          "is": "blocked"
+        }
+      ]
+    },
+    {
+      "id": "scriptlets/json-prune",
+      "family": "scriptlets",
+      "page": "https://script.example/scriptlets/json-prune.html",
+      "file": "scriptlets/json-prune.html",
+      "filters": [
+        "script.example##+js(json-prune, ads)"
+      ],
+      "expect": [
+        {
+          "global": "__hasAds",
+          "is": false
+        },
+        {
+          "global": "__hasContent",
+          "is": true
+        }
+      ]
+    },
+    {
+      "id": "scriptlets/remove-attr",
+      "family": "scriptlets",
+      "page": "https://script.example/scriptlets/remove-attr.html",
+      "file": "scriptlets/remove-attr.html",
+      "filters": [
+        "script.example##+js(ra, onclick, .btn, complete)"
+      ],
+      "expect": [
+        {
+          "global": "__hasOnclick",
+          "is": false
+        }
+      ],
+      "note": "uBO's remove-attr without a behaviour runs once at document_start (no button yet); lists add \"complete\" or \"stay\" for such cases. The page reports the live DOM (a getter) and the spec polls."
+    },
+    {
+      "id": "scriptlets/isolated-world",
+      "family": "scriptlets",
+      "page": "https://script.example/scriptlets/isolated-world.html",
+      "file": "scriptlets/isolated-world.html",
+      "filters": [
+        "script.example##+js(rc, blurred, .content)"
+      ],
+      "expect": [
+        {
+          "global": "__blurred",
+          "is": false
+        }
+      ],
+      "note": "uBO runs these when the browser is idle after DOM changes, so the page reports the live DOM (a getter) and the spec polls."
+    },
+    {
+      "id": "scriptlets/ordering",
+      "family": "scriptlets",
+      "page": "https://script.example/scriptlets/ordering.html",
+      "file": "scriptlets/ordering.html",
+      "filters": [
+        "script.example##+js(set, firstValue, 1)"
+      ],
+      "expect": [
+        {
+          "global": "__first",
+          "is": 1
+        }
+      ],
+      "note": "The MAIN-world scriptlet runs before the first inline script."
+    },
+    {
+      "id": "anti-adblock/bait-element",
+      "family": "anti-adblock",
+      "page": "https://antiab.example/anti-adblock/bait-element.html",
+      "file": "anti-adblock/bait-element.html",
+      "filters": [
+        "##.adsbox",
+        "antiab.example#@#.adsbox"
+      ],
+      "expect": [
+        {
+          "global": "__wall",
+          "is": false
+        },
+        {
+          "element": ".adsbox",
+          "is": "shown"
+        }
+      ],
+      "setup": {
+        "siteLevels": {
+          "antiab.example": "thorough"
+        }
+      },
+      "note": "Thorough on the host (P2-24): ##.adsbox is excepted here, so the bait stays visible and no wall appears."
+    },
+    {
+      "id": "anti-adblock/bait-request",
+      "family": "anti-adblock",
+      "page": "https://antiab.example/anti-adblock/bait-request.html",
+      "file": "anti-adblock/bait-request.html",
+      "filters": [
+        "/ads.js",
+        "@@||antiab.example/ads.js$script,1p"
+      ],
+      "expect": [
+        {
+          "request": "https://antiab.example/ads.js",
+          "is": "loaded"
+        },
+        {
+          "global": "__wall",
+          "is": null
+        }
+      ],
+      "note": "Network rules only: runs now."
+    },
+    {
+      "id": "anti-adblock/missing-global",
+      "family": "anti-adblock",
+      "page": "https://antiab.example/anti-adblock/missing-global.html",
+      "file": "anti-adblock/missing-global.html",
+      "filters": [
+        "||pagead.example^",
+        "antiab.example##+js(set, adsbygoogle, {})"
+      ],
+      "expect": [
+        {
+          "request": "https://pagead.example/adsbygoogle.js",
+          "is": "blocked"
+        },
+        {
+          "global": "__wall",
+          "is": false
+        }
+      ]
+    },
+    {
+      "id": "anti-adblock/timer-check",
+      "family": "anti-adblock",
+      "page": "https://antiab.example/anti-adblock/timer-check.html",
+      "file": "anti-adblock/timer-check.html",
+      "filters": [
+        "##.adsbox",
+        "antiab.example##+js(nostif, adsbox)"
+      ],
+      "expect": [
+        {
+          "global": "__wall",
+          "is": false
+        }
+      ]
+    }
+  ],
+  "popups": [
+    {
+      "id": "popups/p1-document-listener",
+      "family": "popups",
+      "page": "https://reader.example/popups/p1-document-listener.html",
+      "file": "popups/p1-document-listener.html",
+      "technique": "P1",
+      "guardAlone": true,
+      "act": {
+        "click": "#text"
+      },
+      "target": "https://popunder.example/ad",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "blocked",
+        "strict": "blocked"
+      },
+      "notice": "popunder.example"
+    },
+    {
+      "id": "popups/p2-transparent-div",
+      "family": "popups",
+      "page": "https://reader.example/popups/p2-transparent-div.html",
+      "file": "popups/p2-transparent-div.html",
+      "technique": "P2",
+      "guardAlone": true,
+      "act": {
+        "clickAt": [
+          400,
+          300
+        ]
+      },
+      "target": "https://popunder.example/ad",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "blocked",
+        "strict": "blocked"
+      },
+      "notice": "popunder.example"
+    },
+    {
+      "id": "popups/p2b-transparent-anchor",
+      "family": "popups",
+      "page": "https://reader.example/popups/p2b-transparent-anchor.html",
+      "file": "popups/p2b-transparent-anchor.html",
+      "technique": "P2b",
+      "guardAlone": true,
+      "act": {
+        "clickAt": [
+          400,
+          300
+        ]
+      },
+      "target": "https://popunder.example/ad",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "blocked",
+        "strict": "blocked"
+      },
+      "notice": "popunder.example"
+    },
+    {
+      "id": "popups/p3-link-hijack",
+      "family": "popups",
+      "page": "https://reader.example/popups/p3-link-hijack.html",
+      "file": "popups/p3-link-hijack.html",
+      "technique": "P3",
+      "guardAlone": true,
+      "act": {
+        "click": "#lnk"
+      },
+      "target": "https://popunder.example/ad",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "blocked",
+        "strict": "blocked"
+      },
+      "notice": "popunder.example"
+    },
+    {
+      "id": "popups/p4a-tab-under-copy",
+      "family": "popups",
+      "page": "https://reader.example/popups/p4a-tab-under-copy.html",
+      "file": "popups/p4a-tab-under-copy.html",
+      "technique": "P4a",
+      "guardAlone": true,
+      "act": {
+        "click": "#text"
+      },
+      "target": "https://popunder.example/ad",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "blocked",
+        "strict": "blocked"
+      },
+      "notice": "popunder.example"
+    },
+    {
+      "id": "popups/p4b-tab-under-link",
+      "family": "popups",
+      "page": "https://reader.example/popups/p4b-tab-under-link.html",
+      "file": "popups/p4b-tab-under-link.html",
+      "technique": "P4b",
+      "guardAlone": true,
+      "act": {
+        "click": "#lnk"
+      },
+      "target": "https://popunder.example/ad",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "blocked",
+        "strict": "blocked"
+      },
+      "notice": "popunder.example"
+    },
+    {
+      "id": "popups/p5-synthetic-anchor",
+      "family": "popups",
+      "page": "https://reader.example/popups/p5-synthetic-anchor.html",
+      "file": "popups/p5-synthetic-anchor.html",
+      "technique": "P5",
+      "guardAlone": true,
+      "act": {
+        "click": "#text"
+      },
+      "target": "https://popunder.example/ad",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "blocked",
+        "strict": "blocked"
+      },
+      "notice": "popunder.example"
+    },
+    {
+      "id": "popups/p6-href-swap",
+      "family": "popups",
+      "page": "https://reader.example/popups/p6-href-swap.html",
+      "file": "popups/p6-href-swap.html",
+      "technique": "P6",
+      "guardAlone": true,
+      "act": {
+        "click": "#lnk"
+      },
+      "target": "https://popunder.example/ad",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "blocked",
+        "strict": "blocked"
+      },
+      "notice": "popunder.example"
+    },
+    {
+      "id": "popups/p7-timer-delayed",
+      "family": "popups",
+      "page": "https://reader.example/popups/p7-timer-delayed.html",
+      "file": "popups/p7-timer-delayed.html",
+      "technique": "P7",
+      "guardAlone": true,
+      "act": {
+        "click": "#text"
+      },
+      "target": "https://popunder.example/ad",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "blocked",
+        "strict": "blocked"
+      },
+      "notice": "popunder.example"
+    },
+    {
+      "id": "popups/p8a-fresh-realm-sync",
+      "family": "popups",
+      "page": "https://reader.example/popups/p8a-fresh-realm-sync.html",
+      "file": "popups/p8a-fresh-realm-sync.html",
+      "technique": "P8a",
+      "guardAlone": true,
+      "act": {
+        "click": "#text"
+      },
+      "target": "https://popunder.example/ad",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "blocked",
+        "strict": "blocked"
+      },
+      "notice": "popunder.example"
+    },
+    {
+      "id": "popups/p8b-fresh-realm-indexed",
+      "family": "popups",
+      "page": "https://reader.example/popups/p8b-fresh-realm-indexed.html",
+      "file": "popups/p8b-fresh-realm-indexed.html",
+      "technique": "P8b",
+      "guardAlone": true,
+      "act": {
+        "click": "#text"
+      },
+      "target": "https://popunder.example/ad",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "miss",
+        "strict": "miss"
+      },
+      "notice": "popunder.example",
+      "note": "S-20: the one miss of the 14 guard-alone pages; pop-up notes §14 allows it in both modes"
+    },
+    {
+      "id": "popups/p11-blank-then-navigate",
+      "family": "popups",
+      "page": "https://reader.example/popups/p11-blank-then-navigate.html",
+      "file": "popups/p11-blank-then-navigate.html",
+      "technique": "P11",
+      "guardAlone": true,
+      "act": {
+        "click": "#text"
+      },
+      "target": "https://popunder.example/ad",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "blocked",
+        "strict": "blocked"
+      },
+      "notice": "popunder.example"
+    },
+    {
+      "id": "popups/p12-legacy-pop-under",
+      "family": "popups",
+      "page": "https://reader.example/popups/p12-legacy-pop-under.html",
+      "file": "popups/p12-legacy-pop-under.html",
+      "technique": "P12",
+      "guardAlone": true,
+      "act": {
+        "click": "#text"
+      },
+      "target": "https://popunder.example/ad",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "blocked",
+        "strict": "blocked"
+      },
+      "notice": "popunder.example"
+    },
+    {
+      "id": "popups/double-open",
+      "family": "popups",
+      "page": "https://reader.example/popups/double-open.html",
+      "file": "popups/double-open.html",
+      "technique": "DOUBLE",
+      "guardAlone": true,
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://popunder.example/ad",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "blocked",
+        "strict": "blocked"
+      },
+      "notice": "popunder.example",
+      "note": "The first window (othernews.example) may open; the gate looks at the second (G6)"
+    },
+    {
+      "id": "popups/h1-hostile-notice",
+      "family": "popups",
+      "page": "https://reader.example/popups/h1-hostile-notice.html",
+      "file": "popups/h1-hostile-notice.html",
+      "technique": "H1",
+      "act": {
+        "click": "#text"
+      },
+      "target": "https://popunder.example/ad",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "blocked",
+        "strict": "blocked"
+      },
+      "notice": "popunder.example",
+      "note": "J19 hostile fixture: the notice shows popunder.example only, and no script-made click on it opens anything"
+    },
+    {
+      "id": "popups/d14-lifted-destination",
+      "family": "popups",
+      "page": "https://reader.example/popups/d14-lifted-destination.html",
+      "file": "popups/d14-lifted-destination.html",
+      "technique": "D14",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://liftads.example/landing?z=1",
+      "filters": [
+        "||liftads.example^$popup",
+        "||liftads.example^$document"
+      ],
+      "expect": {
+        "guardOff": "blocked",
+        "smart": "blocked",
+        "strict": "blocked"
+      },
+      "note": "D-55 / D-55a lift: a $popup destination that a default non-malware list also document-blocks. Its redirect sits at 5,000,000 so the blocked page wins over the stock block, and Proceed once covers one exact URL in one tab at 5,000,001. Stopped in every mode by the destination rules, not by the guard. Real-list evidence: tests/e2e/blockedPage.spec.ts (a-ads.com) and tests/dnr/popupLift.test.ts."
+    },
+    {
+      "id": "popups-allow/a1-sign-in-postmessage",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/a1-sign-in-postmessage.html",
+      "file": "popups-allow/a1-sign-in-postmessage.html",
+      "technique": "A1",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://accounts.provider.example/popups-allow/provider-authorize.html",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "blocked"
+      },
+      "note": "Strict blocks with a notice; verdict from the decision table of pop-up notes §7.3; P2-57/P2-58 confirm it",
+      "also": [
+        {
+          "global": "__got",
+          "is": "abc"
+        }
+      ]
+    },
+    {
+      "id": "popups-allow/a2-blank-then-late-location",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/a2-blank-then-late-location.html",
+      "file": "popups-allow/a2-blank-then-late-location.html",
+      "technique": "A2",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://pay.provider.example/checkout",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "blocked"
+      },
+      "note": "Strict blocks with a notice; verdict from the decision table of pop-up notes §7.3; P2-57/P2-58 confirm it"
+    },
+    {
+      "id": "popups-allow/a3-third-party-frame-button",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/a3-third-party-frame-button.html",
+      "file": "popups-allow/a3-third-party-frame-button.html",
+      "technique": "A3",
+      "act": {
+        "frame": "iframe",
+        "click": "#pay"
+      },
+      "target": "https://pay.provider.example/approve",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "opened"
+      },
+      "uses": [
+        "popups-allow/pay-button.html"
+      ]
+    },
+    {
+      "id": "popups-allow/a4-plain-link",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/a4-plain-link.html",
+      "file": "popups-allow/a4-plain-link.html",
+      "technique": "A4",
+      "act": {
+        "click": "#lnk"
+      },
+      "target": "https://othernews.example/a4",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "blocked"
+      },
+      "note": "Strict blocks with a notice; verdict from the decision table of pop-up notes §7.3; P2-57/P2-58 confirm it"
+    },
+    {
+      "id": "popups-allow/a5-modifier-click",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/a5-modifier-click.html",
+      "file": "popups-allow/a5-modifier-click.html",
+      "technique": "A5",
+      "act": {
+        "click": "#lnk",
+        "modifiers": [
+          "ControlOrMeta"
+        ]
+      },
+      "target": "https://othernews.example/a5",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "opened"
+      },
+      "note": "Context-menu \"Open in new tab\" is not scriptable in Playwright; Ctrl and middle click cover G3"
+    },
+    {
+      "id": "popups-allow/a5m-middle-click",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/a5m-middle-click.html",
+      "file": "popups-allow/a5m-middle-click.html",
+      "technique": "A5m",
+      "act": {
+        "click": "#lnk",
+        "button": "middle"
+      },
+      "target": "https://othernews.example/a5m",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "opened"
+      }
+    },
+    {
+      "id": "popups-allow/a6-keyboard-enter",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/a6-keyboard-enter.html",
+      "file": "popups-allow/a6-keyboard-enter.html",
+      "technique": "A6",
+      "act": {
+        "focus": "#b",
+        "press": "Enter"
+      },
+      "target": "https://othernews.example/help",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "blocked"
+      },
+      "note": "Strict blocks with a notice; verdict from the decision table of pop-up notes §7.3; P2-57/P2-58 confirm it"
+    },
+    {
+      "id": "popups-allow/a7-react-root-delegation",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/a7-react-root-delegation.html",
+      "file": "popups-allow/a7-react-root-delegation.html",
+      "technique": "A7",
+      "act": {
+        "click": ".x"
+      },
+      "target": "https://othernews.example/share",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "blocked"
+      },
+      "note": "Strict blocks with a notice; verdict from the decision table of pop-up notes §7.3; P2-57/P2-58 confirm it"
+    },
+    {
+      "id": "popups-allow/a7j-jquery-delegation",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/a7j-jquery-delegation.html",
+      "file": "popups-allow/a7j-jquery-delegation.html",
+      "technique": "A7j",
+      "act": {
+        "click": ".share-btn"
+      },
+      "target": "https://social.example/intent",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "blocked"
+      },
+      "note": "Strict blocks with a notice; verdict from the decision table of pop-up notes §7.3; P2-57/P2-58 confirm it"
+    },
+    {
+      "id": "popups-allow/a8-same-site-pop-out",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/a8-same-site-pop-out.html",
+      "file": "popups-allow/a8-same-site-pop-out.html",
+      "technique": "A8",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://reader.example/popups-allow/popout.html",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "opened"
+      },
+      "uses": [
+        "popups-allow/popout.html"
+      ]
+    },
+    {
+      "id": "popups-allow/a9-share-dialog",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/a9-share-dialog.html",
+      "file": "popups-allow/a9-share-dialog.html",
+      "technique": "A9",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://social.example/share",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "blocked"
+      },
+      "note": "Strict blocks with a notice; verdict from the decision table of pop-up notes §7.3; P2-57/P2-58 confirm it"
+    },
+    {
+      "id": "popups-allow/a10-user-submitted-form",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/a10-user-submitted-form.html",
+      "file": "popups-allow/a10-user-submitted-form.html",
+      "technique": "A10",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://othernews.example/search",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "opened"
+      }
+    },
+    {
+      "id": "popups-allow/a11-blob-tab",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/a11-blob-tab.html",
+      "file": "popups-allow/a11-blob-tab.html",
+      "technique": "A11",
+      "act": {
+        "click": "#b"
+      },
+      "target": "blob:",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "opened"
+      }
+    },
+    {
+      "id": "popups-allow/a12-wrapped-window-open",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/a12-wrapped-window-open.html",
+      "file": "popups-allow/a12-wrapped-window-open.html",
+      "technique": "A12",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://othernews.example/lib",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "blocked"
+      },
+      "note": "Strict blocks with a notice; verdict from the decision table of pop-up notes §7.3; P2-57/P2-58 confirm it"
+    },
+    {
+      "id": "popups-allow/a13-identity-checks",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/a13-identity-checks.html",
+      "file": "popups-allow/a13-identity-checks.html",
+      "technique": "A13",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://othernews.example/ident",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "blocked"
+      },
+      "note": "Strict blocks with a notice; verdict from the decision table of pop-up notes §7.3; P2-57/P2-58 confirm it",
+      "also": [
+        {
+          "global": "__native",
+          "is": true
+        }
+      ]
+    },
+    {
+      "id": "popups-allow/s1-oauth-postmessage",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/s1-oauth-postmessage.html",
+      "file": "popups-allow/s1-oauth-postmessage.html",
+      "technique": "S1",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://accounts.idp-one.example/popups-allow/provider-authorize.html",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "blocked"
+      },
+      "note": "Strict blocks with a notice; verdict from the decision table of pop-up notes §7.3; P2-57/P2-58 confirm it",
+      "also": [
+        {
+          "global": "__got",
+          "is": "abc"
+        }
+      ]
+    },
+    {
+      "id": "popups-allow/s2-sso-redirect-chain",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/s2-sso-redirect-chain.html",
+      "file": "popups-allow/s2-sso-redirect-chain.html",
+      "technique": "S2",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://login.idp-two.example/redirect",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "blocked"
+      },
+      "note": "Strict blocks with a notice; verdict from the decision table of pop-up notes §7.3; P2-57/P2-58 confirm it"
+    },
+    {
+      "id": "popups-allow/s3-payment-3ds-from-frame",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/s3-payment-3ds-from-frame.html",
+      "file": "popups-allow/s3-payment-3ds-from-frame.html",
+      "technique": "S3",
+      "act": {
+        "frame": "iframe",
+        "click": "#pay"
+      },
+      "target": "https://secure.bank-3ds.example/challenge",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "opened"
+      },
+      "uses": [
+        "popups-allow/flow-frame.html"
+      ]
+    },
+    {
+      "id": "popups-allow/s4-wallet-blank-late-location",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/s4-wallet-blank-late-location.html",
+      "file": "popups-allow/s4-wallet-blank-late-location.html",
+      "technique": "S4",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://checkout.psp.example/wallet",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "blocked"
+      },
+      "note": "Strict blocks with a notice; verdict from the decision table of pop-up notes §7.3; P2-57/P2-58 confirm it"
+    },
+    {
+      "id": "popups-allow/s5-sign-in-link-blank",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/s5-sign-in-link-blank.html",
+      "file": "popups-allow/s5-sign-in-link-blank.html",
+      "technique": "S5",
+      "act": {
+        "click": "#l"
+      },
+      "target": "https://accounts.idp-one.example/login",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "blocked"
+      },
+      "note": "Strict blocks with a notice; verdict from the decision table of pop-up notes §7.3; P2-57/P2-58 confirm it"
+    },
+    {
+      "id": "popups-allow/s6-one-tap-provider-frame",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/s6-one-tap-provider-frame.html",
+      "file": "popups-allow/s6-one-tap-provider-frame.html",
+      "technique": "S6",
+      "act": {
+        "frame": "iframe",
+        "click": "#go"
+      },
+      "target": "https://accounts.idp-one.example/consent",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "opened"
+      },
+      "uses": [
+        "popups-allow/onetap.html"
+      ]
+    },
+    {
+      "id": "popups-allow/s7-saml-post-form-blank",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/s7-saml-post-form-blank.html",
+      "file": "popups-allow/s7-saml-post-form-blank.html",
+      "technique": "S7",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://login.idp-two.example/sso",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "opened"
+      }
+    },
+    {
+      "id": "popups-allow/s8-div-role-button",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/s8-div-role-button.html",
+      "file": "popups-allow/s8-div-role-button.html",
+      "technique": "S8",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://checkout.psp.example/approve",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "blocked"
+      },
+      "note": "Strict blocks with a notice; verdict from the decision table of pop-up notes §7.3; P2-57/P2-58 confirm it"
+    },
+    {
+      "id": "popups-allow/s9-keyboard-space",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/s9-keyboard-space.html",
+      "file": "popups-allow/s9-keyboard-space.html",
+      "technique": "S9",
+      "act": {
+        "focus": "#b",
+        "press": "Space"
+      },
+      "target": "https://accounts.idp-one.example/authorize",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "blocked"
+      },
+      "note": "Strict blocks with a notice; verdict from the decision table of pop-up notes §7.3; P2-57/P2-58 confirm it"
+    },
+    {
+      "id": "popups-allow/s10-async-after-fetch",
+      "family": "popups-allow",
+      "page": "https://reader.example/popups-allow/s10-async-after-fetch.html",
+      "file": "popups-allow/s10-async-after-fetch.html",
+      "technique": "S10",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://secure.bank-3ds.example/connect",
+      "expect": {
+        "guardOff": "opened",
+        "smart": "opened",
+        "strict": "blocked"
+      },
+      "note": "Strict blocks with a notice; verdict from the decision table of pop-up notes §7.3; P2-57/P2-58 confirm it"
+    },
+    {
+      "id": "popups-allow/a14-nowoif-before-guard",
+      "family": "popups-allow",
+      "page": "https://nowoif.example/popups-allow/a14-nowoif-before-guard.html",
+      "file": "popups-allow/a14-nowoif-before-guard.html",
+      "technique": "A14",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://othernews.example/nowoif",
+      "expect": {
+        "guardOff": "blocked",
+        "smart": "blocked",
+        "strict": "blocked"
+      },
+      "note": "testing notes §3: nowoif in both injection orders; nowoif itself stops the window",
+      "filters": [
+        "nowoif.example##+js(nowoif)"
+      ],
+      "also": [
+        {
+          "global": "__threw",
+          "is": false
+        }
+      ]
+    },
+    {
+      "id": "popups-allow/a15-nowoif-after-guard",
+      "family": "popups-allow",
+      "page": "https://nowoif.example/popups-allow/a15-nowoif-after-guard.html",
+      "file": "popups-allow/a15-nowoif-after-guard.html",
+      "technique": "A15",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://othernews.example/nowoif2",
+      "expect": {
+        "guardOff": "blocked",
+        "smart": "blocked",
+        "strict": "blocked"
+      },
+      "note": "testing notes §3: nowoif in both injection orders; nowoif itself stops the window",
+      "filters": [
+        "nowoif.example##+js(nowoif)"
+      ],
+      "also": [
+        {
+          "global": "__threw",
+          "is": false
+        }
+      ]
+    },
+    {
+      "id": "popup-destinations/d1-window-open",
+      "family": "popup-destinations",
+      "page": "https://reader.example/popup-destinations/d1-window-open.html",
+      "file": "popup-destinations/d1-window-open.html",
+      "technique": "D1",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://popads.example/landing",
+      "filters": [
+        "||popads.example^$popup"
+      ],
+      "expect": {
+        "guardOff": "blocked"
+      }
+    },
+    {
+      "id": "popup-destinations/d2-link",
+      "family": "popup-destinations",
+      "page": "https://reader.example/popup-destinations/d2-link.html",
+      "file": "popup-destinations/d2-link.html",
+      "technique": "D2",
+      "act": {
+        "click": "#lnk"
+      },
+      "target": "https://popads.example/landing",
+      "filters": [
+        "||popads.example^$popup"
+      ],
+      "expect": {
+        "guardOff": "blocked"
+      }
+    },
+    {
+      "id": "popup-destinations/d3-redirect-chain",
+      "family": "popup-destinations",
+      "page": "https://reader.example/popup-destinations/d3-redirect-chain.html",
+      "file": "popup-destinations/d3-redirect-chain.html",
+      "technique": "D3",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://popads.example/landing",
+      "filters": [
+        "||popads.example^$popup"
+      ],
+      "expect": {
+        "guardOff": "blocked"
+      }
+    },
+    {
+      "id": "popup-destinations/d4-typed",
+      "family": "popup-destinations",
+      "page": "https://reader.example/popup-destinations/d4-typed.html",
+      "file": "popup-destinations/d4-typed.html",
+      "technique": "D4",
+      "act": {
+        "navigate": "https://popads.example/landing"
+      },
+      "target": "https://popads.example/landing",
+      "filters": [
+        "||popads.example^$popup"
+      ],
+      "expect": {
+        "guardOff": "blocked"
+      }
+    },
+    {
+      "id": "popup-destinations/d5-same-tab-redirect",
+      "family": "popup-destinations",
+      "page": "https://reader.example/popup-destinations/d5-same-tab-redirect.html",
+      "file": "popup-destinations/d5-same-tab-redirect.html",
+      "technique": "D5",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://popads.example/landing",
+      "filters": [
+        "||popads.example^$popup"
+      ],
+      "expect": {
+        "guardOff": "blocked"
+      }
+    },
+    {
+      "id": "popup-destinations/d6-site-access-off",
+      "family": "popup-destinations",
+      "page": "https://reader.example/popup-destinations/d6-site-access-off.html",
+      "file": "popup-destinations/d6-site-access-off.html",
+      "technique": "D6",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://popads.example/landing",
+      "filters": [
+        "||popads.example^$popup"
+      ],
+      "expect": {
+        "guardOff": "blocked"
+      },
+      "setup": {
+        "access": "none"
+      }
+    },
+    {
+      "id": "popup-destinations/d7-exception",
+      "family": "popup-destinations",
+      "page": "https://reader.example/popup-destinations/d7-exception.html",
+      "file": "popup-destinations/d7-exception.html",
+      "technique": "D7",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://okpop.example/landing",
+      "filters": [
+        "||okpop.example^$popup",
+        "@@||okpop.example^$popup"
+      ],
+      "expect": {
+        "guardOff": "opened"
+      }
+    },
+    {
+      "id": "popup-destinations/p9-frame-overlay",
+      "family": "popup-destinations",
+      "page": "https://reader.example/popup-destinations/p9-frame-overlay.html",
+      "file": "popup-destinations/p9-frame-overlay.html",
+      "technique": "P9",
+      "act": {
+        "clickAt": [
+          400,
+          300
+        ]
+      },
+      "target": "https://popads.example/landing",
+      "filters": [
+        "||popads.example^$popup"
+      ],
+      "expect": {
+        "guardOff": "blocked"
+      },
+      "uses": [
+        "popup-destinations/p9-inner.html"
+      ]
+    },
+    {
+      "id": "popup-destinations/p10-scripted-form",
+      "family": "popup-destinations",
+      "page": "https://reader.example/popup-destinations/p10-scripted-form.html",
+      "file": "popup-destinations/p10-scripted-form.html",
+      "technique": "P10",
+      "act": {
+        "click": "#text"
+      },
+      "target": "https://popads.example/landing",
+      "filters": [
+        "||popads.example^$popup"
+      ],
+      "expect": {
+        "guardOff": "blocked"
+      }
+    },
+    {
+      "id": "popup-destinations/d8-closed-with-notice",
+      "family": "popup-destinations",
+      "page": "https://reader.example/popup-destinations/d8-closed-with-notice.html",
+      "file": "popup-destinations/d8-closed-with-notice.html",
+      "technique": "D8",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://popads.example/landing",
+      "filters": [
+        "||popads.example^$popup"
+      ],
+      "expect": {
+        "guardOff": "blocked"
+      },
+      "blockedPage": "closed",
+      "notice": "popads.example"
+    },
+    {
+      "id": "popup-destinations/d9-clicked-link-stays",
+      "family": "popup-destinations",
+      "page": "https://reader.example/popup-destinations/d9-clicked-link-stays.html",
+      "file": "popup-destinations/d9-clicked-link-stays.html",
+      "technique": "D9",
+      "act": {
+        "click": "#lnk"
+      },
+      "target": "https://popads.example/landing",
+      "filters": [
+        "||popads.example^$popup"
+      ],
+      "expect": {
+        "guardOff": "blocked"
+      },
+      "blockedPage": "close-tab"
+    },
+    {
+      "id": "popup-destinations/d10-typed-stays",
+      "family": "popup-destinations",
+      "page": "https://reader.example/popup-destinations/d10-typed-stays.html",
+      "file": "popup-destinations/d10-typed-stays.html",
+      "technique": "D10",
+      "act": {
+        "navigate": "https://popads.example/landing"
+      },
+      "target": "https://popads.example/landing",
+      "filters": [
+        "||popads.example^$popup"
+      ],
+      "expect": {
+        "guardOff": "blocked"
+      },
+      "blockedPage": "close-tab",
+      "note": "Typed into a fresh tab: opened at its URL in a new window (no history, no openerTabId), so Close tab is the primary button (pop-up notes §6.2). A tab added to an existing window gets the active tab as openerTabId and is closed as a pop-up: see the P2-47 stability log entry"
+    },
+    {
+      "id": "popup-destinations/d11-same-tab-go-back",
+      "family": "popup-destinations",
+      "page": "https://reader.example/popup-destinations/d11-same-tab-go-back.html",
+      "file": "popup-destinations/d11-same-tab-go-back.html",
+      "technique": "D11",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://popads.example/landing",
+      "filters": [
+        "||popads.example^$popup"
+      ],
+      "expect": {
+        "guardOff": "blocked"
+      },
+      "blockedPage": "go-back"
+    },
+    {
+      "id": "popup-destinations/d12-proceed-once",
+      "family": "popup-destinations",
+      "page": "https://reader.example/popup-destinations/d12-proceed-once.html",
+      "file": "popup-destinations/d12-proceed-once.html",
+      "technique": "D12",
+      "act": {
+        "click": "#lnk"
+      },
+      "target": "https://popads.example/landing",
+      "filters": [
+        "||popads.example^$popup"
+      ],
+      "expect": {
+        "guardOff": "opened"
+      },
+      "blockedPage": "proceed-once"
+    },
+    {
+      "id": "popup-destinations/d13-allow-site-opener",
+      "family": "popup-destinations",
+      "page": "https://reader.example/popup-destinations/d13-allow-site-opener.html",
+      "file": "popup-destinations/d13-allow-site-opener.html",
+      "technique": "D13",
+      "act": {
+        "click": "#b"
+      },
+      "target": "https://popads.example/landing",
+      "filters": [
+        "||popads.example^$popup"
+      ],
+      "expect": {
+        "guardOff": "opened"
+      },
+      "setup": {
+        "sitePolicy": "allow"
+      }
+    },
+    {
+      "id": "notify/n1-prompt-on-load",
+      "family": "notify",
+      "page": "https://reader.example/notify/n1-prompt-on-load.html",
+      "file": "notify/n1-prompt-on-load.html",
+      "technique": "N1",
+      "act": {
+        "none": true
+      },
+      "expect": {
+        "packOff": "prompted",
+        "packOn": "suppressed"
+      }
+    },
+    {
+      "id": "notify/n2-prompt-after-click",
+      "family": "notify",
+      "page": "https://reader.example/notify/n2-prompt-after-click.html",
+      "file": "notify/n2-prompt-after-click.html",
+      "technique": "N2",
+      "act": {
+        "click": "#b"
+      },
+      "expect": {
+        "packOff": "prompted",
+        "packOn": "prompted"
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+<!doctype html>
+<!-- fixture: cosmetic-specific/first-frame · filter: cosmetic.example##.ad-box (state of the first painted frame) -->
+<html lang="en"><head><meta charset="utf-8"><title>cosmetic-specific/first-frame</title>
+<!-- The state of the first frame that contains .ad-box: under load the parser can yield before <body>, so a
+     frame painted without the element is not a flash; keep waiting for the frame that has it (P2-47 stability). -->
+<script>requestAnimationFrame(function check(){var e=document.querySelector('.ad-box');if(e)self.__firstFrameDisplay=getComputedStyle(e).display;else requestAnimationFrame(check)});</script>
+</head>
+<body>
+<div class="ad-box">Advert</div>
+<p class="content">Article text.</p>
+</body></html>

@@ -1,0 +1,7 @@
+<!doctype html>
+<!-- fixture: cosmetic-specific/style · filter: style.example##.sticky-bar:style(position: static !important) -->
+<html lang="en"><head><meta charset="utf-8"><title>cosmetic-specific/style</title></head>
+<body>
+<div class="sticky-bar" style="position: fixed; top: 0">Sticky bar</div>
+<script>addEventListener('load',function(){self.__stickyPosition=(function(){var e=document.querySelector('.sticky-bar');return e?getComputedStyle(e).position:null})()});</script>
+</body></html>

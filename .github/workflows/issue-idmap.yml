@@ -1,0 +1,42 @@
+# Id-map bot (P2-16, filter-pipeline notes §10, ADR-011): on a new or edited issue, resolves the report's `ruleset#id` tokens
+# through that version's id maps (release assets `idmap-<rulesetId>.json` on tag `rules/<version>`), writes one
+# comment with the source filters and adds an `upstream:<project>` label from a fixed allowlist.
+# Written, linted and unit-tested (`tests/unit/scripts/idmap.test.ts` on a sample payload); not run until the
+# repository is public. The issue body is untrusted: it is read from the
+# event file by the script, never interpolated into a command; no third-party actions; `github.token` only.
+name: issue-idmap
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: issue-idmap-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  resolve:
+    name: resolve rule ids
+    # Bots never trigger it (no loops); an edit runs it only when the body changed (security review LOW).
+    if: github.event.sender.type != 'Bot' && (github.event.action == 'opened' || github.event.changes.body != null)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Resolve and comment
+        run: npx jiti scripts/idmap/main.ts
+        env:
+          GH_TOKEN: ${{ github.token }}

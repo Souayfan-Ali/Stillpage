@@ -1,0 +1,20 @@
+<!doctype html>
+<!-- fixture: hostile/blocked-opener · opens a listed destination with crafted addresses and keeps the window
+     reference, so it can post to, navigate and probe the blocked page it lands on. -->
+<html lang="en"><head><meta charset="utf-8"><title>hostile/blocked-opener</title>
+<script>
+  self.__errors = [];
+  addEventListener('error', (e) => { self.__errors.push(String(e.message)); });
+  self.__probe = [];
+  self.__open = (url) => {
+    const w = window.open(url);
+    const poke = () => {
+      try { w.postMessage({ type: 'proceed', v: 1 }, '*'); } catch (e) { self.__probe.push('post:' + e.name); }
+      try { self.__probe.push('href:' + String(w.location.href)); } catch (e) { self.__probe.push('href:' + e.name); }
+      try { w.location.hash = '#https://evil.hostile-dest.example/'; self.__probe.push('hash:set'); } catch (e) { self.__probe.push('hash:' + e.name); }
+    };
+    setTimeout(poke, 50);
+    setTimeout(poke, 300);
+    return w !== null;
+  };
+</script></head><body><button id="pop">pop</button></body></html>

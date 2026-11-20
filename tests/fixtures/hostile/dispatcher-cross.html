@@ -1,0 +1,19 @@
+<!doctype html>
+<!-- fixture: hostile/dispatcher-cross · served from another site: tries to prepare a hostile.example child's realm
+     (cross-origin, refused), and frames a sandboxed (opaque-origin) copy of the same child. -->
+<html lang="en"><head><meta charset="utf-8"><title>hostile/dispatcher-cross</title>
+<script>
+  self.__errors = [];
+  addEventListener('error', (e) => { self.__errors.push(String(e.message)); });
+  self.__plant = {};
+  window.addEventListener('DOMContentLoaded', () => {
+    for (const [name, sandbox] of [['cross', null], ['sandboxed', 'allow-scripts']]) {
+      const f = document.createElement('iframe');
+      if (sandbox !== null) f.setAttribute('sandbox', sandbox);
+      f.name = name;
+      f.src = `https://hostile.example/hostile/dispatcher-child.html?${name}`;
+      document.body.append(f);
+      try { f.contentWindow.Object.getOwnPropertyDescriptor = () => undefined; self.__plant[name] = 'planted'; } catch (e) { self.__plant[name] = e.name; }
+    }
+  });
+</script></head><body><p>cross</p></body></html>

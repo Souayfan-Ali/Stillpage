@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups-allow/a7j-jquery-delegation · a jQuery-style handler delegated to the document -->
+<html lang="en"><head><meta charset="utf-8"><title>popups-allow/a7j-jquery-delegation</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<ul><li><a class="share-btn" role="button" tabindex="0">Tweet</a></li></ul><p id="text">Plain article text, not a control.</p>
+<script>
+document.addEventListener('click', (e) => { if (e.target.closest('.share-btn')) window.open('https://social.example/intent'); });
+</script>
+</body></html>

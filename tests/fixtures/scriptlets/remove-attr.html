@@ -1,0 +1,7 @@
+<!doctype html>
+<!-- fixture: scriptlets/remove-attr · filter: script.example##+js(ra, onclick, .btn, complete) -->
+<html lang="en"><head><meta charset="utf-8"><title>scriptlets/remove-attr</title></head>
+<body>
+<button class="btn" type="button" onclick="self.__clicked=true">Button</button>
+<script>Object.defineProperty(self,"__hasOnclick",{get:function(){return document.querySelector(".btn").hasAttribute("onclick")}})</script>
+</body></html>

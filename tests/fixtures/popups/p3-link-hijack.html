@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups/p3-link-hijack · a same-site link also opens a cross-site window -->
+<html lang="en"><head><meta charset="utf-8"><title>popups/p3-link-hijack</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<a id="lnk" href="/popups/p3-link-hijack.html#article">Read the article</a><p id="text">Plain article text, not a control.</p>
+<script>
+lnk.addEventListener('click', () => window.open('https://popunder.example/ad'));
+</script>
+</body></html>

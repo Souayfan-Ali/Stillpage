@@ -1,0 +1,2 @@
+# Issue forms only (P2-16): blank issues off, so breakage reports carry the extension's report.
+blank_issues_enabled: false

@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popup-destinations/p10-scripted-form · P10: a click anywhere submits a target=_blank form to a listed host (L2 fixture) -->
+<html lang="en"><head><meta charset="utf-8"><title>popup-destinations/p10-scripted-form</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<form id="f" target="_blank" action="https://popads.example/landing"></form><p id="text">Plain article text, not a control.</p>
+<script>
+document.addEventListener('click', () => f.submit(), { once: true });
+</script>
+</body></html>

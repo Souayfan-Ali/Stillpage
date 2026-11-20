@@ -1,0 +1,54 @@
+<!doctype html>
+<!-- fixture: hostile/dispatcher · filter: hostile.example##+js(set, adsEnabled, false)
+     A same-origin parent prepares each child's realm before the child's document_start scripts run
+     (the initial about:blank Window is reused for a same-origin navigation), then reads what ran. -->
+<html lang="en"><head><meta charset="utf-8"><title>hostile/dispatcher</title>
+<script>
+  self.__errors = [];
+  addEventListener('error', (e) => { self.__errors.push(String(e.message)); });
+  addEventListener('unhandledrejection', (e) => { self.__errors.push(String(e.reason)); });
+  self.__topAdsEnabled = window.adsEnabled;
+  // set-constant is the only MAIN scriptlet of the pack, so function index 0; `forgedProbe` marks a forged run.
+  const FORGED = { v: 1, pack: 'ads', shard: 0, hosts: ['hostile.example'], entries: [{ j: [0] }], selectors: [], styles: [], procedural: [], invocations: [[0, 'forgedProbe', 'true']] };
+  const forgedHolder = (w) => { const h = w.Object.create(null); h.s = FORGED; return h; };
+  const proxyHolder = (w) => new w.Proxy(w.Object.create(null), {
+    getPrototypeOf: () => null,
+    getOwnPropertyDescriptor: (t, k) => (k === 's' ? { value: FORGED, writable: true, enumerable: true, configurable: true } : Reflect.getOwnPropertyDescriptor(t, k)),
+    defineProperty: () => true, set: () => true,
+  });
+  const PLANTS = {
+    control: () => {},
+    frozenHolder: (w) => { const h = forgedHolder(w); w.Object.freeze(h); w.Object.defineProperty(w, '__sl_q', { value: h, configurable: true }); },
+    accessorQueue: (w) => { w.Object.defineProperty(w, '__sl_q', { get: () => forgedHolder(w), set() {}, configurable: true }); },
+    pinnedQueue: (w) => { w.Object.defineProperty(w, '__sl_q', { value: forgedHolder(w), configurable: false, writable: true }); },
+    poisonedCreate: (w) => { const create = w.Object.create; w.Object.create = (p, d) => (p === null && d === undefined ? proxyHolder(w) : create(p, d)); },
+    poisonedDescriptor: (w) => {
+      const gopd = w.Object.getOwnPropertyDescriptor;
+      w.Object.getOwnPropertyDescriptor = (o, k) => (k === 's' && o !== w ? { value: FORGED, writable: true, enumerable: true, configurable: true } : k === 'x' ? undefined : gopd(o, k));
+    },
+    noDelete: (w) => { w.Reflect.deleteProperty = () => false; },
+    arrayIndexAccessors: (w) => {
+      for (let i = 0; i < 4; i += 1) w.Object.defineProperty(w.Array.prototype, String(i), { get: () => 'forgedProbe', set() {}, configurable: true });
+    },
+    objectPrototypeGetters: (w) => {
+      for (const k of ['v', 'pack', 'hosts', 'entries', 'invocations', 'j', 'n', 'common', 's', 'c', 'x', 'value', 'get']) {
+        w.Object.defineProperty(w.Object.prototype, k, { get: () => { w.__protoRead = (w.__protoRead || 0) + 1; return undefined; }, configurable: true });
+      }
+    },
+    poisonedApply: (w) => { const a = w.Reflect.apply; w.Reflect.apply = (f, t, args) => a(f, t, ['forgedProbe', 'true']); w.Function.prototype.apply = function () { return 'poisoned'; }; },
+  };
+  self.__results = {};
+  self.__planted = Object.keys(PLANTS);
+  window.addEventListener('DOMContentLoaded', () => {
+    for (const [name, plant] of Object.entries(PLANTS)) {
+      const f = document.createElement('iframe');
+      f.src = `/hostile/dispatcher-child.html?${name}`;
+      document.body.append(f);
+      const w = f.contentWindow;
+      try { w.__planted = true; plant(w); } catch (e) { self.__results[name] = { plantError: String(e) }; }
+      f.addEventListener('load', () => {
+        try { self.__results[name] = { ...f.contentWindow.__report, protoReads: f.contentWindow.__protoRead || 0 }; } catch (e) { self.__results[name] = { readError: String(e) }; }
+      }, { once: true });
+    }
+  });
+</script></head><body><p>dispatcher</p></body></html>

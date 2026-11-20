@@ -1,0 +1,239 @@
+/*
+ * Privacy panel and its card (P2-12, UI notes §4, §11; P3-18): the card is a white raised button with the
+ * blocked figure large in its own column and the breakdown as coloured stat tiles (companies blue, ads rose,
+ * trackers violet); the panel lists categories as rows with tabular figures.
+ */
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: var(--control-height);
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition-property: border-color, box-shadow;
+  transition-duration: var(--transition);
+}
+
+.card:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-raised);
+}
+
+.card:focus-visible,
+.how summary:focus-visible {
+  outline: var(--focus-width) solid var(--color-focus);
+  outline-offset: var(--focus-offset);
+}
+
+.cardText {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.figure {
+  margin-inline-end: 2px;
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-size: 1.875rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.headline {
+  font-weight: 700;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.tileWrap {
+  display: contents;
+}
+
+.tile {
+  --tile: var(--color-companies);
+  --tile-soft: var(--color-companies-soft);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding-block: 2px;
+  padding-inline: 5px 7px;
+  border-radius: var(--radius-pill);
+  background: var(--tile-soft);
+  color: var(--tile);
+  font-size: var(--font-size-tiny);
+  font-weight: 700;
+  line-height: 1.5;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.tile[data-tile='ads'] {
+  --tile: var(--color-ads);
+  --tile-soft: var(--color-ads-soft);
+}
+
+.tile[data-tile='tracking'],
+.tile[data-tile='params'] {
+  --tile: var(--color-trackers);
+  --tile-soft: var(--color-trackers-soft);
+}
+
+.tile[data-tile='malware'],
+.tile[data-tile='popup'],
+.tile[data-tile='annoyance'],
+.tile[data-tile='cookies'] {
+  --tile: var(--color-warning);
+  --tile-soft: var(--color-warning-soft);
+}
+
+.chevron {
+  flex: none;
+  color: var(--color-accent);
+}
+
+.detail {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  font-variant-numeric: tabular-nums;
+}
+
+.view {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-strong);
+  overflow-wrap: anywhere;
+}
+
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+/* One card per category, in the category's colour (as the panel's tiles). */
+.group {
+  --cat: var(--color-accent);
+  --cat-soft: var(--color-accent-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width) solid var(--color-border);
+  border-inline-start: 4px solid var(--cat);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-card);
+}
+
+.group[data-category='ads'] {
+  --cat: var(--color-ads);
+  --cat-soft: var(--color-ads-soft);
+}
+
+.group[data-category='tracking'],
+.group[data-category='params'] {
+  --cat: var(--color-trackers);
+  --cat-soft: var(--color-trackers-soft);
+}
+
+.group[data-category='malware'],
+.group[data-category='popup'],
+.group[data-category='cookies'],
+.group[data-category='annoyance'] {
+  --cat: var(--color-warning);
+  --cat-soft: var(--color-warning-soft);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin: 0;
+  font-weight: var(--font-weight-strong);
+}
+
+dt.row .count {
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--cat-soft);
+  color: var(--cat);
+  font-weight: 800;
+}
+
+.bucket {
+  padding-inline-start: var(--space-3);
+  font-weight: normal;
+}
+
+.count {
+  font-variant-numeric: tabular-nums;
+}
+
+.note {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.how summary {
+  min-height: var(--target-min);
+  cursor: pointer;
+}
+
+.how p {
+  margin: var(--space-1) 0 0;
+  font-size: var(--font-size-small);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.status {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+/* The view's Back button: a tinted pill (P3-18). */
+.bar > button {
+  padding-inline: 10px;
+  border-color: transparent;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-soft);
+  text-decoration: none;
+}

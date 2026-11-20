@@ -1,0 +1,6 @@
+{
+  "$comment": "Store item for release tooling (P2-04). Placeholders until the owner creates the item (P1-47, S-12); the live path refuses to run while any value starts with OWNER_. The service-account key never goes here: its path comes from the environment variable named in keyFileEnv (protected CI environment).",
+  "publisherId": "OWNER_PUBLISHER_ID",
+  "itemId": "OWNER_UNLISTED_ITEM_ID",
+  "keyFileEnv": "GLASSMERE_CWS_KEY_FILE"
+}

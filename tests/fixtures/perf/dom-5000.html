@@ -1,0 +1,9 @@
+<!doctype html>
+<!-- fixture: perf/dom-5000 · 5,000-element page (cosmetic cost on a big DOM) -->
+<html lang="en"><head><meta charset="utf-8"><title>perf/dom-5000</title>
+<style>body{max-width:40em;margin:auto;font:18px Georgia}</style></head>
+<body>
+<h1>Big DOM</h1>
+<div id="root"></div>
+<script>const root = document.getElementById('root'); const f = document.createDocumentFragment(); for (let i = 0; i < 1666; i++) { const d = document.createElement('div'); d.className = 'row r' + (i % 7); const s = document.createElement('span'); s.textContent = 'item ' + i; const b = document.createElement('b'); b.textContent = String(i); d.append(s, b); f.append(d); } root.append(f);</script>
+</body></html>

@@ -1,0 +1,78 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "tooling notes §9: exact pins, 7-day minimum release age, dev deps grouped weekly, runtime deps and WXT one PR each, never auto-merged.",
+  "extends": [
+    "config:recommended",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "rangeStrategy": "pin",
+  "minimumReleaseAge": "7 days",
+  "internalChecksFilter": "strict",
+  "automerge": false,
+  "timezone": "UTC",
+  "labels": [
+    "dependencies"
+  ],
+  "packageRules": [
+    {
+      "description": "Dev dependencies: one grouped PR per week.",
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "groupName": "dev dependencies",
+      "schedule": [
+        "before 6am on monday"
+      ]
+    },
+    {
+      "description": "Runtime dependencies ship in the extension: one PR each, changelog and diff review.",
+      "matchDepTypes": [
+        "dependencies"
+      ],
+      "automerge": false
+    },
+    {
+      "description": "WXT is 0.x: its own PR; the full E2E suite and the S-01 timing check must pass.",
+      "matchPackageNames": [
+        "wxt",
+        "vite"
+      ],
+      "groupName": "wxt",
+      "automerge": false
+    },
+    {
+      "description": "Playwright's bundled Chromium defines the DNR test environment; bumps are their own PR.",
+      "matchPackageNames": [
+        "@playwright/test",
+        "playwright",
+        "playwright-core"
+      ],
+      "groupName": "playwright"
+    },
+    {
+      "description": "Filter-list tooling: a bump must show an explained ruleset diff before merge.",
+      "matchPackageNames": [
+        "@adguard/agtree",
+        "@adguard/dnr-converter"
+      ],
+      "groupName": "filter-list tooling"
+    },
+    {
+      "description": "TypeScript stays on 6.x until typescript-eslint supports 7 (spike S-09).",
+      "matchPackageNames": [
+        "typescript"
+      ],
+      "allowedVersions": "<7"
+    },
+    {
+      "description": "GitHub Actions stay pinned by digest; grouped monthly.",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "groupName": "github actions",
+      "schedule": [
+        "before 6am on the first day of the month"
+      ]
+    }
+  ]
+}

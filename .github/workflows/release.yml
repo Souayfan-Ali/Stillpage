@@ -1,0 +1,176 @@
+# Full release (update-strategy notes §4, tooling notes §6, P2-06): tag v<MAJOR>.<MINOR> → build from the tag with the pinned lock →
+# zip + source zip → checksums + provenance attestation → upload as a draft → MANUAL APPROVAL → upload the
+# approved bytes again and submit for review (staged publishing) → GitHub release. Written and linted locally;
+# not executed until the repository is public.
+# PARTIAL for now: every store step is a dry run against the recorded-contract fake (no `--live`, no secret).
+# Going live is the owner's (NEEDS MAINTAINER, S-12, P1-47):
+#   1. a tag ruleset protecting `v*` tags; environments `store-full` (key; deployments from protected `v*` tags
+#      only, required reviewers) and `release-approval` (required reviewers = the approval, same key);
+#   2. verified-upload signing of the zip with the owner's key (research notes 03 §7.3) before each upload;
+#   3. `--live` on the two store commands, GLASSMERE_CWS_KEY_FILE, and a write-scoped GitHub-release step.
+# Key-holding jobs run the release tooling from the default branch and treat the built zip as data, checked
+# against the SHA-256 the build job reported (a separate channel from the artefact).
+# Rules: actions pinned by commit SHA; read-only token by default; only `attest` may mint an attestation.
+name: release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Full-release tag (v<MAJOR>.<MINOR>) to build
+        required: true
+
+permissions:
+  contents: read
+
+# Shared with rulesets.yml: one store mutation at a time.
+concurrency:
+  group: store-mutation
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: build from the tag, checksums
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      zip_sha256: ${{ steps.assets.outputs.zip_sha256 }}
+    env:
+      TAG: ${{ inputs.tag || github.ref_name }}
+    steps:
+      - name: Tag must be v<MAJOR>.<MINOR>
+        run: |
+          [[ "$TAG" =~ ^v(0|[1-9][0-9]{0,4})\.(0|[1-9][0-9]{0,4})$ ]] || { echo "::error::not a full-release tag: $TAG"; exit 1; }
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: refs/tags/${{ env.TAG }}
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run vendor:fetch
+      - run: npx playwright install --with-deps chromium
+      # Exactly the locked list versions (hash-checked, no --refresh): a full release is reproducible from its tag.
+      # Unversioned lists come from lists/snapshots; owner-pending packs are left out, as in the build below.
+      - run: npm run lists:fetch -- --drop-pending
+      # The store build is the public channel (D-39, Q-11): it fails while an owner-pending pack would ship
+      # (dropped here) or while ISSUE_TRACKER_URL is still the placeholder.
+      - run: npm run lists:build -- --check-determinism --channel public --drop-pending
+      - name: Version MAJOR.MINOR.RULES_DAY.RULES_HHMM (code line from the tag, rules time of the tagged commit)
+        id: version
+        run: |
+          version=$(npm run -s release -- version --tag "$TAG" --snapshot "$(git log -1 --format=%cI)")
+          npm pkg set version="$version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+      - run: npm test
+      # `wxt zip` builds .output/chrome-mv3, which the size check measures.
+      - run: npm run zip
+      - run: npm run size
+      # The source zip is the tag as committed; the only build-time change is the package version set above.
+      - name: Source zip, record and SHA256SUMS
+        id: assets
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          git archive --format=zip --output=source.zip HEAD
+          npm run -s release -- assets --zip .output/*-chrome.zip --source source.zip --idmap-dir dist/compiler/debug/idmap --out dist/assets
+          (cd dist/assets && sha256sum -c SHA256SUMS)
+          echo "zip_sha256=$(sha256sum "dist/assets/glassmere-$VERSION-chrome.zip" | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: release-${{ steps.version.outputs.version }}
+          path: dist/assets
+          retention-days: 90
+
+  attest:
+    name: build provenance attestation
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: release-${{ needs.build.outputs.version }}
+          path: assets
+      - name: The zip is the one the build reported
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
+          ZIP_SHA256: ${{ needs.build.outputs.zip_sha256 }}
+        run: echo "$ZIP_SHA256  assets/glassmere-$VERSION-chrome.zip" | sha256sum -c -
+      - uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-path: assets/*.zip
+
+  draft:
+    name: upload as a draft (dry run)
+    needs: [build, attest]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    environment: store-full
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: release-${{ needs.build.outputs.version }}
+          path: assets
+      - name: The zip is the one the build reported
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
+          ZIP_SHA256: ${{ needs.build.outputs.zip_sha256 }}
+        run: echo "$ZIP_SHA256  assets/glassmere-$VERSION-chrome.zip" | sha256sum -c -
+      - name: Upload the draft (dry run; verified-upload signing is NEEDS MAINTAINER)
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
+        run: npm run -s release -- upload-full --zip "assets/glassmere-$VERSION-chrome.zip"
+
+  submit:
+    name: submit for review after approval (dry run)
+    needs: [build, draft]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    # Required reviewers on this environment are the manual approval (tooling notes §6).
+    environment: release-approval
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: release-${{ needs.build.outputs.version }}
+          path: assets
+      - name: The zip is the one the build reported
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
+          ZIP_SHA256: ${{ needs.build.outputs.zip_sha256 }}
+        run: echo "$ZIP_SHA256  assets/glassmere-$VERSION-chrome.zip" | sha256sum -c -
+      - name: Upload the approved bytes again and submit for standard review, staged publishing (dry run)
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
+        run: npm run -s release -- submit-full --zip "assets/glassmere-$VERSION-chrome.zip" --version "$VERSION"
+      - name: GitHub release with zip, source zip, record, SHA256SUMS (dry run, needs a write token)
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
+        run: echo "would create GitHub release $VERSION as a draft with the build artefacts"

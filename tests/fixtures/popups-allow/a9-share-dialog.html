@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups-allow/a9-share-dialog · a share dialog window -->
+<html lang="en"><head><meta charset="utf-8"><title>popups-allow/a9-share-dialog</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<button id="b">Share</button><p id="text">Plain article text, not a control.</p>
+<script>
+b.addEventListener('click', () => window.open('https://social.example/share?u=' + encodeURIComponent(location.href), 'share', 'width=600,height=400'));
+</script>
+</body></html>

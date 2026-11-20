@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups-allow/a15-nowoif-after-guard · nowoif scriptlet injected after the guard shim; the page must not throw -->
+<html lang="en"><head><meta charset="utf-8"><title>popups-allow/a15-nowoif-after-guard</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<button id="b">Open</button><p id="text">Plain article text, not a control.</p>
+<script>
+window.__threw = false; b.addEventListener('click', () => { try { window.open('https://othernews.example/nowoif2'); } catch { window.__threw = true; } });
+</script>
+</body></html>

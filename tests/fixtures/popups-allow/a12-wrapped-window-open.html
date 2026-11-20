@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups-allow/a12-wrapped-window-open · a page library wraps window.open and calls the original -->
+<html lang="en"><head><meta charset="utf-8"><title>popups-allow/a12-wrapped-window-open</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<button id="b">Open</button><p id="text">Plain article text, not a control.</p>
+<script>
+const o = window.open; window.open = function (...a) { return o.apply(this, a); }; b.addEventListener('click', () => window.open('https://othernews.example/lib'));
+</script>
+</body></html>

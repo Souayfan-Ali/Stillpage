@@ -1,0 +1,51 @@
+<!doctype html>
+<!-- fixture: hostile/picker · a page that attacks the element picker: top-layer covers re-shown after the
+     picker promoted itself, pointer-events:none decoys over the panel, forged messages to every frame. -->
+<html lang="en"><head><meta charset="utf-8"><title>hostile/picker</title>
+<style>body{margin:0;font:16px sans-serif} #ad{width:300px;height:250px;margin:40px;background:#ccc} p{margin:40px}</style>
+<script>
+  self.__errors = [];
+  addEventListener('error', (e) => { self.__errors.push(String(e.message)); });
+  self.__overlayOpen = () => document.documentElement.children.length === 3;
+  self.__host = () => (self.__overlayOpen() ? document.documentElement.lastElementChild : null);
+  /** A page popover that covers the viewport; `passThrough` makes hit-testing skip it (a decoy). */
+  self.__cover = (passThrough) => {
+    const p = document.createElement('div');
+    p.setAttribute('popover', 'manual');
+    p.style.cssText = `position:fixed;inset:0;width:100vw;height:100vh;max-width:none;max-height:none;margin:0;border:0;background:#fff;pointer-events:${passThrough ? 'none' : 'auto'}`;
+    p.textContent = 'cover';
+    document.body.append(p);
+    p.showPopover();
+    self.__coverEl = p;
+    return true;
+  };
+  /** Hides and re-shows the same popover in one task: it goes above the picker again. */
+  self.__reshow = () => { self.__coverEl.hidePopover(); self.__coverEl.showPopover(); return true; };
+  /** Swallows every toggle event before anyone else sees it (window capture, registered first). */
+  self.__suppressToggles = () => {
+    for (const t of ['beforetoggle', 'toggle']) window.addEventListener(t, (e) => { e.stopImmediatePropagation(); e.stopPropagation(); }, true);
+    return true;
+  };
+  /** Re-shows the cover every 50 ms (a page fighting for the top layer). */
+  self.__reshowLoop = () => { setInterval(self.__reshow, 50); return true; };
+  /** Takes the cover away. */
+  self.__uncover = () => { self.__coverEl.hidePopover(); self.__coverEl.remove(); return true; };
+  /** Counts shadow roots attached through the page's own prototype (our overlay never uses it). */
+  self.__shadowHooks = 0;
+  const attach = Element.prototype.attachShadow;
+  Element.prototype.attachShadow = function (init) { self.__shadowHooks += 1; return attach.call(this, init); };
+  /** A legitimate page popover open before the picker starts (a cookie banner, say). */
+  self.__banner = () => {
+    const p = document.createElement('div');
+    p.setAttribute('popover', 'manual');
+    p.id = 'banner';
+    p.style.cssText = 'position:fixed;left:0;top:auto;bottom:0;width:200px;height:60px;margin:0';
+    p.textContent = 'cookies';
+    document.body.append(p);
+    p.showPopover();
+    return true;
+  };
+  /** What hit-testing finds at a point: 'picker' (our host), 'cover', or another tag. */
+  self.__topAt = (x, y) => { const el = document.elementFromPoint(x, y); return el === self.__host() ? 'picker' : el === self.__coverEl ? 'cover' : el ? el.tagName : null; };
+</script></head>
+<body><div id="ad" class="banner">ad</div><p id="keep">keep</p></body></html>

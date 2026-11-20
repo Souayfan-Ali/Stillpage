@@ -1,0 +1,215 @@
+/*
+ * Dashboard shell (UI notes §8; P3-16 narrow layout; P3-18 bold redesign): a full-height teal gradient
+ * sidebar (the mark in a white tile, the name and the nav in white, one glyph per section, the current
+ * section a white pill) beside one section on a white card over the tinted canvas. At 40rem and below the
+ * sidebar becomes a coloured top bar with the nav as a grid of 44 px items; no sideways scroll.
+ */
+.page {
+  display: grid;
+  grid-template-columns: 15rem minmax(0, 1fr);
+  min-height: 100vh;
+  /* The sidebar's colour runs the page's full height under the sticky column. */
+  background: linear-gradient(var(--color-brand-end), var(--color-brand-end)) 0 0 / 15rem 100% no-repeat;
+}
+
+[dir='rtl'] .page {
+  background-position: 100% 0;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+  padding: var(--space-5) var(--space-3);
+  background:
+    radial-gradient(100% 50% at 0% 100%, color-mix(in srgb, var(--color-brand-wave) 22%, transparent) 0%, transparent 70%),
+    var(--gradient-brand);
+  color: var(--color-on-brand);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 var(--space-5);
+  padding-inline: var(--space-2);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.markTile {
+  --color-bg: var(--color-on-brand);
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--color-on-brand);
+  color: var(--color-brand-start);
+  box-shadow: 0 3px 10px color-mix(in srgb, #000000 25%, transparent);
+}
+
+.nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: max(var(--target-min), 40px);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius);
+  color: var(--color-on-brand);
+  font-weight: var(--font-weight-strong);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition-property: background-color, color;
+  transition-duration: var(--transition);
+}
+
+.nav li a svg {
+  flex: none;
+  opacity: 0.9;
+}
+
+.nav li a:hover {
+  background: var(--color-brand-current);
+}
+
+.nav li a[aria-current='page'] {
+  background: var(--color-bg);
+  color: var(--color-accent);
+  box-shadow: 0 4px 14px color-mix(in srgb, #000000 22%, transparent);
+}
+
+.nav li a:focus-visible,
+.setupLink:focus-visible {
+  outline: var(--focus-width) solid var(--color-focus-on-brand);
+  outline-offset: var(--focus-offset);
+}
+
+.setup {
+  margin: var(--space-4) 0 0;
+  padding-inline: var(--space-3);
+  font-size: var(--font-size-small);
+}
+
+.setupLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--target-min);
+  color: var(--color-on-brand-muted);
+  text-underline-offset: 2px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 56rem;
+  min-width: 0;
+  margin: var(--space-6) auto;
+  padding: var(--space-6);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-card);
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.titleIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--gradient-brand);
+  color: var(--color-on-brand);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-brand-start) 35%, transparent);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+@media (max-width: 64rem) {
+  .main {
+    margin: var(--space-5);
+    width: auto;
+  }
+}
+
+@media (max-width: 40rem) {
+  .page {
+    grid-template-columns: minmax(0, 1fr);
+    background: none;
+  }
+
+  .header {
+    position: static;
+    height: auto;
+    padding: var(--space-4);
+  }
+
+  .brand {
+    margin-bottom: var(--space-3);
+    padding-inline: 0;
+  }
+
+  .nav ul {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .nav li a {
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    padding: 6px var(--space-1);
+    background: color-mix(in srgb, var(--color-on-brand) 10%, transparent);
+    font-size: var(--font-size-small);
+    text-align: center;
+  }
+
+  .setup {
+    margin-top: var(--space-2);
+    padding-inline: 0;
+  }
+
+  .main {
+    margin: var(--space-4) var(--space-4) var(--space-5);
+    padding: var(--space-4);
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+}

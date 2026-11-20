@@ -1,0 +1,116 @@
+/*
+ * The panel's state hero (P3-18): a card tinted by the state, a filled badge with the state's glyph, the
+ * site as the heading, the state line in the state's colour, its actions below. The colours are tokens
+ * whose pairs are checked for contrast (tests/unit/ui/tokens.test.ts).
+ */
+.hero {
+  --tone: var(--color-text-muted);
+  --tone-soft: var(--color-neutral-soft);
+  --tone-strong: var(--color-neutral-strong);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width) solid color-mix(in srgb, var(--tone-strong) 35%, transparent);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(120% 140% at 100% 0%, color-mix(in srgb, var(--tone-strong) 14%, transparent) 0%, transparent 60%),
+    var(--tone-soft);
+  box-shadow: var(--shadow-card);
+}
+
+.hero[data-tone='ok'] {
+  --tone: var(--color-ok);
+  --tone-soft: var(--color-ok-soft);
+  --tone-strong: var(--color-ok-strong);
+}
+
+.hero[data-tone='paused'],
+.hero[data-tone='warning'] {
+  --tone: var(--color-warning);
+  --tone-soft: var(--color-warning-soft);
+  --tone-strong: var(--color-warning-strong);
+}
+
+.hero[data-tone='info'] {
+  --tone: var(--color-text);
+  --tone-soft: var(--color-info-soft);
+  --tone-strong: var(--color-info-strong);
+}
+
+.hero[data-tone='error'] {
+  --tone: var(--color-error);
+  --tone-soft: var(--color-error-soft);
+  --tone-strong: var(--color-error);
+}
+
+.badge {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--tone-strong);
+  color: var(--color-on-strong);
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--tone-strong) 40%, transparent);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.host {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.state {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stateText {
+  margin: 0;
+  color: var(--tone);
+  font-weight: var(--font-weight-strong);
+  text-wrap: pretty;
+}
+
+/* The state's buttons run under the badge too: the card's full width, side by side. */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-inline-start: calc(-40px - var(--space-3));
+}
+
+.actions > * {
+  flex: 1 1 auto;
+  padding-inline: 10px;
+  font-size: var(--font-size-small);
+}
+
+/* D-31: static warning under the state line (not a live region; design review, P2-10). */
+.retry {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: var(--space-1) 0 0;
+  font-size: var(--font-size-small);
+}
+
+.retry svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--color-warning);
+}

@@ -1,0 +1,716 @@
+{
+  "schema": 1,
+  "sources": {
+    "uassets": {
+      "kind": "git",
+      "repo": "uBlockOrigin/uAssets",
+      "branch": "gh-pages"
+    }
+  },
+  "packs": {
+    "ads": {
+      "title": "Ads",
+      "default": true
+    },
+    "trackers": {
+      "title": "Trackers",
+      "default": true
+    },
+    "malware": {
+      "title": "Malware and scams",
+      "default": true
+    },
+    "popups": {
+      "title": "Pop-ups",
+      "default": true
+    },
+    "cookies": {
+      "title": "Cookie banners",
+      "default": false
+    },
+    "annoy-overlays": {
+      "title": "Annoyances: overlays",
+      "default": false
+    },
+    "annoy-social": {
+      "title": "Annoyances: social",
+      "default": false
+    },
+    "annoy-widgets": {
+      "title": "Annoyances: widgets",
+      "default": false
+    },
+    "annoy-newsletters": {
+      "title": "Annoyances: other",
+      "default": false
+    },
+    "annoy-notifications": {
+      "title": "Annoyances: notifications",
+      "default": false
+    },
+    "params": {
+      "title": "Tracking parameters",
+      "default": false
+    },
+    "gpc": {
+      "title": "Global Privacy Control",
+      "default": false
+    },
+    "reg-de": {
+      "title": "Regional: German",
+      "default": false
+    },
+    "reg-it": {
+      "title": "Regional: Italian",
+      "default": false
+    },
+    "reg-ja": {
+      "title": "Regional: Japanese",
+      "default": false
+    },
+    "reg-nl": {
+      "title": "Regional: Dutch",
+      "default": false
+    },
+    "reg-zh": {
+      "title": "Regional: Chinese",
+      "default": false
+    },
+    "reg-es-pt": {
+      "title": "Regional: Spanish and Portuguese",
+      "default": false
+    }
+  },
+  "lists": [
+    {
+      "id": "ubo-quick-fixes",
+      "title": "uBlock filters – Quick fixes",
+      "source": "uassets",
+      "path": "filters/quick-fixes.min.txt",
+      "licence": "GPL-3.0-only",
+      "licenceState": "cleared",
+      "trusted": true,
+      "format": "adblock",
+      "homepage": "https://github.com/uBlockOrigin/uAssets"
+    },
+    {
+      "id": "ubo-unbreak",
+      "title": "uBlock filters – Unbreak",
+      "source": "uassets",
+      "path": "filters/unbreak.min.txt",
+      "licence": "GPL-3.0-only",
+      "licenceState": "cleared",
+      "trusted": true,
+      "format": "adblock",
+      "homepage": "https://github.com/uBlockOrigin/uAssets"
+    },
+    {
+      "id": "ubo-filters",
+      "title": "uBlock filters – Ads",
+      "source": "uassets",
+      "path": "filters/filters.min.txt",
+      "licence": "GPL-3.0-only",
+      "licenceState": "cleared",
+      "trusted": true,
+      "format": "adblock",
+      "homepage": "https://github.com/uBlockOrigin/uAssets"
+    },
+    {
+      "id": "ubo-privacy",
+      "title": "uBlock filters – Privacy",
+      "source": "uassets",
+      "path": "filters/privacy.min.txt",
+      "licence": "GPL-3.0-only",
+      "licenceState": "cleared",
+      "trusted": true,
+      "format": "adblock",
+      "homepage": "https://github.com/uBlockOrigin/uAssets"
+    },
+    {
+      "id": "ubo-lite",
+      "title": "uBO Lite filters",
+      "source": "uassets",
+      "path": "filters/ubol-filters.txt",
+      "licence": "GPL-3.0-only",
+      "licenceState": "cleared",
+      "trusted": true,
+      "format": "adblock",
+      "homepage": "https://github.com/uBlockOrigin/uAssets"
+    },
+    {
+      "id": "ubo-badware",
+      "title": "uBlock filters – Badware risks",
+      "source": "uassets",
+      "path": "filters/badware.min.txt",
+      "licence": "GPL-3.0-only",
+      "licenceState": "cleared",
+      "trusted": true,
+      "format": "adblock",
+      "homepage": "https://github.com/uBlockOrigin/uAssets"
+    },
+    {
+      "id": "easylist",
+      "title": "EasyList",
+      "source": "uassets",
+      "path": "thirdparties/easylist.txt",
+      "licence": "GPL-3.0-or-later OR CC-BY-SA-3.0",
+      "licenceState": "cleared",
+      "trusted": false,
+      "format": "adblock",
+      "homepage": "https://easylist.to/"
+    },
+    {
+      "id": "easyprivacy",
+      "title": "EasyPrivacy",
+      "source": "uassets",
+      "path": "thirdparties/easyprivacy.txt",
+      "licence": "GPL-3.0-or-later OR CC-BY-SA-3.0",
+      "licenceState": "cleared",
+      "trusted": false,
+      "format": "adblock",
+      "homepage": "https://easylist.to/"
+    },
+    {
+      "id": "urlhaus",
+      "title": "Malicious Hosts Blocklist (URLhaus, hosts variant)",
+      "url": "https://malware-filter.gitlab.io/malware-filter/urlhaus-filter-hosts.txt",
+      "licence": "CC0-1.0",
+      "licenceState": "cleared",
+      "trusted": false,
+      "format": "hosts",
+      "homepage": "https://gitlab.com/malware-filter/urlhaus-filter"
+    },
+    {
+      "id": "easylist-cookies",
+      "title": "EasyList – Cookie Notices",
+      "source": "uassets",
+      "path": "thirdparties/easylist-cookies.txt",
+      "licence": "CC-BY-3.0",
+      "licenceState": "cleared",
+      "trusted": false,
+      "format": "adblock",
+      "homepage": "https://easylist.to/"
+    },
+    {
+      "id": "ubo-annoyances-cookies",
+      "title": "uBlock filters – Cookie Notices",
+      "source": "uassets",
+      "path": "filters/annoyances-cookies.txt",
+      "licence": "GPL-3.0-only",
+      "licenceState": "cleared",
+      "trusted": true,
+      "format": "adblock",
+      "homepage": "https://github.com/uBlockOrigin/uAssets"
+    },
+    {
+      "id": "easylist-newsletters",
+      "title": "EasyList – Newsletter Notices",
+      "source": "uassets",
+      "path": "thirdparties/easylist-newsletters.txt",
+      "licence": "GPL-3.0-or-later OR CC-BY-SA-3.0",
+      "licenceState": "cleared",
+      "trusted": false,
+      "format": "adblock",
+      "homepage": "https://easylist.to/"
+    },
+    {
+      "id": "ubo-annoyances-others",
+      "title": "uBlock filters – Other Annoyances",
+      "source": "uassets",
+      "path": "filters/annoyances-others.txt",
+      "licence": "GPL-3.0-only",
+      "licenceState": "cleared",
+      "trusted": true,
+      "format": "adblock",
+      "homepage": "https://github.com/uBlockOrigin/uAssets"
+    },
+    {
+      "id": "easylist-social",
+      "title": "EasyList – Social Widgets",
+      "source": "uassets",
+      "path": "thirdparties/easylist-social.txt",
+      "licence": "GPL-3.0-or-later OR CC-BY-SA-3.0",
+      "licenceState": "cleared",
+      "trusted": false,
+      "format": "adblock",
+      "homepage": "https://easylist.to/"
+    },
+    {
+      "id": "easylist-chat",
+      "title": "EasyList – Chat Widgets",
+      "source": "uassets",
+      "path": "thirdparties/easylist-chat.txt",
+      "licence": "GPL-3.0-or-later OR CC-BY-SA-3.0",
+      "licenceState": "cleared",
+      "trusted": false,
+      "format": "adblock",
+      "homepage": "https://easylist.to/"
+    },
+    {
+      "id": "easylist-annoyances",
+      "title": "EasyList – Annoyances",
+      "source": "uassets",
+      "path": "thirdparties/easylist-annoyances.txt",
+      "licence": "GPL-3.0-or-later OR CC-BY-SA-3.0",
+      "licenceState": "cleared",
+      "trusted": false,
+      "format": "adblock",
+      "homepage": "https://easylist.to/"
+    },
+    {
+      "id": "easylist-notifications",
+      "title": "EasyList – Notifications",
+      "source": "uassets",
+      "path": "thirdparties/easylist-notifications.txt",
+      "licence": "GPL-3.0-or-later OR CC-BY-SA-3.0",
+      "licenceState": "cleared",
+      "trusted": false,
+      "format": "adblock",
+      "homepage": "https://easylist.to/"
+    },
+    {
+      "id": "ubo-privacy-removeparam",
+      "title": "uBlock filters – URL Tracking Protection",
+      "source": "uassets",
+      "path": "filters/privacy-removeparam.txt",
+      "licence": "GPL-3.0-only",
+      "licenceState": "cleared",
+      "trusted": true,
+      "format": "adblock",
+      "homepage": "https://github.com/uBlockOrigin/uAssets"
+    },
+    {
+      "id": "easylist-germany",
+      "title": "EasyList Germany",
+      "url": "https://easylist.to/easylistgermany/easylistgermany.txt",
+      "licence": "GPL-3.0-or-later OR CC-BY-SA-3.0",
+      "licenceState": "cleared",
+      "trusted": false,
+      "format": "adblock",
+      "homepage": "https://easylist.to/"
+    },
+    {
+      "id": "easylist-italy",
+      "title": "EasyList Italy",
+      "url": "https://easylist-downloads.adblockplus.org/easylistitaly.txt",
+      "licence": "GPL-3.0-or-later OR CC-BY-SA-3.0",
+      "licenceState": "cleared",
+      "trusted": false,
+      "format": "adblock",
+      "homepage": "https://easylist.to/"
+    },
+    {
+      "id": "adguard-japanese",
+      "title": "AdGuard Japanese filter",
+      "url": "https://filters.adtidy.org/extension/ublock/filters/7.txt",
+      "licence": "GPL-3.0-only",
+      "licenceState": "cleared",
+      "trusted": false,
+      "format": "adblock",
+      "homepage": "https://github.com/AdguardTeam/AdguardFilters"
+    },
+    {
+      "id": "adguard-dutch",
+      "title": "AdGuard Dutch filter",
+      "url": "https://filters.adtidy.org/extension/ublock/filters/8.txt",
+      "licence": "GPL-3.0-only",
+      "licenceState": "cleared",
+      "trusted": false,
+      "format": "adblock",
+      "homepage": "https://github.com/AdguardTeam/AdguardFilters"
+    },
+    {
+      "id": "easylist-china",
+      "title": "EasyList China",
+      "url": "https://easylist-downloads.adblockplus.org/easylistchina.txt",
+      "licence": "GPL-3.0-or-later OR CC-BY-SA-3.0",
+      "licenceState": "owner-pending",
+      "trusted": false,
+      "format": "adblock",
+      "homepage": "https://easylist.to/"
+    },
+    {
+      "id": "easylist-spanish",
+      "title": "EasyList Spanish",
+      "url": "https://easylist-downloads.adblockplus.org/easylistspanish.txt",
+      "licence": "GPL-3.0-or-later OR CC-BY-SA-3.0",
+      "licenceState": "owner-pending",
+      "trusted": false,
+      "format": "adblock",
+      "homepage": "https://easylist.to/"
+    },
+    {
+      "id": "easylist-portuguese",
+      "title": "EasyList Portuguese",
+      "url": "https://easylist-downloads.adblockplus.org/easylistportuguese.txt",
+      "licence": "GPL-3.0-or-later OR CC-BY-SA-3.0",
+      "licenceState": "owner-pending",
+      "trusted": false,
+      "format": "adblock",
+      "homepage": "https://easylist.to/"
+    }
+  ],
+  "rulesets": [
+    {
+      "id": "ubo",
+      "pack": "ads",
+      "category": "ads",
+      "lists": [
+        "ubo-quick-fixes",
+        "ubo-unbreak",
+        "ubo-filters",
+        "ubo-privacy",
+        "ubo-lite"
+      ],
+      "slots": {
+        "safe": {
+          "rules": 6300,
+          "regex": 195
+        },
+        "unsafe": {
+          "rules": 1100,
+          "regex": 40
+        }
+      }
+    },
+    {
+      "id": "easylist",
+      "pack": "ads",
+      "category": "ads",
+      "lists": [
+        "easylist"
+      ],
+      "slots": {
+        "safe": {
+          "rules": 4200,
+          "regex": 15
+        },
+        "unsafe": {
+          "rules": 50,
+          "regex": 0
+        }
+      }
+    },
+    {
+      "id": "easyprivacy",
+      "pack": "trackers",
+      "category": "tracking",
+      "lists": [
+        "easyprivacy"
+      ],
+      "slots": {
+        "safe": {
+          "rules": 10200,
+          "regex": 15
+        },
+        "unsafe": {
+          "rules": 50,
+          "regex": 0
+        }
+      }
+    },
+    {
+      "id": "badware",
+      "pack": "malware",
+      "category": "malware",
+      "lists": [
+        "ubo-badware"
+      ],
+      "slots": {
+        "safe": {
+          "rules": 1500,
+          "regex": 150
+        },
+        "unsafe": {
+          "rules": 20,
+          "regex": 0
+        }
+      }
+    },
+    {
+      "id": "urlhaus",
+      "pack": "malware",
+      "category": "malware",
+      "lists": [
+        "urlhaus"
+      ],
+      "slots": {
+        "safe": {
+          "rules": 50,
+          "regex": 0
+        }
+      }
+    },
+    {
+      "id": "cookies",
+      "pack": "cookies",
+      "category": "cookies",
+      "lists": [
+        "easylist-cookies",
+        "ubo-annoyances-cookies"
+      ],
+      "slots": {
+        "safe": {
+          "rules": 2100,
+          "regex": 5
+        },
+        "unsafe": {
+          "rules": 100,
+          "regex": 0
+        }
+      }
+    },
+    {
+      "id": "annoy-overlays",
+      "pack": "annoy-overlays",
+      "category": "annoyance",
+      "lists": [
+        "easylist-newsletters",
+        "ubo-annoyances-others"
+      ],
+      "slots": {
+        "safe": {
+          "rules": 380,
+          "regex": 3
+        },
+        "unsafe": {
+          "rules": 35,
+          "regex": 5
+        }
+      }
+    },
+    {
+      "id": "annoy-social",
+      "pack": "annoy-social",
+      "category": "annoyance",
+      "lists": [
+        "easylist-social"
+      ],
+      "slots": {
+        "safe": {
+          "rules": 690,
+          "regex": 3
+        },
+        "unsafe": {
+          "rules": 5,
+          "regex": 0
+        }
+      }
+    },
+    {
+      "id": "annoy-widgets",
+      "pack": "annoy-widgets",
+      "category": "annoyance",
+      "lists": [
+        "easylist-chat"
+      ],
+      "slots": {
+        "safe": {
+          "rules": 90,
+          "regex": 3
+        },
+        "unsafe": {
+          "rules": 5,
+          "regex": 0
+        }
+      }
+    },
+    {
+      "id": "annoy-newsletters",
+      "pack": "annoy-newsletters",
+      "category": "annoyance",
+      "lists": [
+        "easylist-annoyances"
+      ],
+      "slots": {
+        "safe": {
+          "rules": 500,
+          "regex": 3
+        },
+        "unsafe": {
+          "rules": 5,
+          "regex": 0
+        }
+      }
+    },
+    {
+      "id": "annoy-notifications",
+      "pack": "annoy-notifications",
+      "category": "annoyance",
+      "lists": [
+        "easylist-notifications"
+      ],
+      "slots": {
+        "safe": {
+          "rules": 335,
+          "regex": 3
+        },
+        "unsafe": {
+          "rules": 5,
+          "regex": 0
+        }
+      }
+    },
+    {
+      "id": "params",
+      "pack": "params",
+      "category": "params",
+      "lists": [
+        "ubo-privacy-removeparam"
+      ],
+      "slots": {
+        "unsafe": {
+          "rules": 1749,
+          "regex": 40
+        }
+      }
+    },
+    {
+      "id": "gpc",
+      "pack": "gpc",
+      "category": "tracking",
+      "lists": [],
+      "builtin": "gpc",
+      "slots": {
+        "unsafe": {
+          "rules": 1,
+          "regex": 0
+        }
+      }
+    },
+    {
+      "id": "reg-de",
+      "pack": "reg-de",
+      "category": "regional",
+      "lists": [
+        "easylist-germany"
+      ],
+      "slots": {
+        "safe": {
+          "rules": 6400,
+          "regex": 50
+        },
+        "unsafe": {
+          "rules": 100,
+          "regex": 10
+        }
+      }
+    },
+    {
+      "id": "reg-it",
+      "pack": "reg-it",
+      "category": "regional",
+      "lists": [
+        "easylist-italy"
+      ],
+      "slots": {
+        "safe": {
+          "rules": 6400,
+          "regex": 50
+        },
+        "unsafe": {
+          "rules": 100,
+          "regex": 10
+        }
+      }
+    },
+    {
+      "id": "reg-ja",
+      "pack": "reg-ja",
+      "category": "regional",
+      "lists": [
+        "adguard-japanese"
+      ],
+      "slots": {
+        "safe": {
+          "rules": 6400,
+          "regex": 50
+        },
+        "unsafe": {
+          "rules": 100,
+          "regex": 10
+        }
+      }
+    },
+    {
+      "id": "reg-nl",
+      "pack": "reg-nl",
+      "category": "regional",
+      "lists": [
+        "adguard-dutch"
+      ],
+      "slots": {
+        "safe": {
+          "rules": 6400,
+          "regex": 50
+        },
+        "unsafe": {
+          "rules": 100,
+          "regex": 10
+        }
+      }
+    },
+    {
+      "id": "reg-zh",
+      "pack": "reg-zh",
+      "category": "regional",
+      "lists": [
+        "easylist-china"
+      ],
+      "slots": {
+        "safe": {
+          "rules": 6400,
+          "regex": 50
+        },
+        "unsafe": {
+          "rules": 100,
+          "regex": 10
+        }
+      }
+    },
+    {
+      "id": "reg-es-pt",
+      "pack": "reg-es-pt",
+      "category": "regional",
+      "lists": [
+        "easylist-spanish",
+        "easylist-portuguese"
+      ],
+      "slots": {
+        "safe": {
+          "rules": 6400,
+          "regex": 50
+        },
+        "unsafe": {
+          "rules": 100,
+          "regex": 10
+        }
+      }
+    }
+  ],
+  "popups": {
+    "id": "popups",
+    "pack": "popups",
+    "from": [
+      "ubo",
+      "easylist",
+      "easyprivacy",
+      "badware"
+    ],
+    "budget": {
+      "rules": 530,
+      "regex": 5
+    }
+  },
+  "content": {
+    "catalogRegistrations": true,
+    "maxLostEntities": 1350
+  },
+  "oracle": {
+    "file": "lists/oracle/ubol.json",
+    "rulesMin": -0.15,
+    "rulesMax": 0.4,
+    "regexMax": 0.2,
+    "failFactor": 2
+  }
+}

@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups/p6-href-swap · a link's href is swapped to another site on mousedown -->
+<html lang="en"><head><meta charset="utf-8"><title>popups/p6-href-swap</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<a id="lnk" target="_blank" href="/popups/real.html">Real link</a><p id="text">Plain article text, not a control.</p>
+<script>
+lnk.addEventListener('mousedown', () => { lnk.href = 'https://popunder.example/ad'; setTimeout(() => { lnk.href = '/popups/real.html'; }, 500); });
+</script>
+</body></html>

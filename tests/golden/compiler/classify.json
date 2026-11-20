@@ -1,0 +1,78 @@
+{
+  "comment": [
+    "! Title: x",
+    "[Adblock Plus 2.0]",
+    "# a hosts-style comment",
+    "",
+    "!#trusted on",
+    "##"
+  ],
+  "invalid": [
+    "||x.example^$domain=",
+    "example.com##",
+    "a.example#@#"
+  ],
+  "network": [
+    "||ads.example^",
+    "||ads.example^$script,3p",
+    "@@||cdn.example^$script,domain=site.example",
+    "@@||x.example^$domain=a.example|b.example",
+    "@@||x.example^$from=a.example",
+    "/banner/*$image",
+    "||x.example^$document"
+  ],
+  "network.host": [
+    "bad.example"
+  ],
+  "network.popup": [
+    "||pop.example^$popup",
+    "||pop.example^$popunder,3p",
+    "||pop.example^$popup,script"
+  ],
+  "network.cosmetic-switch": [
+    "@@||site.example^$ghide",
+    "@@||site.example^$generichide,domain=a.example",
+    "@@||site.example^$elemhide,specifichide"
+  ],
+  "cosmetic.specific": [
+    "site.example##.ad",
+    "a.example,~b.a.example##.ad",
+    "site.example##div:has(> .ad)",
+    "site.example##div:style(color: red)",
+    "example.*##.ad",
+    "site.example##div:style(display: none !important)"
+  ],
+  "cosmetic.generic": [
+    "##.ad",
+    "~a.example##.ad"
+  ],
+  "cosmetic.procedural": [
+    "site.example#?#div:has-text(Sponsored)",
+    "site.example##:xpath(//div)",
+    "site.example##div:matches-path(/x/)",
+    "site.example##div:remove()",
+    "site.example##.x:upward(2)"
+  ],
+  "cosmetic.exception": [
+    "site.example#@#.ad",
+    "#@#.ad",
+    "site.example#@#div:has-text(x)"
+  ],
+  "scriptlet": [
+    "site.example##+js(set-constant, a, 1)",
+    "site.example##+js(aopr, b)",
+    "site.example#%#//scriptlet('set-constant', 'a', '1')"
+  ],
+  "scriptlet.exception": [
+    "site.example#@#+js()",
+    "site.example#@#+js(set-constant, a, 1)"
+  ],
+  "html-filter": [
+    "site.example##^script:has-text(x)"
+  ],
+  "unsupported": [
+    "site.example#$#abort-on-property-read x",
+    "site.example#$#body { color: red }",
+    "site.example#%#window.x=1"
+  ]
+}

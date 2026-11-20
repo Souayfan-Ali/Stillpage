@@ -1,0 +1,8 @@
+<!doctype html>
+<!-- fixture: redirect/csp · filter: ||csp.example^$csp=script-src 'none' -->
+<html lang="en"><head><meta charset="utf-8"><title>redirect/csp</title></head>
+<body>
+<p>An injected Content-Security-Policy stops every script on this page.</p>
+<script>self.__inline = true;</script>
+<script src="https://csp.example/ext.js"></script>
+</body></html>

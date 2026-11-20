@@ -1,0 +1,66 @@
+/*
+ * The Sites table (P2-35; P3-16 narrow layout): a row's select box gets a 44 px hit area on a touch screen,
+ * and at 40rem and below each site is drawn as a card. The table stays a table for assistive tech
+ * (Chromium keeps table semantics under a CSS display change; tests/e2e/narrowLayout.spec.ts checks the
+ * row header at 360 px).
+ */
+/* A check box without visible text (a table row's select box): its hit area, not the 18 px box. */
+.hit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--target-min);
+  min-height: var(--target-min);
+  cursor: pointer;
+}
+
+.hit input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--color-accent);
+}
+
+@media (max-width: 40rem) {
+  /* One card per site: select box and host, then the level, the pop-ups choice and Remove, each labelled. */
+  .cards thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .cards,
+  .cards tbody {
+    display: block;
+  }
+
+  .cards tr {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-1) var(--space-2);
+    padding: var(--space-2) 0;
+    border-bottom: var(--border-width) solid var(--color-border);
+  }
+
+  .cards tr > th,
+  .cards tr > td {
+    display: block;
+    padding: 0;
+    border: 0;
+  }
+
+  .cards td:nth-child(n + 3) {
+    grid-column: 1 / -1;
+  }
+
+  .cards td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: var(--space-1);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+}

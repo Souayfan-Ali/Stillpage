@@ -1,0 +1,13 @@
+<!doctype html>
+<!-- fixture: popups/h1-hostile-notice · J19 hostile page: a click-anywhere pop-up, and script that tries to raise and click the notice -->
+<html lang="en"><head><meta charset="utf-8"><title>popups/h1-hostile-notice</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<p id="text">Plain article text, not a control.</p>
+<script>
+document.addEventListener('click', () => window.open('https://popunder.example/ad'), true);
+const tries = [];
+const poke = () => { for (const el of document.querySelectorAll('*')) { if (el.shadowRoot) tries.push('open-shadow'); } for (const b of document.querySelectorAll('button')) b.click(); window.postMessage({ sp: 'notice', host: 'never-blocked.example' }, '*'); document.dispatchEvent(new CustomEvent('sp-notice', { detail: 'never-blocked.example' })); window.__pokes = tries.length + 1; };
+setInterval(poke, 100);
+</script>
+</body></html>

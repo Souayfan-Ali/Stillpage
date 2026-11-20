@@ -1,0 +1,51 @@
+/* State message (P1-39; P3-18): a tinted card in its tone's colour, the tone's icon, its actions below. */
+.banner {
+  --tone: var(--color-text-muted);
+  --tone-soft: var(--color-neutral-soft);
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+  padding: var(--space-3);
+  border: var(--border-width) solid color-mix(in srgb, var(--tone) 30%, transparent);
+  border-inline-start-width: 4px;
+  border-inline-start-color: var(--tone);
+  border-radius: var(--radius);
+  background: var(--tone-soft);
+}
+
+.icon {
+  flex: none;
+  margin-top: 2px;
+  color: var(--tone);
+}
+
+.body {
+  min-width: 0;
+}
+
+.text {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.info {
+  --tone: var(--color-focus);
+  --tone-soft: var(--color-info-soft);
+}
+
+.warning {
+  --tone: var(--color-warning);
+  --tone-soft: var(--color-warning-soft);
+}
+
+.error {
+  --tone: var(--color-error);
+  --tone-soft: var(--color-error-soft);
+}

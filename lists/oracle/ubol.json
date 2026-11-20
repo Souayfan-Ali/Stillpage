@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "ubol": "2026.1110.1816",
+  "chromium": "chromium-1254",
+  "rulesets": {
+    "ubo": {
+      "ubolId": "ublock-filters",
+      "rules": 5834,
+      "regex": 210,
+      "regexValid": 154
+    },
+    "easylist": {
+      "ubolId": "easylist",
+      "rules": 3749,
+      "regex": 18,
+      "regexValid": 4
+    },
+    "easyprivacy": {
+      "ubolId": "easyprivacy",
+      "rules": 9166,
+      "regex": 7,
+      "regexValid": 6
+    },
+    "badware": {
+      "ubolId": "ublock-badware",
+      "rules": 457,
+      "regex": 22,
+      "regexValid": 14
+    },
+    "urlhaus": {
+      "ubolId": "urlhaus-full",
+      "rules": 1,
+      "regex": 0,
+      "regexValid": 0
+    }
+  },
+  "popups": {
+    "ubo": 173,
+    "easylist": 2816,
+    "badware": 1239
+  }
+}

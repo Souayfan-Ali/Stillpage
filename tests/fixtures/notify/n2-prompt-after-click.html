@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: notify/n2-prompt-after-click · a permission prompt after a real click -->
+<html lang="en"><head><meta charset="utf-8"><title>notify/n2-prompt-after-click</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<button id="b">Get alerts</button><p id="text">Plain article text, not a control.</p>
+<script>
+window.__asked = false; const ask = () => { window.__asked = true; Notification.requestPermission().then((r) => { window.__answer = r; }, () => { window.__answer = 'error'; }); }; b.addEventListener('click', ask);
+</script>
+</body></html>

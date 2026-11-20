@@ -1,0 +1,8 @@
+<!doctype html>
+<!-- fixture: cosmetic-specific/blob-frame · filter: frames.example##.ad-box (inside a blob: child frame) -->
+<html lang="en"><head><meta charset="utf-8"><title>cosmetic-specific/blob-frame</title></head>
+<body>
+<iframe id="blob" title="blob frame"></iframe>
+<script>var b=new Blob(['<div class="ad-box">Advert</div>'],{type:"text/html"});document.getElementById("blob").src=URL.createObjectURL(b);</script>
+<script>addEventListener('load',function(){self.__blobAdDisplay=(function(){var e=document.getElementById('blob').contentDocument && document.getElementById('blob').contentDocument.querySelector('.ad-box');return e?getComputedStyle(e).display:null})()});</script>
+</body></html>

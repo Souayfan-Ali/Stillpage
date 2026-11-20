@@ -1,0 +1,7 @@
+<!doctype html>
+<!-- fixture: scriptlets/isolated-world · filter: script.example##+js(rc, blurred, .content) (an ISOLATED-world scriptlet) -->
+<html lang="en"><head><meta charset="utf-8"><title>scriptlets/isolated-world</title></head>
+<body>
+<div class="content blurred">Text</div>
+<script>Object.defineProperty(self,"__blurred",{get:function(){return document.querySelector(".content").classList.contains("blurred")}})</script>
+</body></html>

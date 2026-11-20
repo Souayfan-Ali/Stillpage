@@ -1,0 +1,36 @@
+/*
+ * Blocked page (P2-55, UI notes §6a; P3-16; P3-18 bold redesign): tokens from ui/tokens.css; light and dark
+ * follow them. One card on the tinted canvas, opened by a brand-gradient band with the logo's mark large in
+ * white and its waves behind (inline SVG in the stylesheet: no image file, no request, no script), the product
+ * name beside it (P3-19); Proceed once a text link under the safe buttons; filled
+ * primary button, tinted secondary; 44 px targets and full-width buttons on a narrow or touch screen.
+ * The band's start padding puts the name --space-4 after the mark's shape (D-95): 58px / 47px: where the
+ * mark's shape ends inside its 64px / 52px box (29/32).
+ */
+body { margin: 0; background: var(--color-canvas); color: var(--color-text); font: var(--font-size-body) / var(--line-height) var(--font-body); }
+main { max-width: 34rem; margin: 10vh auto var(--space-6); padding: 0 var(--space-6) var(--space-6); overflow: hidden; border: var(--border-width) solid var(--color-border); border-radius: var(--radius-lg); background: var(--color-bg); box-shadow: var(--shadow-raised); }
+.band { display: flex; align-items: center; height: 120px; margin: 0 calc(-1 * var(--space-6)) var(--space-5); padding-inline-start: calc(var(--space-6) + 58px + var(--space-4)); box-sizing: border-box; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M9 3h12l8 8v12a6 6 0 0 1-6 6H9a6 6 0 0 1-6-6V9a6 6 0 0 1 6-6z' fill='%23fff'/%3E%3Cpath d='M21.6 4.6v4.6a1.6 1.6 0 0 0 1.6 1.6h4.6z' fill='%230b6b6b'/%3E%3Cpath d='M6 18.4c4-1.2 7.6-1 11 0s6.4.8 9-.2' fill='none' stroke='%230b6b6b' stroke-width='1.6' stroke-linecap='round'/%3E%3Cpath d='M10 22.4c2.4-.9 4.6-.2 6.6.3s4.2.1 5.6-.4' fill='none' stroke='%235cc8c0' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") var(--space-6) 50% / 64px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 120'%3E%3Cpath d='M0 50c25-18 50-18 75 0s50 18 75 0 50-18 75 0 50 18 75 0M0 80c25-18 50-18 75 0s50 18 75 0 50-18 75 0 50 18 75 0' fill='none' stroke='%23fff' stroke-opacity='.14' stroke-width='8' stroke-linecap='round'/%3E%3C/svg%3E") 100% 50% / auto 100% no-repeat, var(--gradient-brand); }
+.brand { margin: 0; color: var(--color-on-brand); font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; }
+h1 { margin: 0 0 var(--space-3); font-family: var(--font-display); font-size: 1.75rem; font-weight: 800; letter-spacing: -0.01em; line-height: 1.2; text-wrap: balance; }
+p { margin: 0 0 var(--space-3); text-wrap: pretty; }
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: var(--space-5) 0 var(--space-4); }
+button { min-height: max(var(--control-height), 40px); padding: var(--space-2) var(--space-4); border: var(--border-width) solid color-mix(in srgb, var(--color-accent) 40%, transparent); border-radius: var(--radius); background: var(--color-accent-soft); color: var(--color-accent); font: inherit; font-weight: var(--font-weight-strong); cursor: pointer; transition-property: background-color, border-color, box-shadow; transition-duration: var(--transition); }
+button:hover:not(:disabled) { border-color: var(--color-accent); }
+button.primary { border-color: transparent; background: var(--gradient-brand); color: var(--color-on-brand); box-shadow: 0 2px 8px color-mix(in srgb, var(--color-brand-start) 35%, transparent); }
+button.primary:hover:not(:disabled) { border-color: transparent; background: var(--color-brand-start); }
+button:disabled { opacity: 0.6; cursor: default; }
+:focus-visible { outline: var(--focus-width) solid var(--color-focus); outline-offset: var(--focus-offset); }
+code { padding: 0 var(--space-1); border-radius: 4px; background: var(--color-surface); overflow-wrap: anywhere; font-family: var(--font-mono, monospace); }
+details { padding-top: var(--space-3); border-top: var(--border-width) solid var(--color-border); color: var(--color-text-muted); }
+summary { width: fit-content; max-width: 100%; min-height: var(--target-min); padding-block: max(0px, calc((var(--target-min) - 1lh) / 2)); color: var(--color-text); cursor: pointer; }
+details p { margin: var(--space-2) 0 0; }
+.proceed { margin: calc(-1 * var(--space-2)) 0 var(--space-4); }
+button.link { min-height: var(--target-min); padding: 0; border: 0; background: none; color: var(--color-accent); font-weight: inherit; text-decoration: underline; text-underline-offset: 2px; }
+button.link:hover:not(:disabled) { text-decoration-thickness: 2px; }
+[role='alert'] { color: var(--color-error); }
+[role='alert']:empty { display: none; }
+@media (max-width: 40rem) {
+  main { margin: var(--space-4); padding: 0 var(--space-4) var(--space-5); }
+  .band { height: 96px; margin-inline: calc(-1 * var(--space-4)); padding-inline-start: calc(2 * var(--space-4) + 47px); background-position: var(--space-4) 50%, 100% 50%, 0 0; background-size: 52px, auto 100%, auto; }
+  .actions > button { flex: 1 1 auto; }
+}

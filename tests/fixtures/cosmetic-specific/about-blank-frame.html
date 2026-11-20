@@ -1,0 +1,8 @@
+<!doctype html>
+<!-- fixture: cosmetic-specific/about-blank-frame · filter: frames.example##.ad-box (inside an about:blank child frame) -->
+<html lang="en"><head><meta charset="utf-8"><title>cosmetic-specific/about-blank-frame</title></head>
+<body>
+<iframe id="blank" title="blank frame"></iframe>
+<script>var d=document.getElementById("blank").contentDocument;d.body.innerHTML="";var a=d.createElement("div");a.className="ad-box";a.textContent="Advert";d.body.appendChild(a);</script>
+<script>addEventListener('load',function(){self.__frameAdDisplay=(function(){var e=document.getElementById('blank').contentDocument.querySelector('.ad-box');return e?getComputedStyle(e).display:null})()});</script>
+</body></html>

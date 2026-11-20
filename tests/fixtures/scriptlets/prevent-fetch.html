@@ -1,0 +1,6 @@
+<!doctype html>
+<!-- fixture: scriptlets/prevent-fetch · filter: script.example##+js(no-fetch-if, ads.example) -->
+<html lang="en"><head><meta charset="utf-8"><title>scriptlets/prevent-fetch</title></head>
+<body>
+<script>fetch("https://ads.example/config.json").then(function(r){self.__fetchOk=r.ok},function(){self.__fetchOk=false})</script>
+</body></html>

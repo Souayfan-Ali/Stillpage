@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "ruleset": "annoy-overlays-x",
+  "nextId": 25,
+  "entries": {
+    "b:18cd8d02ffefaa218ccb:other:annoyance": 1,
+    "b:190a8c75bc8648ccc653:other:annoyance": 2,
+    "b:1bec2a156c1514e44fef:other:annoyance": 3,
+    "b:4b5f07d0a4c8fcef30b0:other:annoyance": 4,
+    "b:7e77b1b774823a31ca69:other:annoyance": 5,
+    "b:94ad618f0fb900c5f870:other:annoyance": 6,
+    "b:9b8e40b7201a5c16e760:other:annoyance": 7,
+    "b:b00cddf87060f6ffaf52:other:annoyance": 8,
+    "b:c2cd64c44c8232d59696:other:annoyance": 9,
+    "b:d0d90aa4509643dd102c:other:annoyance": 10,
+    "b:e1fb8d013e32e2991781:bytedance": 11,
+    "b:ece5f7bc1dae259d292f:other:annoyance": 12,
+    "b:fcd73d7859eb9c424d97:other:annoyance": 13,
+    "r:1d84f0bddf7857a2d9ca": 14,
+    "r:3780a3007887c336e0a1": 15,
+    "r:3fc4be2170212613fa5f": 16,
+    "r:4ba280a88b73c91511a9": 17,
+    "r:4ee8c4de4638468015d6": 18,
+    "r:78e04280c8d611546a8b": 19,
+    "r:848d579bc9fd40e1ab4f": 20,
+    "r:ac70cf90956d151bd960": 21,
+    "r:b4626de935846c4122e3": 22,
+    "r:c1f54d4e07b99ed6ae67": 23,
+    "r:dff3151406f91d0ca948": 24
+  }
+}

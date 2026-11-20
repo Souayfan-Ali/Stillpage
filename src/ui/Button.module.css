@@ -1,0 +1,96 @@
+/*
+ * Buttons (P1-39; P3-18 bold redesign): primary filled with the brand gradient, secondary tinted with the
+ * accent (its text in the accent colour, a soft accent edge), quiet as a link. Icons inside sit on the text's
+ * centre line. Press feedback is a slight give, never a layout change, and none under reduced motion.
+ */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: var(--target-min);
+  min-width: var(--target-min);
+  padding: var(--space-1) var(--space-3);
+  border: var(--border-width) solid color-mix(in srgb, var(--color-accent) 40%, transparent);
+  border-radius: var(--radius);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font: inherit;
+  font-weight: var(--font-weight-strong);
+  line-height: 1.2;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition-property: background-color, border-color, box-shadow, transform;
+  transition-duration: var(--transition);
+}
+
+.button svg {
+  flex: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .button:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+}
+
+.button:hover:not(:disabled) {
+  border-color: var(--color-accent);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.primary {
+  min-height: var(--control-height);
+  padding-inline: var(--space-4);
+  border-color: transparent;
+  background: var(--gradient-brand);
+  color: var(--color-on-brand);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--color-shadow) 25%, transparent), inset 0 1px 0 color-mix(in srgb, #ffffff 18%, transparent);
+}
+
+.primary:hover:not(:disabled) {
+  border-color: transparent;
+  background: var(--color-brand-start);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--color-brand-start) 40%, transparent);
+}
+
+.secondary {
+  min-height: var(--control-height);
+  padding-inline: var(--space-4);
+}
+
+.quiet {
+  border-color: transparent;
+  background: transparent;
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.quiet:hover:not(:disabled) {
+  border-color: transparent;
+  background: var(--color-accent-soft);
+}
+
+/* A pressed toggle (P2-22b): filled accent and an inset ring, not colour alone. */
+.button[aria-pressed='true'] {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  box-shadow: inset 0 0 0 1px var(--color-on-accent);
+}
+
+@media (forced-colors: active) {
+  .button {
+    border-color: ButtonText;
+  }
+
+  .button[aria-pressed='true'] {
+    border-width: 3px;
+    border-color: Highlight;
+  }
+}

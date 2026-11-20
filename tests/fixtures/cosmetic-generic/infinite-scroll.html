@@ -1,0 +1,7 @@
+<!doctype html>
+<!-- fixture: cosmetic-generic/infinite-scroll · filter: ##.ad-banner (every fifth item of an endless list) -->
+<html lang="en"><head><meta charset="utf-8"><title>cosmetic-generic/infinite-scroll</title></head>
+<body>
+<div id="feed"></div>
+<script>var f=document.getElementById("feed");function more(){for(var i=0;i<20;i++){var d=document.createElement("div");d.className=(f.children.length%5===4)?"ad-banner":"item";d.textContent=d.className;d.style.height="40px";f.appendChild(d);}}more();addEventListener("scroll",function(){if(innerHeight+scrollY>=document.body.offsetHeight-50)more();});</script>
+</body></html>

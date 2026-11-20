@@ -1,0 +1,365 @@
+{
+ "_comment": "P1-18: normalise + convert end to end on @adguard/dnr-converter 2.1.0. Rule ids are the converter's and are left out; `from` = source line numbers. Reviewed by hand; a converter bump that changes this file needs an explained diff (ADR-004).",
+ "cases": [
+  {
+   "name": "block and exception",
+   "in": [
+    "||ads.example^",
+    "@@||ads.example^$script,domain=site.example"
+   ],
+   "rules": [
+    {
+     "priority": 1,
+     "action": {
+      "type": "block"
+     },
+     "condition": {
+      "urlFilter": "||ads.example^"
+     },
+     "from": [
+      1
+     ]
+    },
+    {
+     "priority": 100301,
+     "action": {
+      "type": "allow"
+     },
+     "condition": {
+      "urlFilter": "||ads.example^",
+      "initiatorDomains": [
+       "site.example"
+      ],
+      "resourceTypes": [
+       "script"
+      ]
+     },
+     "from": [
+      2
+     ]
+    }
+   ],
+   "log": []
+  },
+  {
+   "name": "$important",
+   "in": [
+    "||t.example^$script,important"
+   ],
+   "rules": [
+    {
+     "priority": 1000101,
+     "action": {
+      "type": "block"
+     },
+     "condition": {
+      "urlFilter": "||t.example^",
+      "resourceTypes": [
+       "script"
+      ]
+     },
+     "from": [
+      1
+     ]
+    }
+   ],
+   "log": []
+  },
+  {
+   "name": "$redirect= keeps the uBO name for the P1-30 map and adds its block (P1-22)",
+   "in": [
+    "||ga.example/a.js$script,redirect=noopjs"
+   ],
+   "rules": [
+    {
+     "priority": 1101,
+     "action": {
+      "type": "redirect",
+      "redirect": {
+       "extensionPath": "/surrogates/noopjs.js"
+      }
+     },
+     "condition": {
+      "urlFilter": "||ga.example/a.js",
+      "resourceTypes": [
+       "script"
+      ]
+     },
+     "from": [
+      1
+     ]
+    },
+    {
+     "priority": 101,
+     "action": {
+      "type": "block"
+     },
+     "condition": {
+      "urlFilter": "||ga.example/a.js",
+      "resourceTypes": [
+       "script"
+      ]
+     },
+     "from": [
+      1
+     ]
+    }
+   ],
+   "log": []
+  },
+  {
+   "name": "top= → topDomains",
+   "in": [
+    "||top.example^$script,top=a.example|~b.example"
+   ],
+   "rules": [
+    {
+     "priority": 101,
+     "action": {
+      "type": "block"
+     },
+     "condition": {
+      "urlFilter": "||top.example^",
+      "resourceTypes": [
+       "script"
+      ],
+      "topDomains": [
+       "a.example"
+      ],
+      "excludedTopDomains": [
+       "b.example"
+      ]
+     },
+     "from": [
+      1
+     ]
+    }
+   ],
+   "log": []
+  },
+  {
+   "name": "$removeparam,doc → main_frame",
+   "in": [
+    "||r.example^$doc,removeparam=ref",
+    "||r.example^$doc,xhr,removeparam=ref"
+   ],
+   "rules": [
+    {
+     "priority": 1,
+     "action": {
+      "type": "redirect",
+      "redirect": {
+       "transform": {
+        "queryTransform": {
+         "removeParams": [
+          "ref"
+         ]
+        }
+       }
+      }
+     },
+     "condition": {
+      "regexFilter": "^[a-z][a-z0-9+.-]*://(?:[^[:^ascii:]/?#@]*@)?(?:[^[:^ascii:]/?#@]*\\.)?r\\.example(?:[^[:^ascii:] a-zA-Z0-9.%_/?#@-][^[:^ascii:]/?#@]*)?(?:/[^[:^ascii:]?#]*)?\\?(?:[^[:^ascii:]#]*&)?ref=",
+      "resourceTypes": [
+       "main_frame"
+      ]
+     },
+     "from": [
+      1
+     ]
+    },
+    {
+     "priority": 101,
+     "action": {
+      "type": "redirect",
+      "redirect": {
+       "transform": {
+        "queryTransform": {
+         "removeParams": [
+          "ref"
+         ]
+        }
+       }
+      }
+     },
+     "condition": {
+      "regexFilter": "^[a-z][a-z0-9+.-]*://(?:[^[:^ascii:]/?#@]*@)?(?:[^[:^ascii:]/?#@]*\\.)?r\\.example(?:[^[:^ascii:] a-zA-Z0-9.%_/?#@-][^[:^ascii:]/?#@]*)?(?:/[^[:^ascii:]?#]*)?\\?(?:[^[:^ascii:]#]*&)?ref=",
+      "resourceTypes": [
+       "xmlhttprequest",
+       "main_frame"
+      ]
+     },
+     "from": [
+      2
+     ]
+    }
+   ],
+   "log": []
+  },
+  {
+   "name": "uritransform= → regexSubstitution",
+   "in": [
+    "/(.*\\/Get\\?.*)%2CCue(.*)/$xhr,uritransform=//$1$2/,domain=www.amazon.com"
+   ],
+   "rules": [
+    {
+     "priority": 301,
+     "action": {
+      "type": "redirect",
+      "redirect": {
+       "regexSubstitution": "\\1\\2"
+      }
+     },
+     "condition": {
+      "regexFilter": "(.*\\/Get\\?.*)%2CCue(.*)",
+      "initiatorDomains": [
+       "www.amazon.com"
+      ],
+      "resourceTypes": [
+       "xmlhttprequest"
+      ]
+     },
+     "from": [
+      1
+     ]
+    }
+   ],
+   "log": []
+  },
+  {
+   "name": "@@…$csp resolved at build time",
+   "in": [
+    "*$csp=worker-src none,domain=a.example",
+    "@@*$csp,domain=a.example",
+    "||csp.example^$csp=script-src none"
+   ],
+   "rules": [
+    {
+     "priority": 1,
+     "action": {
+      "type": "modifyHeaders",
+      "responseHeaders": [
+       {
+        "header": "Content-Security-Policy",
+        "operation": "append",
+        "value": "script-src none"
+       }
+      ]
+     },
+     "condition": {
+      "urlFilter": "||csp.example^",
+      "resourceTypes": [
+       "main_frame",
+       "sub_frame",
+       "stylesheet",
+       "script",
+       "image",
+       "font",
+       "object",
+       "xmlhttprequest",
+       "ping",
+       "csp_report",
+       "media",
+       "websocket",
+       "webtransport",
+       "webbundle",
+       "other"
+      ]
+     },
+     "from": [
+      3
+     ]
+    }
+   ],
+   "log": []
+  },
+  {
+   "name": "@@…$csp that cannot be resolved is logged",
+   "in": [
+    "||a.example^$csp=worker-src none",
+    "@@||a.example/x^$csp"
+   ],
+   "rules": [
+    {
+     "priority": 1,
+     "action": {
+      "type": "modifyHeaders",
+      "responseHeaders": [
+       {
+        "header": "Content-Security-Policy",
+        "operation": "append",
+        "value": "worker-src none"
+       }
+      ]
+     },
+     "condition": {
+      "urlFilter": "||a.example^",
+      "resourceTypes": [
+       "main_frame",
+       "sub_frame",
+       "stylesheet",
+       "script",
+       "image",
+       "font",
+       "object",
+       "xmlhttprequest",
+       "ping",
+       "csp_report",
+       "media",
+       "websocket",
+       "webtransport",
+       "webbundle",
+       "other"
+      ]
+     },
+     "from": [
+      1
+     ]
+    }
+   ],
+   "log": [
+    [
+     2,
+     "csp-allow-unresolved"
+    ]
+   ]
+  },
+  {
+   "name": "converter limits are logged with a reason",
+   "in": [
+    "||x.example^$script,method=get,header=via:1.1"
+   ],
+   "rules": [],
+   "log": [
+    [
+     1,
+     "header-with-method"
+    ]
+   ]
+  },
+  {
+   "name": "regex filters are kept for the Chromium gate",
+   "in": [
+    "/ad[0-9]+\\.js/$script"
+   ],
+   "rules": [
+    {
+     "priority": 101,
+     "action": {
+      "type": "block"
+     },
+     "condition": {
+      "regexFilter": "ad[0-9]+\\.js",
+      "resourceTypes": [
+       "script"
+      ]
+     },
+     "from": [
+      1
+     ]
+    }
+   ],
+   "log": []
+  }
+ ]
+}

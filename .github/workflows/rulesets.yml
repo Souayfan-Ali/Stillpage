@@ -1,0 +1,280 @@
+# Daily ruleset release (update-strategy notes §3.4, tooling notes §6, P1-32, P2-05). Written and linted locally; not executed
+# until the repository is public.
+# PARTIAL for now: the schedule is DISABLED (manual trigger only) and every store step is a dry run against
+# the recorded-contract fake (no `--live`, no secret). Going live is the owner's (NEEDS MAINTAINER, S-12, P1-47):
+#   1. restore `schedule: - cron: '30 5 * * *'` under `on:`;
+#   2. create the protected environment `store-ruleset` (service-account key as a file secret; deployment
+#      restricted to `main`) and a write-scoped job that pushes the `ruleset-state` commit and tag;
+#   3. replace the stand-in base with the published zip, record and ledgers from `ruleset-state`, in BOTH jobs: the
+#      publish job's candidate check (D-58) takes --base / --base-sha256 from `ruleset-state`, never from candidate/;
+#      (D-71 closed the D-58e residual: the key job runs no npm code, and the keyless state job checks the
+#      candidate/ ledgers and id maps against the checked zip and derives the counts from it);
+#   4. add `--live` to the two store commands and pass the key file via GLASSMERE_CWS_KEY_FILE;
+#   5. give the state job a write token scoped to the ruleset-state branch and rules/* tags (D-71), and persist the
+#      lift-drift first-seen date there, turning the nightly red past the D-55a window (D-73).
+# Flow: fetch → build → verify → repack → eligibility gate → publish with skip review (or open a PR / stop).
+# Rules: actions pinned by commit SHA; read-only token by default; no secrets in this file.
+name: rulesets
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One group for every workflow that changes the store item (rulesets.yml, release.yml): a ruleset upload can
+# never replace a full-release draft that waits for approval (update-strategy notes §3.5: R pauses while F is in flight).
+concurrency:
+  group: store-mutation
+  cancel-in-progress: false
+
+jobs:
+  candidate:
+    name: fetch, build, repack, gate (dry run)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    outputs:
+      outcome: ${{ steps.gate.outputs.outcome }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Cache Chromium regex answers
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .cache/regex
+          # Exact key only (no prefix fallback): the answers feed E8, and the lock pins Playwright's Chromium.
+          key: regex-${{ hashFiles('package-lock.json') }}
+      - run: npm ci --ignore-scripts
+      - run: npm run vendor:fetch
+      - run: npx playwright install --with-deps chromium
+      # The stand-in base must be a real build of the locked lists (cold runner: nothing is generated yet).
+      - run: npm run lists:fetch -- --drop-pending
+      - run: npm run lists:build -- --drop-pending
+      # Live: the published full-release zip, its record and its ledgers come from `ruleset-state` (tooling notes §7).
+      - name: Published base (dry run stand-in, built from this commit)
+        run: |
+          mkdir -p .cache/published
+          cp -r lists/ledger .cache/published/ledger
+          npm run zip
+          cp .output/*-chrome.zip .cache/published/base.zip
+          npm run -s release -- record --zip .cache/published/base.zip --out .cache/published/base.record.json
+      - name: Move every source to its upstream head
+        run: npm run lists:fetch -- --refresh --drop-pending
+      # D-40: exit 4 = only the count oracle failed. Nothing is published that day; the run opens or updates one
+      # oracle PR instead of failing silently, and a streak of 3 such days opens a tracking issue (below).
+      - name: Build and verify the rulesets (ledgers continue from the published ones)
+        id: build
+        run: |
+          set +e
+          npm run lists:build -- --check-determinism --drop-pending
+          code=$?
+          set -e
+          if [ "$code" -eq 4 ]; then
+            echo "oracle=true" >> "$GITHUB_OUTPUT"
+            echo "::warning::count oracle failed (lists:build exit 4): nothing is published today; the oracle PR is updated"
+          elif [ "$code" -ne 0 ]; then
+            exit "$code"
+          else
+            echo "oracle=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Oracle warn-day streak (D-40)
+        id: streak
+        run: |
+          # TODO(live switch, NEEDS MAINTAINER): write the open oracle PR's body to this file first
+          # (gh pr list --label oracle --json body -q '.[0].body' > "$BODY"); until then the streak always starts at 1.
+          BODY=dist/release/oracle-pr-body.md
+          mkdir -p dist/release
+          decision=$(npx jiti scripts/oracle/main.ts --today "$(date -u +%F)" --oracle-failed "$ORACLE" --body-file "$BODY")
+          echo "$decision" > dist/release/oracle-streak.json
+          echo "open_issue=$(node -p "JSON.parse(process.argv[1]).openIssue" "$decision")" >> "$GITHUB_OUTPUT"
+          echo "oracle streak: $decision"
+        env:
+          ORACLE: ${{ steps.build.outputs.oracle }}
+      - name: Count oracle only - open or update the one oracle PR (dry run)
+        if: steps.build.outputs.oracle == 'true'
+        run: echo "::warning::would open or update the single 'oracle' PR with dist/compiler/report.json and the warn-day marker (NEEDS MAINTAINER, write token)"
+      - name: Three oracle warn days in a row - open or update the tracking issue (dry run)
+        if: steps.streak.outputs.open_issue == 'true'
+        run: echo "::error::would open or update one tracking issue 'count oracle failing for 3 days' (D-40; NEEDS MAINTAINER, write token)"
+      - name: Repack the published zip with the new safe rulesets
+        if: steps.build.outputs.oracle == 'false'
+        run: npm run -s release -- repack --base .cache/published/base.zip --out dist/release
+      # D-73 (D-55a): the shipped popup-lifted.json against the new rulesets. Drift never blocks the daily: it warns
+      # with the full-release window (48 h malware, 7 days otherwise); bad input fails closed.
+      - name: Pop-up lift drift report (D-73)
+        if: steps.build.outputs.oracle == 'false'
+        run: |
+          set -euo pipefail
+          set -- dist/release/*-chrome.zip
+          [ "$#" -eq 1 ] && [ -f "$1" ] || { echo "::error::expected exactly one candidate zip"; exit 1; }
+          npm run -s release -- lift-drift --base .cache/published/base.zip --candidate "$1" --today "$(date -u +%F)" --out dist/release/lift-drift.json
+      - name: Store state for E11 (dry run)
+        if: steps.build.outputs.oracle == 'false'
+        run: npm run -s release -- status --fake-published "$(node -p "require(\"./.cache/published/base.record.json\").version")" | sed -n 2p > dist/release/store-state.json
+      - name: Eligibility gate E1–E11
+        id: gate
+        if: steps.build.outputs.oracle == 'false'
+        run: |
+          set +e
+          npm run -s release -- gate --base .cache/published/base.zip --candidate dist/release/*-chrome.zip \
+            --record .cache/published/base.record.json --ledgers-before .cache/published/ledger \
+            --store-state dist/release/store-state.json > dist/release/verdict.json
+          code=$?
+          set -e
+          case "$code" in
+            0) outcome=publish ;;
+            3) outcome=open-pr ;;
+            4) outcome=route-to-full ;;
+            5) outcome=skip ;;
+            *) outcome=abort ;;
+          esac
+          echo "outcome=$outcome" >> "$GITHUB_OUTPUT"
+          echo "gate outcome: $outcome (exit $code)"
+      - run: npm run oracle:fetch
+        if: steps.gate.outputs.outcome == 'publish'
+      - name: DNR tables and the smoke corpus (second half of E9)
+        if: steps.gate.outputs.outcome == 'publish'
+        run: npm run test:dnr
+      - name: Abort and alert
+        if: steps.gate.outputs.outcome == 'abort'
+        run: |
+          echo "::error::ruleset release aborted by the eligibility gate (see verdict.json)"
+          exit 1
+      - name: Growth or ceilings - a pull request with the count diff would be opened here (dry run)
+        if: steps.gate.outputs.outcome == 'open-pr'
+        run: echo "::warning::E8/E10 need a human; a PR with the count diff would be opened (NEEDS MAINTAINER, write token)"
+      - name: Unsafe rules changed - they ship with the next full release
+        if: steps.gate.outputs.outcome == 'route-to-full'
+        run: echo "::warning::-x rulesets changed; this change rides the full-release train"
+      - name: Store not ready - skip this run
+        if: steps.gate.outputs.outcome == 'skip'
+        run: echo "::notice::E11 says skip (pending submission, warning or unknown state)"
+      # Any failure before the gate (fetch, build verify such as the count oracle, repack) stops the run closed:
+      # nothing is published and the live version stays. update-strategy notes §3.4 wants an alert, not only a red job.
+      - name: Stopped before publishing - alert
+        if: failure()
+        run: echo "::error::ruleset run stopped before publishing (fail closed); the published version stays live — see the logs and dist/compiler"
+      - name: Upload candidate, base, verdict, lock, ledgers and counts
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ruleset-candidate-${{ github.run_id }}
+          path: |
+            dist/release
+            dist/compiler
+            .cache/published/base.zip
+            .cache/published/base.record.json
+            lists/lists.lock.json
+            lists/ledger
+            lists/ruleset-counts.json
+          include-hidden-files: true
+          retention-days: 30
+
+  publish:
+    name: publish with skip review (dry run)
+    needs: candidate
+    # Defence in depth: only runs started from main may reach the key (the environment's deployment rule
+    # restricts it to main as well, NEEDS MAINTAINER).
+    if: needs.candidate.outputs.outcome == 'publish' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    # Protected environment: the only job that will ever hold the store key (the owner adds it, NEEDS MAINTAINER).
+    # D-71: this job runs no npm code at all (no install, no npm cache): checker and uploader are plain node.
+    environment: store-ruleset
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+      # Everything under candidate/ is untrusted data (D-58): the candidate job runs fetched lists, Playwright and
+      # the whole npm tree. Nothing in it is executed, and its verdict.json is never read here.
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: ruleset-candidate-${{ github.run_id }}
+          path: candidate
+      # D-58 (P2-43 finding D2): the publish verdict is recomputed here, from the bytes, by a dependency-free
+      # checker run with plain node: only rulesets/*.json (safe, non -x) may change, the manifest only in its
+      # version value, and every rule of a changed safe ruleset must be skip-review safe (D-72: no suffix-level
+      # catch-alls). Live (NEEDS MAINTAINER, live-switch item 3): --base and --base-sha256 come from ruleset-state.
+      - name: Recompute the verdict from the bytes (dependency-free)
+        run: |
+          node -e 'const [a, b] = process.versions.node.split(".").map(Number); process.exit(a > 22 || (a === 22 && b >= 18) ? 0 : 1)' \
+            || { echo "::error::the candidate check needs Node >= 22.18 (type stripping)"; exit 1; }
+          set -euo pipefail
+          set -- candidate/dist/release/*-chrome.zip
+          [ "$#" -eq 1 ] && [ -f "$1" ] || { echo "::error::expected exactly one candidate zip"; exit 1; }
+          # The checked copy is what later steps upload; nothing after this step writes dist/publish.
+          mkdir -p dist/publish
+          cp "$1" "dist/publish/$(basename "$1")"
+          set -- dist/publish/*-chrome.zip
+          echo "::warning::dry run: the base is the stand-in from the candidate artefact; this proves nothing about its provenance"
+          base_sha=$(sha256sum candidate/.cache/published/base.zip | cut -d' ' -f1)
+          node compiler/store/candidate/main.ts --base candidate/.cache/published/base.zip --candidate "$1" \
+            --base-sha256 "$base_sha" --out dist/publish/verdict.json
+      # Never falls back to standard review: only skipReview: true is sent, and a submission of ours that is not
+      # live in time is cancelled (P2-04). The recomputed verdict binds the publish to the checked bytes.
+      # D-71: the dependency-free uploader (plain node, no npm package shares the process tree with the key).
+      # Exit 2 = manual action.
+      - name: Upload, publish with skip review, poll until live (dry run)
+        run: |
+          set -euo pipefail
+          set -- dist/publish/*-chrome.zip
+          [ "$#" -eq 1 ] && [ -f "$1" ] || { echo "::error::expected exactly one candidate zip"; exit 1; }
+          zip=$1
+          node compiler/store/uploader/main.ts --zip "$zip" --verdict dist/publish/verdict.json \
+            --fake-published "$(node -p 'require("./dist/publish/verdict.json").baseVersion')"
+      - name: Hand the checked zip and verdict to the state job
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ruleset-checked-${{ github.run_id }}-${{ github.run_attempt }}
+          path: dist/publish
+          retention-days: 90
+
+  state:
+    name: ruleset-state commit, tag and release assets (dry run, no key)
+    needs: [candidate, publish]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    # D-71: no environment and no key. The zip and verdict come only from the publish job's checked artefact;
+    # ledgers and id maps from candidate/ (untrusted) are checked against that zip, and counts are derived from it.
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # No npm cache: the candidate job shares it, and this job will hold the ruleset-state write token (go-live).
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: ruleset-checked-${{ github.run_id }}-${{ github.run_attempt }}
+          path: dist/publish
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: ruleset-candidate-${{ github.run_id }}
+          path: candidate
+      - run: npm ci --ignore-scripts
+      - name: ruleset-state commit, tag rules/<version> and release assets (dry run)
+        run: |
+          set -euo pipefail
+          set -- dist/publish/*-chrome.zip
+          [ "$#" -eq 1 ] && [ -f "$1" ] || { echo "::error::expected exactly one checked zip"; exit 1; }
+          sha=$(sha256sum "$1" | cut -d' ' -f1)
+          [ "$sha" = "$(node -p 'require("./dist/publish/verdict.json").candidateSha256')" ] || { echo "::error::the checked zip is not the one the verdict names"; exit 1; }
+          npm run -s release -- state --candidate "$1" --base-record candidate/.cache/published/base.record.json \
+            --ledger-dir candidate/lists/ledger --lock candidate/lists/lists.lock.json \
+            --idmap-dir candidate/dist/compiler/debug/idmap --out dist/release/state
+          echo "would commit dist/release/state/ruleset-state to ruleset-state, tag $(cat dist/release/state/tag.txt) and attach dist/release/state/assets (zip, record, idmap-<rulesetId>.json, SHA256SUMS)"
+      - name: Upload state and release assets
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ruleset-release-${{ github.run_id }}
+          path: dist/release/state
+          retention-days: 90

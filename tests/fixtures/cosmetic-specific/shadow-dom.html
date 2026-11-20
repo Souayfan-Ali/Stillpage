@@ -1,0 +1,9 @@
+<!doctype html>
+<!-- fixture: cosmetic-specific/shadow-dom · filter: shadow.example##.ad-box (documents the limit: a page stylesheet does not reach into a shadow root) -->
+<html lang="en"><head><meta charset="utf-8"><title>cosmetic-specific/shadow-dom</title></head>
+<body>
+<div class="ad-box">Light-DOM advert</div>
+<div id="host"></div>
+<script>var r=document.getElementById("host").attachShadow({mode:"open"});var a=document.createElement("div");a.className="ad-box";a.textContent="Shadow advert";r.appendChild(a);</script>
+<script>addEventListener('load',function(){self.__shadowAdDisplay=(function(){var e=document.getElementById('host').shadowRoot.querySelector('.ad-box');return e?getComputedStyle(e).display:null})();self.__lightAdDisplay=(function(){var e=document.querySelector('.ad-box');return e?getComputedStyle(e).display:null})()});</script>
+</body></html>

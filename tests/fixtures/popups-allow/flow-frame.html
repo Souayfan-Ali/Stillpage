@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups-allow/* (3-D Secure frame) · PSP frame: pay after a fetch opens the bank challenge -->
+<html lang="en"><head><meta charset="utf-8"><title>popups-allow/*</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<button id="pay">Pay now</button><p id="text">Plain article text, not a control.</p>
+<script>
+pay.onclick = async () => { await fetch('/session.json'); window.open('https://secure.bank-3ds.example/challenge', '3ds', 'width=400,height=600'); };
+</script>
+</body></html>

@@ -1,0 +1,11 @@
+<!doctype html>
+<!-- fixture: hostile/dispatcher-child · a same-origin child whose realm the parent prepared before it loaded -->
+<html lang="en"><head><meta charset="utf-8"><title>hostile/dispatcher-child</title>
+<script>
+  self.__report = {
+    planted: self.__planted === true,
+    adsEnabled: window.adsEnabled,
+    forged: window.forgedProbe === true || window.forgedProbe === 'true',
+    queueLeft: Object.prototype.hasOwnProperty.call(self, '__sl_q'),
+  };
+</script></head><body><p>child</p></body></html>

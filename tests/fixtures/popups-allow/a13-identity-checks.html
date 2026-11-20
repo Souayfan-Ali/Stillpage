@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups-allow/a13-identity-checks · toString() and identity checks of window.open stay native -->
+<html lang="en"><head><meta charset="utf-8"><title>popups-allow/a13-identity-checks</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<button id="b">Open</button><p id="text">Plain article text, not a control.</p>
+<script>
+window.__native = window.open.toString().includes('[native code]') && window.open === window.open && typeof window.open === 'function'; b.addEventListener('click', () => window.open('https://othernews.example/ident'));
+</script>
+</body></html>

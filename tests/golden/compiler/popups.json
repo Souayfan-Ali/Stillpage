@@ -1,0 +1,350 @@
+{
+ "_comment": "P1-49: one golden case per pop-up filter shape of filter-pipeline notes §7a / pop-up notes §6.1 (S-18). 'rule' = the main_frame rule without id; 'strict' = strict sites; 'log' = [reason, detail].",
+ "cases": [
+  {
+   "shape": "host",
+   "in": "||popads.example^$popup",
+   "rule": {
+    "priority": 1,
+    "action": {
+     "type": "block"
+    },
+    "condition": {
+     "resourceTypes": [
+      "main_frame"
+     ],
+     "requestDomains": [
+      "popads.example"
+     ]
+    }
+   },
+   "destination": "popads.example"
+  },
+  {
+   "shape": "host via popunder",
+   "in": "||under.example^$popunder",
+   "rule": {
+    "priority": 1,
+    "action": {
+     "type": "block"
+    },
+    "condition": {
+     "resourceTypes": [
+      "main_frame"
+     ],
+     "requestDomains": [
+      "under.example"
+     ]
+    }
+   },
+   "destination": "under.example"
+  },
+  {
+   "shape": "host via $all",
+   "in": "||all.example^$all",
+   "rule": {
+    "priority": 1,
+    "action": {
+     "type": "block"
+    },
+    "condition": {
+     "resourceTypes": [
+      "main_frame"
+     ],
+     "requestDomains": [
+      "all.example"
+     ]
+    }
+   },
+   "destination": "all.example"
+  },
+  {
+   "shape": "host with other types (their network half is the converter's)",
+   "in": "||t.example^$script,popup",
+   "rule": {
+    "priority": 1,
+    "action": {
+     "type": "block"
+    },
+    "condition": {
+     "resourceTypes": [
+      "main_frame"
+     ],
+     "requestDomains": [
+      "t.example"
+     ]
+    }
+   },
+   "destination": "t.example"
+  },
+  {
+   "shape": "host-path",
+   "in": "||ads.example/pop/$popup",
+   "rule": {
+    "priority": 1,
+    "action": {
+     "type": "block"
+    },
+    "condition": {
+     "resourceTypes": [
+      "main_frame"
+     ],
+     "urlFilter": "||ads.example/pop/"
+    }
+   }
+  },
+  {
+   "shape": "host-path, scheme-anchored and match-case",
+   "in": "|https://ads.example/Go?$popup,match-case",
+   "rule": {
+    "priority": 1,
+    "action": {
+     "type": "block"
+    },
+    "condition": {
+     "resourceTypes": [
+      "main_frame"
+     ],
+     "urlFilter": "|https://ads.example/Go?",
+     "isUrlFilterCaseSensitive": true
+    }
+   }
+  },
+  {
+   "shape": "context-3p",
+   "in": "||p.example^$popup,third-party",
+   "rule": {
+    "priority": 1,
+    "action": {
+     "type": "block"
+    },
+    "condition": {
+     "resourceTypes": [
+      "main_frame"
+     ],
+     "requestDomains": [
+      "p.example"
+     ],
+     "domainType": "thirdParty"
+    }
+   }
+  },
+  {
+   "shape": "context-3p, negated",
+   "in": "||p.example^$popup,~third-party",
+   "rule": {
+    "priority": 1,
+    "action": {
+     "type": "block"
+    },
+    "condition": {
+     "resourceTypes": [
+      "main_frame"
+     ],
+     "requestDomains": [
+      "p.example"
+     ],
+     "domainType": "firstParty"
+    }
+   }
+  },
+  {
+   "shape": "context-domain (from= too)",
+   "in": "||p.example^$popup,domain=b.example|a.example|~x.a.example",
+   "rule": {
+    "priority": 1,
+    "action": {
+     "type": "block"
+    },
+    "condition": {
+     "resourceTypes": [
+      "main_frame"
+     ],
+     "requestDomains": [
+      "p.example"
+     ],
+     "initiatorDomains": [
+      "a.example",
+      "b.example"
+     ],
+     "excludedInitiatorDomains": [
+      "x.a.example"
+     ]
+    }
+   }
+  },
+  {
+   "shape": "exception",
+   "in": "@@||accounts.example^$popup",
+   "rule": {
+    "priority": 3,
+    "action": {
+     "type": "allow"
+    },
+    "condition": {
+     "resourceTypes": [
+      "main_frame"
+     ],
+     "requestDomains": [
+      "accounts.example"
+     ]
+    }
+   }
+  },
+  {
+   "shape": "strict sites",
+   "in": "*$popup,third-party,domain=b.example|a.example|~c.example",
+   "strict": [
+    "a.example",
+    "b.example"
+   ]
+  },
+  {
+   "shape": "strict sites, entity by observed expansion",
+   "in": "$popup,3p,domain=movies.*|z.example",
+   "strict": [
+    "movies.co.uk",
+    "movies.de",
+    "z.example"
+   ]
+  },
+  {
+   "shape": "host-less pattern",
+   "in": "/aff_ad?$popup",
+   "log": [
+    "popup-generic-pattern",
+    "/aff_ad?"
+   ]
+  },
+  {
+   "shape": "||* pattern",
+   "in": "||*.example^$popup",
+   "log": [
+    "popup-generic-pattern",
+    "||*.example^"
+   ]
+  },
+  {
+   "shape": "regex pattern",
+   "in": "/^https:\\/\\/[a-z]{8}\\.com\\//$popup",
+   "log": [
+    "popup-generic-pattern",
+    "/^https:\\/\\/[a-z]{8}\\.com\\//"
+   ]
+  },
+  {
+   "shape": "unsupported option",
+   "in": "||p.example^$popup,to=x.example",
+   "log": [
+    "popup-unsupported",
+    "option to"
+   ]
+  },
+  {
+   "shape": "uBO-only option",
+   "in": "||p.example^$popup,strict3p",
+   "log": [
+    "popup-unsupported",
+    "ubo-strict-party"
+   ]
+  },
+  {
+   "shape": "no URL, no site",
+   "in": "*$popup,third-party",
+   "log": [
+    "popup-no-target",
+    "no URL and no site"
+   ]
+  },
+  {
+   "shape": "exception without a URL",
+   "in": "@@*$popup,domain=a.example",
+   "log": [
+    "popup-no-target",
+    "exception without a URL"
+   ]
+  },
+  {
+   "shape": "entity site never observed",
+   "in": "*$popup,domain=nowhere.*",
+   "log": [
+    "popup-no-target",
+    "entity sites not observed: nowhere.*"
+   ]
+  },
+  {
+   "shape": "non-ASCII host (not a site host)",
+   "in": "||bücher.example/x$popup",
+   "log": [
+    "popup-generic-pattern",
+    "||bücher.example/x"
+   ]
+  },
+  {
+   "shape": "a whole TLD is never a rule",
+   "in": "||com^$popup",
+   "log": [
+    "popup-generic-pattern",
+    "||com^"
+   ]
+  },
+  {
+   "shape": "a public-suffix exception is never a rule",
+   "in": "@@||co.uk^$popup",
+   "log": [
+    "popup-generic-pattern",
+    "||co.uk^"
+   ]
+  },
+  {
+   "shape": "a partial IP is never a rule",
+   "in": "||10.0.0.$popup",
+   "log": [
+    "popup-generic-pattern",
+    "||10.0.0."
+   ]
+  },
+  {
+   "shape": "scheme-anchored TLD",
+   "in": "|https://com/$popup",
+   "log": [
+    "popup-generic-pattern",
+    "|https://com/"
+   ]
+  },
+  {
+   "shape": "a domain= value that is not a site host",
+   "in": "||p.example^$popup,domain=com|a.example",
+   "log": [
+    "popup-unsupported",
+    "domain com"
+   ]
+  },
+  {
+   "shape": "strict sites keep only site hosts",
+   "in": "*$popup,3p,domain=*|<all_urls>|com|co.uk|A.COM|a.b/c|ok.example",
+   "strict": [
+    "ok.example"
+   ]
+  },
+  {
+   "shape": "a full IPv4 address is a host",
+   "in": "||10.0.0.1^$popup",
+   "rule": {
+    "priority": 1,
+    "action": {
+     "type": "block"
+    },
+    "condition": {
+     "resourceTypes": [
+      "main_frame"
+     ],
+     "requestDomains": [
+      "10.0.0.1"
+     ]
+    }
+   },
+   "destination": "10.0.0.1"
+  }
+ ]
+}

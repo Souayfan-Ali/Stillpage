@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "ruleset": "urlhaus",
+  "nextId": 2,
+  "entries": {
+    "b:c9bec559a79e316dfc25:other:malware": 1
+  }
+}

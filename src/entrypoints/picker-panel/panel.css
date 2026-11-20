@@ -1,0 +1,32 @@
+/*
+ * Picker panel (P2-19, UI notes §5; P3-16; P3-18 bold redesign): tokens from ui/tokens.css; light and dark
+ * follow them. The title as a brand-gradient strip with the logo's mark in white, the choices on tinted
+ * cards, Hide filled with the gradient and Cancel tinted, as in the toolbar panel. Styling only.
+ */
+body { margin: 0; padding: var(--space-4); background: var(--color-bg); color: var(--color-text); font: var(--font-size-body) / var(--line-height) var(--font-body); }
+h1 { display: flex; align-items: center; gap: var(--space-2); margin: 0 0 var(--space-3); padding: var(--space-2) var(--space-3); border-radius: var(--radius); background: var(--gradient-brand); color: var(--color-on-brand); font-family: var(--font-display); font-size: var(--font-size-title); font-weight: 800; }
+h1::before { content: ''; flex: none; width: 22px; height: 22px; background: var(--color-on-brand); mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M9 3h12l8 8v12a6 6 0 0 1-6 6H9a6 6 0 0 1-6-6V9a6 6 0 0 1 6-6z' fill='%23fff'/%3E%3Cpath d='M21.6 4.6v4.6a1.6 1.6 0 0 0 1.6 1.6h4.6z'/%3E%3Cpath d='M6 18.4c4-1.2 7.6-1 11 0s6.4.8 9-.2M10 22.4c2.4-.9 4.6-.2 6.6.3s4.2.1 5.6-.4' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat luminance; }
+p { margin: 0 0 var(--space-3); }
+[data-count] { display: inline-block; padding: 2px var(--space-2); border-radius: var(--radius-pill); background: var(--color-ads-soft); color: var(--color-ads); font-weight: 700; }
+.row { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-3); }
+.row input[type='range'] { flex: 1; accent-color: var(--color-accent); }
+.slider { flex-wrap: wrap; row-gap: var(--space-1); }
+.slider label { flex: 0 0 100%; }
+input[type='checkbox'], input[type='radio'] { accent-color: var(--color-accent); }
+fieldset { margin: 0 0 var(--space-3); padding: var(--space-2) var(--space-3) 0; border: var(--border-width) solid var(--color-border); border-radius: var(--radius); background: var(--color-surface); }
+legend { padding: 0 var(--space-1); font-weight: 700; }
+[data-error]:empty { display: none; }
+[data-error] { color: var(--color-error); }
+.buttons { display: flex; justify-content: space-between; gap: var(--space-2); margin-bottom: var(--space-3); }
+button { min-height: var(--control-height); padding: var(--space-2) var(--space-4); border: var(--border-width) solid color-mix(in srgb, var(--color-accent) 40%, transparent); border-radius: var(--radius); background: var(--color-accent-soft); color: var(--color-accent); font: inherit; font-weight: var(--font-weight-strong); cursor: pointer; transition-property: background-color, border-color, box-shadow; transition-duration: var(--transition); }
+button:hover { border-color: var(--color-accent); }
+button.primary { border-color: transparent; background: var(--gradient-brand); color: var(--color-on-brand); box-shadow: 0 2px 8px color-mix(in srgb, var(--color-brand-start) 35%, transparent); }
+button.primary:hover { background: var(--color-brand-start); }
+:focus-visible { outline: var(--focus-width) solid var(--color-focus); outline-offset: var(--focus-offset); }
+summary { min-height: var(--target-min); color: var(--color-accent); cursor: pointer; }
+code { display: block; padding: var(--space-2); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-accent); word-break: break-all; }
+.toast { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border-inline-start: 4px solid var(--color-ok-strong); border-radius: var(--radius); background: var(--color-ok-soft); }
+.toast [data-error] { margin: 0; }
+[data-area-group] [aria-disabled='true'] { color: var(--color-text-muted); cursor: default; }
+[data-area-group] [aria-disabled='true']:hover { background: var(--color-bg); }
+[data-area]:empty { display: none; }

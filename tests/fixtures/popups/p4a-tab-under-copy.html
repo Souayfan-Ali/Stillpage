@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups/p4a-tab-under-copy · tab-under: opens a copy of the page, then navigates this tab away -->
+<html lang="en"><head><meta charset="utf-8"><title>popups/p4a-tab-under-copy</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<p id="text">Plain article text, not a control.</p>
+<script>
+document.addEventListener('click', () => { window.open(location.href + '?copy'); setTimeout(() => { location.href = 'https://popunder.example/ad'; }, 50); }, { once: true });
+</script>
+</body></html>

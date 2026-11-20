@@ -1,0 +1,86 @@
+# Published-package check (tooling notes §6, §8, P2-07): download the package the store serves, compare its unpacked
+# contents with the release record and the release zip, open an issue on a mismatch. Written and linted
+# locally; not executed until the repository is public.
+# PARTIAL for now: comparison logic tested on local zips only. Going live is the owner's (NEEDS MAINTAINER):
+#   1. restore `schedule: - cron: '0 7 * * *'` under `on:`;
+#   2. put the real item id into compiler/store/store.config.json (the download step refuses the placeholder).
+# The download is the public update endpoint (no credential). Rules: actions pinned by SHA; read-only token
+# except the issue job, which may only write issues.
+name: verify-store
+
+on:
+  workflow_dispatch:
+    inputs:
+      release:
+        description: GitHub release tag whose zip and record to compare (default the latest)
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-store
+  cancel-in-progress: true
+
+jobs:
+  compare:
+    name: published package vs release record
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    outputs:
+      match: ${{ steps.compare.outputs.match }}
+    env:
+      GH_TOKEN: ${{ github.token }}
+      RELEASE: ${{ inputs.release }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Release zip and record of the version we published
+        run: |
+          mkdir -p verify
+          gh release download ${RELEASE:+"$RELEASE"} --pattern '*-chrome.zip' --pattern '*.record.json' --dir verify
+      - name: Package the store serves (public update endpoint)
+        run: |
+          item=$(node -p 'require("./compiler/store/store.config.json").itemId')
+          case "$item" in OWNER_*) echo "::error::item id is a placeholder (NEEDS MAINTAINER)"; exit 1 ;; esac
+          curl --fail --silent --show-error --location --max-time 120 --output verify/published.crx \
+            "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=150.0&acceptformat=crx3&x=id%3D${item}%26uc"
+      - name: Compare unpacked contents with the record
+        id: compare
+        run: |
+          set +e
+          npm run -s release -- verify-store --crx verify/published.crx --zip verify/*-chrome.zip \
+            --record verify/*.record.json --issue verify/issue.md
+          code=$?
+          set -e
+          if [ "$code" -eq 0 ]; then echo "match=true" >> "$GITHUB_OUTPUT"; elif [ "$code" -eq 1 ] && [ -f verify/issue.md ]; then echo "match=false" >> "$GITHUB_OUTPUT"; else exit "$code"; fi
+      - name: Keep the issue body
+        if: steps.compare.outputs.match == 'false'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: store-mismatch
+          path: verify/issue.md
+          retention-days: 30
+
+  issue:
+    name: open an issue on a mismatch
+    needs: compare
+    if: needs.compare.outputs.match == 'false'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      issues: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: store-mismatch
+      - run: gh issue create --title "Published package differs from its release record" --body-file issue.md --label release

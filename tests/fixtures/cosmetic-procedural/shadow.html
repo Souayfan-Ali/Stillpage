@@ -1,0 +1,8 @@
+<!doctype html>
+<!-- fixture: cosmetic-procedural/shadow · filter: proc.example##.widget:has(:shadow(.sponsored)) -->
+<html lang="en"><head><meta charset="utf-8"><title>cosmetic-procedural/shadow</title></head>
+<body>
+<div class="widget"></div>
+<div class="widget keep"></div>
+<script>document.querySelectorAll(".widget").forEach(function(w,i){var r=w.attachShadow({mode:i===0?"closed":"open"});var d=document.createElement("div");d.className=i===0?"sponsored":"story";d.textContent=i===0?"Sponsored":"Story";r.appendChild(d);});</script>
+</body></html>

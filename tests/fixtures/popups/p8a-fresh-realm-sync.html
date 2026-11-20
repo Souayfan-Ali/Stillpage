@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups/p8a-fresh-realm-sync · window.open of a fresh iframe realm, through contentWindow -->
+<html lang="en"><head><meta charset="utf-8"><title>popups/p8a-fresh-realm-sync</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<p id="text">Plain article text, not a control.</p>
+<script>
+document.addEventListener('click', () => { const f = document.createElement('iframe'); document.body.append(f); f.contentWindow.open('https://popunder.example/ad'); }, { once: true });
+</script>
+</body></html>

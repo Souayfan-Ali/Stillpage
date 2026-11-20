@@ -1,0 +1,27 @@
+<!doctype html>
+<!-- fixture: hostile/messaging · a page that tries to talk to the extension and to load its files. -->
+<html lang="en"><head><meta charset="utf-8"><title>hostile/messaging</title>
+<script>
+  self.__errors = [];
+  addEventListener('error', (e) => { self.__errors.push(String(e.message)); });
+  /** What of the extension messaging API exists here. */
+  self.__api = () => ({ chrome: typeof window.chrome, runtime: typeof (window.chrome && window.chrome.runtime), sendMessage: typeof (window.chrome && window.chrome.runtime && window.chrome.runtime.sendMessage), connect: typeof (window.chrome && window.chrome.runtime && window.chrome.runtime.connect) });
+  /** Every message our scripts and pages know, posted every way a page can post. */
+  self.__post = (id) => {
+    const types = ['x/pickerStart', 'x/popupLog', 'x/linkClickCheck', 'x/popupClosed', 'cs/cssFallback', 'c/reconcile', 'c/startPicker', 'c/saveUserFilter', 'c/removeUserFilter', 'c/proceedOnce', 'hello', 'candidates', 'saved'];
+    for (const type of types) {
+      const m = { v: 1, type, id: 'j15', nonce: 'guessedNonce_00000000', mode: 'hide', host: 'evil.example', payload: { hostname: 'hostile.example', selector: 'body', tabId: 1, nonce: 'guessedNonce_00000000' } };
+      window.postMessage(m, '*');
+      document.dispatchEvent(new CustomEvent(type, { detail: m }));
+      document.dispatchEvent(new CustomEvent(`wxt:${type}`, { detail: m }));
+    }
+    try { window.chrome?.runtime?.sendMessage?.(id, { v: 1, type: 'c/reconcile', id: 'j15', payload: {} }); } catch (e) { self.__errors.push('sendMessage:' + e.name); }
+    return types.length;
+  };
+  /** Tries to load `url` as fetch, image, script and frame; resolves which ways succeeded. */
+  self.__load = (url) => Promise.all([
+    fetch(url).then(() => 'fetch', () => null),
+    new Promise((r) => { const i = new Image(); i.onload = () => r('img'); i.onerror = () => r(null); i.src = url; }),
+    new Promise((r) => { const s = document.createElement('script'); s.onload = () => r('script'); s.onerror = () => r(null); s.src = url; document.head.append(s); }),
+  ]).then((ways) => ways.filter((w) => w !== null));
+</script></head><body><p>messaging</p></body></html>

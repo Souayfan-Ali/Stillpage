@@ -1,0 +1,7 @@
+<!doctype html>
+<!-- fixture: perf/frame · ad frame body used by the tags and adheavy-3: burns 25 ms, one banner -->
+<html lang="en"><head><meta charset="utf-8"><title>perf/frame</title>
+<style>body{max-width:40em;margin:auto;font:18px Georgia}</style></head>
+<body>
+<script>(()=>{const t=performance.now();while(performance.now()-t<25){}})();</script><img src="/perf/banner.gif?f" width="300" height="250" alt="">
+</body></html>

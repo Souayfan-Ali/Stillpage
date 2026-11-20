@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups/double-open · one gesture opens two windows; the second is the ad -->
+<html lang="en"><head><meta charset="utf-8"><title>popups/double-open</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<button id="b">Play</button><p id="text">Plain article text, not a control.</p>
+<script>
+b.addEventListener('click', () => { window.open('https://othernews.example/one'); window.open('https://popunder.example/ad'); });
+</script>
+</body></html>

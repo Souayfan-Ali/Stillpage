@@ -1,0 +1,105 @@
+/* Toolbar panel pop-up row (P2-60b, UI notes §3; P3-18): one white card, the policy on one line, notes small. */
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 6px var(--space-3);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-card);
+}
+
+.field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: var(--font-weight-strong);
+}
+
+.icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+.select,
+.toggle,
+.open {
+  min-height: 28px;
+  padding: 2px var(--space-2);
+  border: var(--border-width) solid var(--color-control-border);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.toggle,
+.open {
+  cursor: pointer;
+  text-align: start;
+}
+
+/* The row's disclosure: full width, its arrow at the end (P3-16, as the panel's other sub-view rows). */
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  border-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-weight: var(--font-weight-strong);
+}
+
+.toggle[aria-expanded='true'] svg {
+  transform: rotate(90deg);
+}
+
+.select:focus-visible,
+.toggle:focus-visible,
+.open:focus-visible {
+  outline: var(--focus-width) solid var(--color-focus);
+  outline-offset: var(--focus-offset);
+}
+
+.note,
+.status {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-tiny);
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+
+/* Kept in the accessibility tree while empty, so its first message is announced; out of the flow. */
+.status:empty {
+  position: absolute;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list[hidden] {
+  display: none;
+}

@@ -1,0 +1,7 @@
+<!doctype html>
+<!-- fixture: anti-adblock/timer-check · filter: antiab.example##+js(nostif, adsbox) with ##.adsbox hidden -->
+<html lang="en"><head><meta charset="utf-8"><title>anti-adblock/timer-check</title></head>
+<body>
+<div class="adsbox" style="height:10px">&nbsp;</div>
+<script>self.__wall=false;setTimeout(function(){/* adsbox */if(document.querySelector(".adsbox").offsetHeight===0)self.__wall=true},200)</script>
+</body></html>

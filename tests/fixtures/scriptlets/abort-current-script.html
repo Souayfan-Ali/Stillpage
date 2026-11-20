@@ -1,0 +1,7 @@
+<!doctype html>
+<!-- fixture: scriptlets/abort-current-script · filter: script.example##+js(acs, document.createElement, adbanner) -->
+<html lang="en"><head><meta charset="utf-8"><title>scriptlets/abort-current-script</title></head>
+<body>
+<script>self.__adbanner="ran";try{document.createElement("div");/* adbanner */self.__adbanner="created"}catch(e){self.__adbanner="aborted"}</script>
+<script>self.__other=document.createElement("div")?"created":"no"</script>
+</body></html>

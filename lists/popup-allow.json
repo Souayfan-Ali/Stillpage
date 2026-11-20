@@ -1,0 +1,19 @@
+{
+  "$comment": "Provider allowlist of the pop-up guard (pop-up notes §8, rule G5): first-party sign-in and payment endpoints only, no open redirectors, no ad hosts. Each entry names its reviewer and a first-party source. Linted by tests/unit/core/popup/allowlistData.test.ts and compiled into popup-sentinel (src/content/popup-sentinel/allowlist.ts). Reviewer 'owner-pending': drafted from public provider documentation; the owner confirms each entry before release (P2-58 notes).",
+  "entries": [
+    { "host": "accounts.google.com", "pathPrefix": "/o/oauth2", "reviewer": "owner-pending", "source": "https://developers.google.com/identity/protocols/oauth2" },
+    { "host": "accounts.google.com", "pathPrefix": "/signin", "reviewer": "owner-pending", "source": "https://developers.google.com/identity/gsi/web/guides/overview" },
+    { "host": "appleid.apple.com", "pathPrefix": "/auth/authorize", "reviewer": "owner-pending", "source": "https://developer.apple.com/documentation/sign_in_with_apple" },
+    { "host": "login.microsoftonline.com", "pathPrefix": "/", "wholeHost": true, "reviewer": "owner-pending", "source": "https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-auth-code-flow" },
+    { "host": "login.live.com", "pathPrefix": "/oauth20_authorize.srf", "reviewer": "owner-pending", "source": "https://learn.microsoft.com/en-us/onedrive/developer/rest-api/getting-started/msa-oauth" },
+    { "host": "www.facebook.com", "pathPrefix": "/dialog/oauth", "reviewer": "owner-pending", "source": "https://developers.facebook.com/docs/facebook-login/guides/advanced/manual-flow" },
+    { "host": "github.com", "pathPrefix": "/login/oauth", "reviewer": "owner-pending", "source": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps" },
+    { "host": "x.com", "pathPrefix": "/i/oauth2", "reviewer": "owner-pending", "source": "https://docs.x.com/resources/fundamentals/authentication/oauth-2-0/authorization-code" },
+    { "host": "www.linkedin.com", "pathPrefix": "/oauth", "reviewer": "owner-pending", "source": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow" },
+    { "host": "www.amazon.com", "pathPrefix": "/ap/oa", "reviewer": "owner-pending", "source": "https://developer.amazon.com/docs/login-with-amazon/authorization-code-grant.html" },
+    { "host": "www.paypal.com", "pathPrefix": "/checkoutnow", "reviewer": "owner-pending", "source": "https://developer.paypal.com/docs/checkout/" },
+    { "host": "www.paypal.com", "pathPrefix": "/signin", "reviewer": "owner-pending", "source": "https://developer.paypal.com/docs/log-in-with-paypal/" },
+    { "host": "checkout.stripe.com", "pathPrefix": "/", "wholeHost": true, "reviewer": "owner-pending", "source": "https://docs.stripe.com/payments/checkout" },
+    { "host": "pay.google.com", "pathPrefix": "/gp/p", "reviewer": "owner-pending", "source": "https://developers.google.com/pay/api/web/overview" }
+  ]
+}

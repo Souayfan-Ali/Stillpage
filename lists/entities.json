@@ -1,0 +1,813 @@
+{
+ "schema": 1,
+ "_comment": "Attribution buckets (ADR-011, P1-20): company -> its own domains, from public first-party information. Not copied from Tracker Radar or TrackerDB (CC BY-NC-SA). At most 300 companies.",
+ "companies": [
+  {
+   "id": "google",
+   "name": "Google",
+   "domains": [
+    "2mdn.net",
+    "admob.com",
+    "doubleclick.net",
+    "google-analytics.com",
+    "google.com",
+    "googleadservices.com",
+    "googleoptimize.com",
+    "googlesyndication.com",
+    "googletagmanager.com",
+    "googletagservices.com",
+    "youtube.com"
+   ]
+  },
+  {
+   "id": "meta",
+   "name": "Meta",
+   "domains": [
+    "facebook.com",
+    "facebook.net",
+    "fbcdn.net",
+    "fbsbx.com",
+    "instagram.com"
+   ]
+  },
+  {
+   "id": "microsoft",
+   "name": "Microsoft",
+   "domains": [
+    "adnxs.com",
+    "bat.bing.net",
+    "bing.com",
+    "clarity.ms",
+    "licdn.com",
+    "linkedin.com",
+    "microsoft.com",
+    "msn.com"
+   ]
+  },
+  {
+   "id": "amazon",
+   "name": "Amazon",
+   "domains": [
+    "amazon-adsystem.com",
+    "amazon.com",
+    "assoc-amazon.com"
+   ]
+  },
+  {
+   "id": "x",
+   "name": "X (Twitter)",
+   "domains": [
+    "ads-twitter.com",
+    "t.co",
+    "twimg.com",
+    "twitter.com"
+   ]
+  },
+  {
+   "id": "bytedance",
+   "name": "ByteDance (TikTok)",
+   "domains": [
+    "bytedance.com",
+    "byteoversea.com",
+    "tiktok.com",
+    "tiktokv.com"
+   ]
+  },
+  {
+   "id": "adobe",
+   "name": "Adobe",
+   "domains": [
+    "2o7.net",
+    "adobe.com",
+    "adobedtm.com",
+    "demdex.net",
+    "everesttech.net",
+    "marketo.com",
+    "marketo.net",
+    "mktoresp.com",
+    "omniture.com",
+    "omtrdc.net"
+   ]
+  },
+  {
+   "id": "oracle",
+   "name": "Oracle",
+   "domains": [
+    "addthis.com",
+    "bluekai.com",
+    "eloqua.com",
+    "en25.com",
+    "moatads.com",
+    "oracleinfinity.io"
+   ]
+  },
+  {
+   "id": "act-on",
+   "name": "Act-On Software",
+   "domains": [
+    "actonservice.com",
+    "actonsoftware.com"
+   ]
+  },
+  {
+   "id": "salesforce",
+   "name": "Salesforce",
+   "domains": [
+    "cquotient.com",
+    "evergage.com",
+    "exacttarget.com",
+    "igodigital.com",
+    "krxd.net",
+    "pardot.com"
+   ]
+  },
+  {
+   "id": "criteo",
+   "name": "Criteo",
+   "domains": [
+    "criteo.com",
+    "criteo.net"
+   ]
+  },
+  {
+   "id": "taboola",
+   "name": "Taboola",
+   "domains": [
+    "taboola.com",
+    "taboolasyndication.com"
+   ]
+  },
+  {
+   "id": "outbrain",
+   "name": "Outbrain",
+   "domains": [
+    "outbrain.com",
+    "outbrainimg.com",
+    "zemanta.com"
+   ]
+  },
+  {
+   "id": "the-trade-desk",
+   "name": "The Trade Desk",
+   "domains": [
+    "adsrvr.org"
+   ]
+  },
+  {
+   "id": "pubmatic",
+   "name": "PubMatic",
+   "domains": [
+    "pubmatic.com"
+   ]
+  },
+  {
+   "id": "magnite",
+   "name": "Magnite",
+   "domains": [
+    "rubiconproject.com",
+    "spotx.tv",
+    "spotxchange.com"
+   ]
+  },
+  {
+   "id": "openx",
+   "name": "OpenX",
+   "domains": [
+    "openx.net"
+   ]
+  },
+  {
+   "id": "index-exchange",
+   "name": "Index Exchange",
+   "domains": [
+    "casalemedia.com",
+    "indexww.com"
+   ]
+  },
+  {
+   "id": "sovrn",
+   "name": "Sovrn",
+   "domains": [
+    "lijit.com",
+    "sovrn.com",
+    "viglink.com"
+   ]
+  },
+  {
+   "id": "triplelift",
+   "name": "TripleLift",
+   "domains": [
+    "3lift.com",
+    "triplelift.com"
+   ]
+  },
+  {
+   "id": "sharethrough",
+   "name": "Sharethrough",
+   "domains": [
+    "sharethrough.com"
+   ]
+  },
+  {
+   "id": "media-net",
+   "name": "Media.net",
+   "domains": [
+    "media.net"
+   ]
+  },
+  {
+   "id": "yahoo",
+   "name": "Yahoo",
+   "domains": [
+    "advertising.com",
+    "yahoo.com",
+    "yimg.com"
+   ]
+  },
+  {
+   "id": "comscore",
+   "name": "Comscore",
+   "domains": [
+    "comscore.com",
+    "scorecardresearch.com"
+   ]
+  },
+  {
+   "id": "nielsen",
+   "name": "Nielsen",
+   "domains": [
+    "imrworldwide.com",
+    "nielsen.com"
+   ]
+  },
+  {
+   "id": "quantcast",
+   "name": "Quantcast",
+   "domains": [
+    "quantcast.com",
+    "quantcount.com",
+    "quantserve.com"
+   ]
+  },
+  {
+   "id": "hotjar",
+   "name": "Hotjar",
+   "domains": [
+    "hotjar.com",
+    "hotjar.io"
+   ]
+  },
+  {
+   "id": "mixpanel",
+   "name": "Mixpanel",
+   "domains": [
+    "mixpanel.com",
+    "mxpnl.com"
+   ]
+  },
+  {
+   "id": "twilio-segment",
+   "name": "Twilio Segment",
+   "domains": [
+    "segment.com",
+    "segment.io"
+   ]
+  },
+  {
+   "id": "amplitude",
+   "name": "Amplitude",
+   "domains": [
+    "amplitude.com"
+   ]
+  },
+  {
+   "id": "new-relic",
+   "name": "New Relic",
+   "domains": [
+    "newrelic.com",
+    "nr-data.net"
+   ]
+  },
+  {
+   "id": "datadog",
+   "name": "Datadog",
+   "domains": [
+    "datadoghq.com",
+    "datadoghq.eu"
+   ]
+  },
+  {
+   "id": "hubspot",
+   "name": "HubSpot",
+   "domains": [
+    "hs-analytics.net",
+    "hsforms.com",
+    "hubspot.com"
+   ]
+  },
+  {
+   "id": "yandex",
+   "name": "Yandex",
+   "domains": [
+    "adfox.ru",
+    "yandex.com",
+    "yandex.net",
+    "yandex.ru"
+   ]
+  },
+  {
+   "id": "vk",
+   "name": "VK (Mail.ru)",
+   "domains": [
+    "mail.ru",
+    "vk.com"
+   ]
+  },
+  {
+   "id": "baidu",
+   "name": "Baidu",
+   "domains": [
+    "baidu.com",
+    "bdstatic.com"
+   ]
+  },
+  {
+   "id": "tencent",
+   "name": "Tencent",
+   "domains": [
+    "gtimg.com",
+    "qq.com"
+   ]
+  },
+  {
+   "id": "alibaba",
+   "name": "Alibaba",
+   "domains": [
+    "alibaba.com",
+    "mmstat.com"
+   ]
+  },
+  {
+   "id": "snap",
+   "name": "Snap",
+   "domains": [
+    "sc-static.net",
+    "snapchat.com"
+   ]
+  },
+  {
+   "id": "pinterest",
+   "name": "Pinterest",
+   "domains": [
+    "pinimg.com",
+    "pinterest.com"
+   ]
+  },
+  {
+   "id": "reddit",
+   "name": "Reddit",
+   "domains": [
+    "reddit.com",
+    "redditmedia.com",
+    "redditstatic.com"
+   ]
+  },
+  {
+   "id": "quantum-metric",
+   "name": "Quantum Metric",
+   "domains": [
+    "quantummetric.com"
+   ]
+  },
+  {
+   "id": "fullstory",
+   "name": "FullStory",
+   "domains": [
+    "fullstory.com"
+   ]
+  },
+  {
+   "id": "crazy-egg",
+   "name": "Crazy Egg",
+   "domains": [
+    "crazyegg.com"
+   ]
+  },
+  {
+   "id": "optimizely",
+   "name": "Optimizely",
+   "domains": [
+    "optimizely.com"
+   ]
+  },
+  {
+   "id": "vwo",
+   "name": "VWO (Wingify)",
+   "domains": [
+    "visualwebsiteoptimizer.com"
+   ]
+  },
+  {
+   "id": "integral-ad-science",
+   "name": "Integral Ad Science",
+   "domains": [
+    "adsafeprotected.com"
+   ]
+  },
+  {
+   "id": "doubleverify",
+   "name": "DoubleVerify",
+   "domains": [
+    "doubleverify.com"
+   ]
+  },
+  {
+   "id": "lotame",
+   "name": "Lotame",
+   "domains": [
+    "crwdcntrl.net"
+   ]
+  },
+  {
+   "id": "liveramp",
+   "name": "LiveRamp",
+   "domains": [
+    "pippio.com",
+    "rlcdn.com"
+   ]
+  },
+  {
+   "id": "experian",
+   "name": "Experian",
+   "domains": [
+    "experian.com",
+    "tapad.com"
+   ]
+  },
+  {
+   "id": "id5",
+   "name": "ID5",
+   "domains": [
+    "id5-sync.com"
+   ]
+  },
+  {
+   "id": "33across",
+   "name": "33Across",
+   "domains": [
+    "33across.com",
+    "tynt.com"
+   ]
+  },
+  {
+   "id": "gumgum",
+   "name": "GumGum",
+   "domains": [
+    "gumgum.com"
+   ]
+  },
+  {
+   "id": "teads",
+   "name": "Teads",
+   "domains": [
+    "teads.tv"
+   ]
+  },
+  {
+   "id": "equativ",
+   "name": "Equativ (Smart AdServer)",
+   "domains": [
+    "smartadserver.com"
+   ]
+  },
+  {
+   "id": "adform",
+   "name": "Adform",
+   "domains": [
+    "adform.net",
+    "seadform.net"
+   ]
+  },
+  {
+   "id": "flashtalking",
+   "name": "Flashtalking",
+   "domains": [
+    "flashtalking.com"
+   ]
+  },
+  {
+   "id": "connatix",
+   "name": "Connatix",
+   "domains": [
+    "connatix.com"
+   ]
+  },
+  {
+   "id": "exco",
+   "name": "EX.CO",
+   "domains": [
+    "ex.co"
+   ]
+  },
+  {
+   "id": "cloudflare",
+   "name": "Cloudflare",
+   "domains": [
+    "cloudflareinsights.com"
+   ]
+  },
+  {
+   "id": "klaviyo",
+   "name": "Klaviyo",
+   "domains": [
+    "klaviyo.com"
+   ]
+  },
+  {
+   "id": "intuit",
+   "name": "Intuit (Mailchimp)",
+   "domains": [
+    "intuit.com",
+    "list-manage.com",
+    "mailchimp.com"
+   ]
+  },
+  {
+   "id": "zeta",
+   "name": "Zeta Global",
+   "domains": [
+    "rezync.com"
+   ]
+  },
+  {
+   "id": "akamai",
+   "name": "Akamai (mPulse)",
+   "domains": [
+    "akstat.io"
+   ]
+  },
+  {
+   "id": "dynatrace",
+   "name": "Dynatrace",
+   "domains": [
+    "dynatrace.com"
+   ]
+  },
+  {
+   "id": "heap",
+   "name": "Heap",
+   "domains": [
+    "heapanalytics.com"
+   ]
+  },
+  {
+   "id": "pendo",
+   "name": "Pendo",
+   "domains": [
+    "pendo.io"
+   ]
+  },
+  {
+   "id": "intercom",
+   "name": "Intercom",
+   "domains": [
+    "intercom.io",
+    "intercomcdn.com"
+   ]
+  },
+  {
+   "id": "kochava",
+   "name": "Kochava",
+   "domains": [
+    "kochava.com"
+   ]
+  },
+  {
+   "id": "appsflyer",
+   "name": "AppsFlyer",
+   "domains": [
+    "appsflyer.com",
+    "onelink.me"
+   ]
+  },
+  {
+   "id": "adjust",
+   "name": "Adjust",
+   "domains": [
+    "adjust.com"
+   ]
+  },
+  {
+   "id": "branch",
+   "name": "Branch",
+   "domains": [
+    "app.link",
+    "branch.io"
+   ]
+  },
+  {
+   "id": "unity",
+   "name": "Unity Ads",
+   "domains": [
+    "unity3d.com"
+   ]
+  },
+  {
+   "id": "applovin",
+   "name": "AppLovin",
+   "domains": [
+    "applovin.com"
+   ]
+  },
+  {
+   "id": "inmobi",
+   "name": "InMobi",
+   "domains": [
+    "inmobi.com"
+   ]
+  },
+  {
+   "id": "popads",
+   "name": "PopAds",
+   "domains": [
+    "popads.net"
+   ]
+  },
+  {
+   "id": "popcash",
+   "name": "PopCash",
+   "domains": [
+    "popcash.net"
+   ]
+  },
+  {
+   "id": "adsterra",
+   "name": "Adsterra",
+   "domains": [
+    "adsterra.com"
+   ]
+  },
+  {
+   "id": "exoclick",
+   "name": "ExoClick",
+   "domains": [
+    "exoclick.com",
+    "exosrv.com"
+   ]
+  },
+  {
+   "id": "trafficjunky",
+   "name": "TrafficJunky",
+   "domains": [
+    "trafficjunky.com",
+    "trafficjunky.net"
+   ]
+  },
+  {
+   "id": "juicyads",
+   "name": "JuicyAds",
+   "domains": [
+    "juicyads.com"
+   ]
+  },
+  {
+   "id": "eulerian",
+   "name": "Eulerian",
+   "domains": [
+    "eulerian.net"
+   ]
+  },
+  {
+   "id": "piano",
+   "name": "Piano (AT Internet)",
+   "domains": [
+    "aticdn.net",
+    "piano.io",
+    "xiti.com"
+   ]
+  },
+  {
+   "id": "commanders-act",
+   "name": "Commanders Act",
+   "domains": [
+    "commander1.com",
+    "tagcommander.com"
+   ]
+  },
+  {
+   "id": "webtrends",
+   "name": "Webtrends",
+   "domains": [
+    "webtrends.com",
+    "webtrendslive.com"
+   ]
+  },
+  {
+   "id": "chartbeat",
+   "name": "Chartbeat",
+   "domains": [
+    "chartbeat.com",
+    "chartbeat.net"
+   ]
+  },
+  {
+   "id": "parsely",
+   "name": "Parse.ly",
+   "domains": [
+    "parse.ly",
+    "parsely.com"
+   ]
+  },
+  {
+   "id": "tealium",
+   "name": "Tealium",
+   "domains": [
+    "tealium.com",
+    "tealiumiq.com",
+    "tiqcdn.com"
+   ]
+  },
+  {
+   "id": "ensighten",
+   "name": "Ensighten",
+   "domains": [
+    "ensighten.com"
+   ]
+  },
+  {
+   "id": "rakuten-advertising",
+   "name": "Rakuten Advertising",
+   "domains": [
+    "linksynergy.com"
+   ]
+  },
+  {
+   "id": "cj",
+   "name": "CJ Affiliate",
+   "domains": [
+    "anrdoezrs.net",
+    "cj.com",
+    "dpbolvw.net",
+    "emjcd.com",
+    "jdoqocy.com",
+    "kqzyfj.com",
+    "qksrv.net",
+    "tkqlhce.com"
+   ]
+  },
+  {
+   "id": "awin",
+   "name": "Awin",
+   "domains": [
+    "awin1.com",
+    "shareasale.com",
+    "zanox.com"
+   ]
+  },
+  {
+   "id": "impact",
+   "name": "impact.com",
+   "domains": [
+    "impact.com",
+    "impactradius-event.com"
+   ]
+  },
+  {
+   "id": "skimlinks",
+   "name": "Skimlinks",
+   "domains": [
+    "skimresources.com"
+   ]
+  },
+  {
+   "id": "mediavine",
+   "name": "Mediavine",
+   "domains": [
+    "mediavine.com"
+   ]
+  },
+  {
+   "id": "raptive",
+   "name": "Raptive (AdThrive)",
+   "domains": [
+    "adthrive.com"
+   ]
+  },
+  {
+   "id": "ezoic",
+   "name": "Ezoic",
+   "domains": [
+    "ezodn.com",
+    "ezoic.com",
+    "ezoic.net"
+   ]
+  },
+  {
+   "id": "freestar",
+   "name": "Freestar",
+   "domains": [
+    "freestar.io"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Secret scan of staged changes (P0-07, security notes §7). Enable once per clone:
+#   npm run tools:install && git config core.hooksPath .githooks
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+GITLEAKS="$ROOT/.cache/tools/bin/gitleaks"
+
+if [[ ! -x "$GITLEAKS" ]]; then
+  echo "pre-commit: gitleaks not installed; run 'npm run tools:install'." >&2
+  exit 1
+fi
+
+exec "$GITLEAKS" git --staged --redact --no-banner --config "$ROOT/.gitleaks.toml" "$ROOT"

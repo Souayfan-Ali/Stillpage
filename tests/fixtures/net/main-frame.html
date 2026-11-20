@@ -1,0 +1,8 @@
+<!doctype html>
+<!-- fixture: net/main-frame · filter: ||malware.example^$document -->
+<html lang="en"><head><meta charset="utf-8"><title>net/main-frame</title></head>
+<body>
+<p>Navigating to malware.example is blocked; an image from it is not a document and loads.</p>
+<a id="go" href="https://malware.example/landing">malware.example</a>
+<img src="https://malware.example/pic.gif" alt="">
+</body></html>

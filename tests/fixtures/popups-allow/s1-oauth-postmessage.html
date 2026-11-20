@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups-allow/s1-oauth-postmessage · S-21 flow: OAuth window that posts a code back -->
+<html lang="en"><head><meta charset="utf-8"><title>popups-allow/s1-oauth-postmessage</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<button id="b">Continue with IdP</button><p id="text">Plain article text, not a control.</p>
+<script>
+b.onclick = () => window.open('https://accounts.idp-one.example/popups-allow/provider-authorize.html', 'oauth', 'width=480,height=640'); addEventListener('message', (e) => { if (e.data && e.data.code) window.__got = e.data.code; });
+</script>
+</body></html>

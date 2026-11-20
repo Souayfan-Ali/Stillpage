@@ -1,0 +1,6 @@
+# gitleaks configuration (P0-07). Uses the built-in rule set; nothing is allow-listed yet.
+# Any allow-list entry needs a comment saying why it is not a secret.
+title = "glassmere"
+
+[extend]
+useDefault = true

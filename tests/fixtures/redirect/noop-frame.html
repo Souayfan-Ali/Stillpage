@@ -1,0 +1,7 @@
+<!doctype html>
+<!-- fixture: redirect/noop-frame · filter: ||a-ads.com^$subdocument,redirect=noopframe,domain=dogefaucet.com (D-24: the frame lands on the packaged inert noop.html) -->
+<html lang="en"><head><meta charset="utf-8"><title>redirect/noop-frame</title></head>
+<body>
+<p>The ad frame is redirected to the packaged, inert noop.html; the server never sees a-ads.com.</p>
+<iframe id="ad" title="ad frame" src="https://a-ads.com/frame.html"></iframe>
+</body></html>

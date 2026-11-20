@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups/d14-lifted-destination · a listed pop-up destination that a stock list also document-blocks (D-55 / D-55a lift): the blocked page, not Chrome's error page -->
+<html lang="en"><head><meta charset="utf-8"><title>popups/d14-lifted-destination</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<button id="b" type="button">Watch now</button><p id="text">Plain article text, not a control.</p>
+<script>
+document.getElementById('b').addEventListener('click', () => { window.open('https://liftads.example/landing?z=1'); });
+</script>
+</body></html>

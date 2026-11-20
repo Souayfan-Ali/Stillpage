@@ -1,0 +1,7 @@
+<!doctype html>
+<!-- fixture: anti-adblock/bait-element · filter: antiab.example#@#.adsbox (keeps the bait visible) with ##.adsbox generic hiding on -->
+<html lang="en"><head><meta charset="utf-8"><title>anti-adblock/bait-element</title></head>
+<body>
+<div class="adsbox" style="height:10px">&nbsp;</div>
+<script>addEventListener("load",function(){self.__wall=document.querySelector(".adsbox").offsetHeight===0})</script>
+</body></html>

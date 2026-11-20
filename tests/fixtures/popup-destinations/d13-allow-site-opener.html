@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popup-destinations/d13-allow-site-opener · a listed host opened from an "Allow pop-ups" site is not acted on -->
+<html lang="en"><head><meta charset="utf-8"><title>popup-destinations/d13-allow-site-opener</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<button id="b">Open</button><p id="text">Plain article text, not a control.</p>
+<script>
+b.addEventListener('click', () => window.open('https://popads.example/landing'));
+</script>
+</body></html>

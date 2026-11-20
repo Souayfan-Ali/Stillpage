@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups/p2-transparent-div · transparent full-page div opens a window, then removes itself -->
+<html lang="en"><head><meta charset="utf-8"><title>popups/p2-transparent-div</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<div id="ov" style="position:fixed;inset:0;z-index:9999;background:transparent"></div><p id="text">Plain article text, not a control.</p>
+<script>
+ov.addEventListener('click', () => { window.open('https://popunder.example/ad'); ov.remove(); });
+</script>
+</body></html>

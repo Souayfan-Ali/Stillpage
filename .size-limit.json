@@ -1,0 +1,189 @@
+[
+  {
+    "name": "service worker (performance notes §2.1)",
+    "path": ".output/chrome-mv3/background.js",
+    "limit": "30 kB",
+    "gzip": true
+  },
+  {
+    "name": "toolbar panel JS at open on a web page, shared chunks included: entry + static imports + PopupRow (performance notes §2.1 Popup JS ≤ 30 kB gzip; warn at 28 kB; P2-47, design review)",
+    "path": [".output/chrome-mv3/chunks/popup-*.js", ".output/chrome-mv3/chunks/browser-*.js", ".output/chrome-mv3/chunks/jsxRuntime-*.js", ".output/chrome-mv3/chunks/page-*.js", ".output/chrome-mv3/chunks/selector-*.js", ".output/chrome-mv3/chunks/RadioGroup-*.js", ".output/chrome-mv3/chunks/PopupRow-*.js", ".output/chrome-mv3/chunks/ids-*.js"],
+    "limit": "30 kB",
+    "gzip": true
+  },
+  {
+    "name": "toolbar panel breakage-flow chunk, loaded on first open (P2-14, P2-15)",
+    "path": ".output/chrome-mv3/chunks/BreakageScreen-*.js",
+    "limit": "8 kB",
+    "gzip": true
+  },
+  {
+    "name": "toolbar panel pop-up row chunk, loaded on web pages (P2-60b)",
+    "path": ".output/chrome-mv3/chunks/PopupRow-*.js",
+    "limit": "3 kB",
+    "gzip": true
+  },
+  {
+    "name": "toolbar panel \"Show on page\" chunk, loaded on first open (P2-22b)",
+    "path": ".output/chrome-mv3/chunks/HiddenView-*.js",
+    "limit": "3 kB",
+    "gzip": true
+  },
+  {
+    "name": "toolbar panel full graph: the open set + the user-initiated BreakageScreen and HiddenView chunks (performance notes §2.1, P2-47; raising it needs an ADR)",
+    "path": [".output/chrome-mv3/chunks/popup-*.js", ".output/chrome-mv3/chunks/browser-*.js", ".output/chrome-mv3/chunks/jsxRuntime-*.js", ".output/chrome-mv3/chunks/page-*.js", ".output/chrome-mv3/chunks/selector-*.js", ".output/chrome-mv3/chunks/RadioGroup-*.js", ".output/chrome-mv3/chunks/PopupRow-*.js", ".output/chrome-mv3/chunks/BreakageScreen-*.js", ".output/chrome-mv3/chunks/HiddenView-*.js", ".output/chrome-mv3/chunks/ids-*.js"],
+    "limit": "38 kB",
+    "gzip": true
+  },
+  {
+    "name": "extension-page chunks shared by the panel, dashboard, onboarding, picker panel and blocked page: i18n + browser (P2-40), JSX runtime, UI kit, selector check, radio group",
+    "path": [".output/chrome-mv3/chunks/browser-*.js", ".output/chrome-mv3/chunks/jsxRuntime-*.js", ".output/chrome-mv3/chunks/page-*.js", ".output/chrome-mv3/chunks/selector-*.js", ".output/chrome-mv3/chunks/RadioGroup-*.js", ".output/chrome-mv3/chunks/ids-*.js"],
+    "limit": "18 kB",
+    "gzip": true
+  },
+  {
+    "name": "dashboard initial JS with its shared chunks (performance notes §2.1: ≤ 90 kB gzip)",
+    "path": [".output/chrome-mv3/chunks/dashboard-*.js", ".output/chrome-mv3/chunks/settingsPage-*.js", ".output/chrome-mv3/chunks/browser-*.js", ".output/chrome-mv3/chunks/jsxRuntime-*.js", ".output/chrome-mv3/chunks/page-*.js", ".output/chrome-mv3/chunks/selector-*.js", ".output/chrome-mv3/chunks/RadioGroup-*.js", ".output/chrome-mv3/chunks/ids-*.js"],
+    "limit": "90 kB",
+    "gzip": true
+  },
+  {
+    "name": "onboarding page JS with its shared chunks (no performance notes row: held to the panel's 30 kB)",
+    "path": [".output/chrome-mv3/chunks/onboarding-*.js", ".output/chrome-mv3/chunks/settingsPage-*.js", ".output/chrome-mv3/chunks/browser-*.js", ".output/chrome-mv3/chunks/jsxRuntime-*.js", ".output/chrome-mv3/chunks/page-*.js", ".output/chrome-mv3/chunks/selector-*.js", ".output/chrome-mv3/chunks/ids-*.js"],
+    "limit": "30 kB",
+    "gzip": true
+  },
+  {
+    "name": "pop-up guard MAIN-world shim (performance notes §2.1: ≤ 1.2 kB gzip; the sentinel's own gate is tests/e2e/manifest.spec.ts, ADR-018)",
+    "path": ".output/chrome-mv3/popup-shim.js",
+    "limit": "1.2 kB",
+    "gzip": true
+  },
+  {
+    "name": "pop-up guard flag files popup-quiet and popup-strict (D-49: one line each)",
+    "path": [".output/chrome-mv3/popup-quiet.js", ".output/chrome-mv3/popup-strict.js"],
+    "limit": "1 kB",
+    "gzip": true
+  },
+  {
+    "name": "user cosmetic filters applier (P2-20)",
+    "path": ".output/chrome-mv3/user-cosmetic.js",
+    "limit": "2 kB",
+    "gzip": true
+  },
+  {
+    "name": "all shipped JS, minified, excluding generated data (performance notes §2.1)",
+    "path": [".output/chrome-mv3/**/*.js", "!.output/chrome-mv3/cosmetic/**", "!.output/chrome-mv3/scriptlets/**", "!.output/chrome-mv3/surrogates/**"],
+    "limit": "450 kB",
+    "gzip": false,
+    "brotli": false
+  },
+  {
+    "name": "cosmetic-specific applier (performance notes §2.1, P1-34)",
+    "path": ".output/chrome-mv3/cosmetic-specific.js",
+    "limit": "3 kB",
+    "gzip": true
+  },
+  {
+    "name": "cosmetic-generic surveyor, Thorough only (P2-24)",
+    "path": ".output/chrome-mv3/cosmetic-generic.js",
+    "limit": "4 kB",
+    "gzip": true
+  },
+  {
+    "name": "procedural engine (uBO's, vendored) + our glue (performance notes §2.1, P1-36: ≤ 10 kB)",
+    "path": [".output/chrome-mv3/cosmetic/procedural-engine.js", ".output/chrome-mv3/cosmetic-procedural.js"],
+    "limit": "10 kB",
+    "gzip": true
+  },
+  {
+    "name": "GPC property script, MAIN world, only while GPC is on (P2-31: one tiny script)",
+    "path": ".output/chrome-mv3/gpc.js",
+    "limit": "1 kB",
+    "gzip": true
+  },
+  {
+    "name": "notification-prompt gate, MAIN world, only while the Notification prompts pack is on (P2-63)",
+    "path": ".output/chrome-mv3/notify-gate.js",
+    "limit": "1 kB",
+    "gzip": true
+  },
+  {
+    "name": "scriptlet code of the ads pack, MAIN + ISOLATED (performance notes §2.1)",
+    "path": ".output/chrome-mv3/scriptlets/ads.*.js",
+    "limit": "60 kB",
+    "gzip": true
+  },
+  {
+    "name": "scriptlet code of the trackers pack, MAIN + ISOLATED (performance notes §2.1)",
+    "path": ".output/chrome-mv3/scriptlets/trackers.*.js",
+    "limit": "60 kB",
+    "gzip": true
+  },
+  {
+    "name": "scriptlet code of the malware pack, MAIN + ISOLATED (performance notes §2.1)",
+    "path": ".output/chrome-mv3/scriptlets/malware.*.js",
+    "limit": "60 kB",
+    "gzip": true
+  },
+  {
+    "name": "all DNR rulesets, raw (filter-pipeline notes §12)",
+    "path": ".output/chrome-mv3/rulesets/*.json",
+    "limit": "9 MB",
+    "gzip": false,
+    "brotli": false
+  },
+  {
+    "name": "all cosmetic data (shards + generic), raw (filter-pipeline notes §12, D-22, D-26; 6 → 9.5 MB by P2-32: every optional pack compiled)",
+    "path": [".output/chrome-mv3/cosmetic/**/*.js", "!.output/chrome-mv3/cosmetic/procedural-engine.js"],
+    "limit": "9.5 MB",
+    "gzip": false,
+    "brotli": false
+  },
+  {
+    "name": "generic cosmetic data of every pack (Thorough only), raw (P2-23, P2-32)",
+    "path": ".output/chrome-mv3/cosmetic/*/generic.js",
+    "limit": "2.2 MB",
+    "gzip": false,
+    "brotli": false
+  },
+  {
+    "name": "scriptlet code + dispatch data + surrogates, raw (filter-pipeline notes §12, D-22)",
+    "path": [".output/chrome-mv3/scriptlets/**/*", ".output/chrome-mv3/surrogates/**/*"],
+    "limit": "1.6 MB",
+    "gzip": false,
+    "brotli": false
+  },
+  {
+    "name": "registrations.json, the shard registrations' host lists, raw (D-26; 1 → 2.2 MB by P2-32, wake cost re-measured by P2-47)",
+    "path": ".output/chrome-mv3/registrations.json",
+    "limit": "2.2 MB",
+    "gzip": false,
+    "brotli": false
+  },
+  {
+    "name": "catalog, buckets and pop-up lists, raw (filter-pipeline notes §12)",
+    "path": [".output/chrome-mv3/catalog.json", ".output/chrome-mv3/buckets.json", ".output/chrome-mv3/popup-*.json"],
+    "limit": "400 kB",
+    "gzip": false,
+    "brotli": false
+  },
+  {
+    "name": "generated data, gzip per file ≈ in the zip (filter-pipeline notes §12: 4.7 → 6.1 MiB by P2-32, full dev build incl. owner-pending packs)",
+    "path": [".output/chrome-mv3/rulesets/*.json", ".output/chrome-mv3/cosmetic/**/*", ".output/chrome-mv3/scriptlets/**/*", ".output/chrome-mv3/surrogates/**/*", ".output/chrome-mv3/*.json", "!.output/chrome-mv3/manifest.json"],
+    "limit": "6.1 MiB",
+    "gzip": true
+  },
+  {
+    "name": "element hider: picker script + panel page (performance notes §2.1: ≤ 35 kB gzip, on demand only)",
+    "path": [".output/chrome-mv3/picker.js", ".output/chrome-mv3/picker-panel.html", ".output/chrome-mv3/chunks/picker-panel-*.js", ".output/chrome-mv3/assets/picker-panel-*.css"],
+    "limit": "35 kB",
+    "gzip": true
+  },
+  {
+    "name": "blocked page: blocked.html + script + css (performance notes §2.1: ≤ 6 kB gzip, no framework)",
+    "path": [".output/chrome-mv3/blocked.html", ".output/chrome-mv3/chunks/blocked-*.js", ".output/chrome-mv3/assets/blocked-*.css", ".output/chrome-mv3/chunks/ids-*.js"],
+    "limit": "6 kB",
+    "gzip": true
+  }
+]

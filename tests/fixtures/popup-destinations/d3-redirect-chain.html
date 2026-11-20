@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popup-destinations/d3-redirect-chain · a window to an unlisted host that 302s to a listed one -->
+<html lang="en"><head><meta charset="utf-8"><title>popup-destinations/d3-redirect-chain</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<button id="b">Open</button><p id="text">Plain article text, not a control.</p>
+<script>
+b.addEventListener('click', () => window.open('https://hop.example/redirect?to=' + encodeURIComponent('https://popads.example/landing')));
+</script>
+</body></html>

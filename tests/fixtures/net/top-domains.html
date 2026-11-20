@@ -1,0 +1,7 @@
+<!doctype html>
+<!-- fixture: net/top-domains, net/top-domains-other · filter: ||deep.example^ limited to pages on top.example (topDomains) -->
+<html lang="en"><head><meta charset="utf-8"><title>net/top-domains</title></head>
+<body>
+<p>A nested frame loads deep.example; the rule matches by the top-level site, not the frame.</p>
+<iframe src="https://frame.example/net/frame.html" title="nested frame"></iframe>
+</body></html>

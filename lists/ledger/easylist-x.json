@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "ruleset": "easylist-x",
+  "nextId": 18,
+  "entries": {
+    "b:e4092c0bf1caa827f057:other:ads": 1,
+    "r:161205bac80dd27682b5": 2,
+    "r:185f973a8830cc1a3ff1": 11,
+    "r:2917e98f28474c906fcf": 3,
+    "r:37bc55353e870feb72e7": 4,
+    "r:3b60b64248dae18172fb": 12,
+    "r:48c74eed643e736a92d5": 13,
+    "r:5395d287d0a34e2a5f89": 14,
+    "r:5e65bbdc88be99c3d369": 5,
+    "r:675c0033d246da2579e4": 15,
+    "r:6c59b6fe41edbcb53550": 6,
+    "r:79364d9c34db61512763": 16,
+    "r:831f1ed60bec38428d77": 7,
+    "r:a7603a394beb1f66ba41": 8,
+    "r:d16fcf557b73580fd4b7": 17,
+    "r:fef08beb1af3966ceeaa": 9,
+    "r:ff16b91dd1e0e3d69af5": 10
+  }
+}

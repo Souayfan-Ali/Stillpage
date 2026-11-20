@@ -1,0 +1,28 @@
+# Breakage report (P2-16, UI notes §6). The toolbar panel's "Report this" opens this form prefilled
+# (`template=breakage.yml`, title and body); the id-map bot (`issue-idmap.yml`) resolves the rule ids.
+# The report names the site's hostname only; nothing is published until the reporter submits.
+name: Something wrong with a page
+description: A page broke, an ad got through, or a site says you use an ad blocker.
+labels: ["breakage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. The report below comes from the extension's "Report this" button. It names the site (hostname
+        only, never the full address), the extension version, and the ids of rules that matched on the page.
+        Please check it before you submit, and remove anything you do not want to share.
+  - type: textarea
+    id: report
+    attributes:
+      label: Report
+      description: Paste the report from the extension here if it is not filled in already.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: What happened?
+      description: Optional. What you expected and what you saw. Please do not paste full addresses with personal data.
+    validations:
+      required: false

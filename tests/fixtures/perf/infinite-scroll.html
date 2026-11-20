@@ -1,0 +1,9 @@
+<!doctype html>
+<!-- fixture: perf/infinite-scroll · infinite scroll: 20 batches of articles and ad slots appended every 100 ms -->
+<html lang="en"><head><meta charset="utf-8"><title>perf/infinite-scroll</title>
+<style>body{max-width:40em;margin:auto;font:18px Georgia}</style></head>
+<body>
+<h1>Feed</h1>
+<div id="feed"></div>
+<script>let n = 0; const feed = document.getElementById('feed'); const t = setInterval(() => { for (let i = 0; i < 5; i++) { const a = document.createElement('article'); a.innerHTML = '<h2>Story ' + n + '</h2><p>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. </p>'; feed.append(a); const ad = document.createElement('div'); ad.className = 'adsbygoogle ad-slot'; ad.textContent = 'Sponsored'; feed.append(ad); n++; } if (n >= 100) clearInterval(t); }, 100);</script>
+</body></html>

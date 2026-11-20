@@ -1,0 +1,299 @@
+/*
+ * First-run page (UI notes §7, §11; P3-16; P3-18 bold redesign): one card on the tinted canvas, opened by a
+ * brand-gradient hero with the logo's mark large in a white tile and the waves behind it; numbered step
+ * circles (filled for the current step, a check when done); cards with glyph tiles; one decision per step.
+ * At 40rem and below the card fills a 16 px gutter.
+ */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 42rem;
+  margin: var(--space-6) auto;
+  padding: 0 var(--space-6) var(--space-6);
+  overflow: hidden;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-raised);
+}
+
+@media (max-width: 40rem) {
+  .page {
+    margin: var(--space-4);
+    padding: 0 var(--space-4) var(--space-5);
+  }
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-inline: calc(-1 * var(--space-6));
+  padding: var(--space-6);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 120'%3E%3Cpath d='M0 50c25-18 50-18 75 0s50 18 75 0 50-18 75 0 50 18 75 0M0 80c25-18 50-18 75 0s50 18 75 0 50-18 75 0 50 18 75 0' fill='none' stroke='%23fff' stroke-opacity='.14' stroke-width='8' stroke-linecap='round'/%3E%3C/svg%3E") 100% 50% / auto 100% no-repeat,
+    var(--gradient-brand);
+  color: var(--color-on-brand);
+}
+
+@media (max-width: 40rem) {
+  .hero {
+    margin-inline: calc(-1 * var(--space-4));
+    padding: var(--space-5) var(--space-4);
+  }
+}
+
+.markTile {
+  --color-bg: var(--color-on-brand);
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: var(--color-on-brand);
+  color: var(--color-brand-start);
+  box-shadow: 0 6px 18px color-mix(in srgb, #000000 28%, transparent);
+}
+
+.brand {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.steps {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.steps li {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  padding: var(--space-2);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+  counter-increment: step;
+}
+
+/* The step's number in a circle (decoration: the text says "Step N of 3"). */
+.steps li::before {
+  content: counter(step) / '';
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 2px solid var(--color-track);
+  border-radius: 50%;
+  background: var(--color-bg);
+  color: var(--color-text-muted);
+  font-weight: 800;
+}
+
+.steps li.doneStep {
+  color: var(--color-text);
+}
+
+.steps li.doneStep::before {
+  content: '✓' / '';
+  border-color: var(--color-ok-strong);
+  background: var(--color-ok-strong);
+  color: var(--color-on-strong);
+}
+
+.steps li[aria-current='step'] {
+  background: var(--color-accent-soft);
+  color: var(--color-text);
+  font-weight: var(--font-weight-strong);
+  box-shadow: inset 0 0 0 2px var(--color-accent);
+}
+
+.steps li[aria-current='step']::before {
+  border-color: transparent;
+  background: var(--gradient-brand);
+  color: var(--color-on-brand);
+}
+
+@media (max-width: 40rem) {
+  .steps li {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-card);
+}
+
+.heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+/* D19: the step heading only takes focus from the page (after a step change); it is not a control, so no ring. */
+h1.heading[tabindex='-1']:focus {
+  outline: none;
+}
+
+.text {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.muted {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.ok {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  font-weight: var(--font-weight-strong);
+}
+
+.ok svg {
+  color: var(--color-ok);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+/* On a narrow screen the step buttons share the row (wrapping when the words are long): bigger targets. */
+@media (max-width: 40rem) {
+  .actions > * {
+    flex: 1 1 auto;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--target-min);
+  font-weight: var(--font-weight-strong);
+  cursor: pointer;
+}
+
+.error {
+  margin: 0;
+  color: var(--color-error);
+}
+
+.link {
+  color: var(--color-accent);
+  text-underline-offset: 2px;
+}
+
+/* A link that stands alone on its line (the done step's "Open the dashboard"): a full-size target. */
+.soloLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target-min);
+}
+
+.status {
+  min-height: 1.4em;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.demo {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: var(--border-width) dashed var(--color-border);
+  border-radius: var(--radius);
+}
+
+.demo span {
+  flex: 1;
+  height: 24px;
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.demo .gone {
+  background: var(--color-ads-soft);
+  box-shadow: inset 0 0 0 2px var(--color-ads);
+  animation: hide 3s ease-in-out infinite;
+}
+
+@keyframes hide {
+  0%,
+  30% {
+    opacity: 1;
+  }
+  60%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo .gone {
+    animation: none;
+    opacity: 0.35;
+  }
+}
+
+.toolHeading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  font-size: var(--font-size-title);
+}
+
+.toolIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--gradient-brand);
+  color: var(--color-on-brand);
+}

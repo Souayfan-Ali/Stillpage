@@ -1,0 +1,145 @@
+/*
+ * Segmented control over native radios (P1-39; P3-18 bold redesign): the input stays in the layout (visually
+ * hidden but focusable) and its label shows the checked and focused states. Each option may carry its own
+ * hue (`data-hue`): tinted while free, filled with a check mark when checked (shape, not colour alone).
+ */
+.group {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+/* The segments' row; at a width too small for three labels (200 % zoom in the panel) they stack. */
+.track {
+  container-type: inline-size;
+}
+
+@container (max-width: 20rem) {
+  .options {
+    flex-direction: column;
+  }
+}
+
+.legend {
+  margin-bottom: 4px;
+  padding: 0;
+  font-weight: 700;
+}
+
+.options {
+  display: flex;
+  gap: 4px;
+  padding: 3px;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: calc(var(--radius) + 3px);
+  background: var(--color-surface);
+}
+
+.option {
+  --hue: var(--color-accent);
+  --hue-soft: var(--color-accent-soft);
+  --on-hue: var(--color-on-accent);
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.option[data-hue='light'] {
+  --hue: var(--color-level-light);
+  --hue-soft: var(--color-level-light-soft);
+  --on-hue: var(--color-on-level);
+}
+
+.option[data-hue='standard'] {
+  --hue: var(--color-level-standard);
+  --hue-soft: var(--color-level-standard-soft);
+  --on-hue: var(--color-on-level);
+}
+
+.option[data-hue='thorough'] {
+  --hue: var(--color-level-thorough);
+  --hue-soft: var(--color-level-thorough-soft);
+  --on-hue: var(--color-on-level);
+}
+
+.input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: var(--radio-height, var(--control-height));
+  padding: 2px var(--space-2);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius);
+  background: var(--hue-soft);
+  color: var(--hue);
+  font-weight: var(--font-weight-strong);
+  text-align: center;
+  cursor: pointer;
+  transition-property: background-color, color, box-shadow;
+  transition-duration: var(--transition);
+}
+
+.label svg {
+  flex: none;
+}
+
+.input:hover + .label {
+  border-color: var(--hue);
+}
+
+.input:checked + .label {
+  border-color: var(--hue);
+  background: var(--hue);
+  color: var(--on-hue);
+  box-shadow: 0 2px 6px color-mix(in srgb, var(--hue) 35%, transparent);
+}
+
+/* The check mark replaces the option's glyph when checked (shape, not only colour: WCAG 1.4.1). */
+.input:checked + .label svg {
+  display: none;
+}
+
+.input:checked + .label::before {
+  content: '✓' / '';
+}
+
+.input:focus-visible + .label {
+  outline: var(--focus-width) solid var(--color-focus);
+  outline-offset: 1px;
+}
+
+.group:disabled .label {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.description,
+.note {
+  margin: 4px 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--radio-note-size, var(--font-size-small));
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+
+@media (forced-colors: active) {
+  .input:checked + .label {
+    text-decoration: underline;
+  }
+
+  .input:focus-visible + .label {
+    outline: var(--focus-width) solid Highlight;
+  }
+}

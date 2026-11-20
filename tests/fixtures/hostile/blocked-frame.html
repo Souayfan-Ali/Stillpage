@@ -1,0 +1,24 @@
+<!doctype html>
+<!-- fixture: hostile/blocked-frame · a page that frames the blocked page (by the static and, worst case, the
+     dynamic address the test hands it) and tries to make the framed copy act. -->
+<html lang="en"><head><meta charset="utf-8"><title>hostile/blocked-frame</title>
+<script>
+  self.__errors = [];
+  addEventListener('error', (e) => { self.__errors.push(String(e.message)); });
+  /** Frames `url`; resolves with what the page can learn about the frame after load. */
+  self.__frame = (url) => new Promise((resolve) => {
+    const f = document.createElement('iframe');
+    f.style.cssText = 'width:600px;height:400px';
+    f.src = url;
+    let readable;
+    f.addEventListener('load', () => {
+      try { readable = f.contentDocument !== null; } catch { readable = false; }
+      try { f.contentWindow.postMessage({ type: 'c/proceedOnce', payload: { hostname: 'listed.hostile-dest.example' } }, '*'); } catch { /* cross-origin */ }
+      resolve({ loaded: true, readable });
+    }, { once: true });
+    document.body.append(f);
+    setTimeout(() => resolve({ loaded: false, readable }), 5000);
+  });
+  /** What the web page sees of the extension's messaging API. */
+  self.__runtime = () => typeof (window.chrome && window.chrome.runtime && window.chrome.runtime.sendMessage);
+</script></head><body><p>framer</p></body></html>

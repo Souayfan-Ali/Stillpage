@@ -1,0 +1,6 @@
+<!doctype html>
+<!-- fixture: scriptlets/abort-on-property-read · filter: script.example##+js(aopr, adTracker) -->
+<html lang="en"><head><meta charset="utf-8"><title>scriptlets/abort-on-property-read</title></head>
+<body>
+<script>self.__aborted=false;try{window.adTracker.init()}catch(e){self.__aborted=e instanceof ReferenceError}</script>
+</body></html>

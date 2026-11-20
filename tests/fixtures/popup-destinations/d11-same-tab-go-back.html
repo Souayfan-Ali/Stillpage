@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popup-destinations/d11-same-tab-go-back · blocked page: a same-tab redirect stays with Go back as primary -->
+<html lang="en"><head><meta charset="utf-8"><title>popup-destinations/d11-same-tab-go-back</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<button id="b">Continue</button><p id="text">Plain article text, not a control.</p>
+<script>
+b.addEventListener('click', () => { location.href = 'https://popads.example/landing'; });
+</script>
+</body></html>

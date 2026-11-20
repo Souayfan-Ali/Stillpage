@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popups-allow/s2-sso-redirect-chain · S-21 flow: company SSO window through a 302 chain -->
+<html lang="en"><head><meta charset="utf-8"><title>popups-allow/s2-sso-redirect-chain</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<button id="b">Sign in with company SSO</button><p id="text">Plain article text, not a control.</p>
+<script>
+b.onclick = () => window.open('https://accounts.idp-one.example/redirect?to=' + encodeURIComponent('https://login.idp-two.example/redirect?to=' + encodeURIComponent('https://reader.example/done')), 'sso', 'width=500,height=600');
+</script>
+</body></html>

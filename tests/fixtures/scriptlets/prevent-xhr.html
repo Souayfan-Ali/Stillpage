@@ -1,0 +1,6 @@
+<!doctype html>
+<!-- fixture: scriptlets/prevent-xhr · filter: script.example##+js(no-xhr-if, ads.example) -->
+<html lang="en"><head><meta charset="utf-8"><title>scriptlets/prevent-xhr</title></head>
+<body>
+<script>var x=new XMLHttpRequest();x.open("GET","https://ads.example/config.json");x.onloadend=function(){self.__xhrStatus=x.status};x.send()</script>
+</body></html>

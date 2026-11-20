@@ -1,0 +1,8 @@
+<!doctype html>
+<!-- fixture: perf/spa · single-page app: five client-side route changes after load -->
+<html lang="en"><head><meta charset="utf-8"><title>perf/spa</title>
+<style>body{max-width:40em;margin:auto;font:18px Georgia}</style></head>
+<body>
+<nav><a href="#" id="next">Next</a></nav><main id="view"><h1>Home</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. </p></main>
+<script>let r = 0; const view = document.getElementById('view'); const go = () => { r++; history.pushState({ r }, '', '/perf/spa.html?route=' + r); view.innerHTML = '<h1>Route ' + r + '</h1>' + '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. </p>'.repeat(3); if (r < 5) setTimeout(go, 50); }; setTimeout(go, 50);</script>
+</body></html>

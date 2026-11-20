@@ -1,0 +1,10 @@
+<!doctype html>
+<!-- fixture: popup-destinations/d8-closed-with-notice · blocked page: a window.open to a listed host closes itself; the opener shows the notice -->
+<html lang="en"><head><meta charset="utf-8"><title>popup-destinations/d8-closed-with-notice</title>
+<style>body{margin:0;font:16px system-ui}p{margin:20px}button,a{display:inline-block;margin:20px;padding:10px}</style></head>
+<body>
+<button id="b">Open</button><p id="text">Plain article text, not a control.</p>
+<script>
+b.addEventListener('click', () => window.open('https://popads.example/landing'));
+</script>
+</body></html>
